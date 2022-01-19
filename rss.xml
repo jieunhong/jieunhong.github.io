@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://jieunhong.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 19 Jan 2022 07:18:54 GMT</lastBuildDate><item><title><![CDATA[드디어 개발 블로그를 만들었습니다! ]]></title><description><![CDATA[(feat. 요즘은 개츠비가 유행이라길래..)]]></description><link>https://jieunhong.github.io/1st/</link><guid isPermaLink="false">https://jieunhong.github.io/1st/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;네이버 블로그만 쓰다가, 슬슬 개발 블로그도 만들어야하지 않을까.. 라는 추세에 혼자 등떠밀려 만들게 되었습니다.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://jieunhong.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 19 Jan 2022 09:04:56 GMT</lastBuildDate><item><title><![CDATA[드디어 개발 블로그를 만들었습니다! ]]></title><description><![CDATA[(feat. 요즘은 개츠비가 유행이라길래..)]]></description><link>https://jieunhong.github.io/1st/</link><guid isPermaLink="false">https://jieunhong.github.io/1st/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;네이버 블로그만 쓰다가, 슬슬 개발 블로그도 만들어야하지 않을까.. 라는 추세에 혼자 등떠밀려 만들게 되었습니다.
 원래 지킬로 하려는데 친구가 개츠비가 유행이라고 해서 개츠비로 만들었습니다.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;개츠비 템플릿 적용시키는데 &lt;code class=&quot;language-text&quot;&gt;sharp&lt;/code&gt; 라는 라이브러리가 제대로 설치가 안된다고 해서 삽질했습니다.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;제가 궁금하시다구요?? &lt;a href=&quot;http://bbubbu.me&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;궁금하지 않으셔도 알려드립니다!&lt;/a&gt; &lt;/p&gt;
@@ -9,4 +9,239 @@
 &lt;p&gt;&lt;em&gt;짧은 말: 오늘은 코인도 주식도 쭉쭉 내려오는 슬픈 날이네요.. 기운이 나지 않습니다..💜&lt;/em&gt;&lt;/p&gt;
 &lt;hr&gt;
                 &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/1st/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[한 컴퓨터에서 Git계정 여러개 설정하기(ssh)]]></title><description><![CDATA[ssh를 이용해 프로젝트 별로 git 계정 설정하기]]></description><link>https://jieunhong.github.io/git-multi-config/</link><guid isPermaLink="false">https://jieunhong.github.io/git-multi-config/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;mkdir &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ssh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;루트 경로에 .ssh폴더가 없는 경우 mkdir로 폴더를 만들어주세요.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;cd &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ssh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;.ssh 폴더로 접근합니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;ssh&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;keygen &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;t rsa &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;hong.bbubbu@gmail.com&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;f &lt;span class=&quot;token string&quot;&gt;&quot;id_rsa_self&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ssh 키를 생성해줍니다.
+“hong.bbubbu@gmail.com”을 자신의 이메일로 변경해주세요.
+“id&lt;em&gt;rsa&lt;/em&gt;self”는 생성될 키의 이름입니다. 원하는 명칭으로 변경해주세요.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;Generating &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; rsa key pair&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+Enter &lt;span class=&quot;token function&quot;&gt;passphrase&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;empty &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; no passphrase&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; 
+Enter same passphrase again&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; 
+Your identification has been saved &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; id_rsa_self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+Your &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; key has been saved &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; id_rsa_self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;pub&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+The key fingerprint is&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;SHA256&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;C4&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;VoDB4auTNBdEE3nlnsl4Pb2R2FIfrLZwJuQ3tlk hong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;bbubbu@gmail&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com
+The key&apos;s randomart image is&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;RSA&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3072&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;o&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;o &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;         &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;     &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;  &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; o   &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;  &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;o&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; o&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; o&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;SO&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;E&lt;/span&gt;   &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;oo  &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;o   @ &lt;span class=&quot;token constant&quot;&gt;O&lt;/span&gt;    &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;   &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;    &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;     &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;o&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;           &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;   &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;           &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;SHA256&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그러면 이렇게 나오게 됩니다.
+Enter passphrase (empty for no passphrase):
+암호를 입력하라고 나오는데 그냥 엔터 누르셔도 됩니다.
+저는 암호 등록했어요!(등록하면 나중에 key 사용시마다 암호 입력이 필요합니다.)&lt;/p&gt;
+&lt;p&gt;저는 회사와 개인 계정 분리를 위해 2개의 키를 생성해주었습니다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/af590/2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 10.135135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAi0lEQVQI1yWMywqCQAAA/f9PsojIQx46CD20Wtw10wTzUZtbPmKyGpjLHMYKwxApJWmSUBQltzIn9R2UNyXezLmKJV0e0F9WaDGj3k+oAxt9sKEMuOuGuq4wxvDFiqIIpRTJONSPMfaa6rhACp+t53I+Kd6V4Kkc5Ppv7LuYbAdNRtcPtO2LYRh+ww8vDpMtMmsKsgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/fcda8/2.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/12f09/2.png 148w,https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/e4a3f/2.png 295w,https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/fcda8/2.png 590w,https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/af590/2.png 626w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+ls 구문으로 확인해보면 key가 생성되었습니다.
+.key와 -pub.key 2개가 1쌍입니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;vi config&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;키를 등록합시다.
+vi로 config파일을 작성합니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;    Host github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self    &lt;span class=&quot;token comment&quot;&gt;//github.com-(명칭)&lt;/span&gt;
+    HostName github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com
+    User git
+    IdentityFile &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ssh&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;id_rsa_self &lt;span class=&quot;token comment&quot;&gt;//생성한 키 명칭 입력&lt;/span&gt;
+
+    Host github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;huray    &lt;span class=&quot;token comment&quot;&gt;//github.com-(명칭)&lt;/span&gt;
+    HostName github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com
+    User git
+    IdentityFile &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ssh&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;id_rsa_huray &lt;span class=&quot;token comment&quot;&gt;//생성한 키 명칭 입력&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;HOST부분과 IdentityFile에서 끝부분을 각자 변경해주시면 됩니다.
+편집 완료 후에 github에 로그인합니다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/d0fa6/4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABe0lEQVQoz4WSy07DMBRE8/+/wQcg1izZg2DBoq2EKvUBSe0kfsTvDNdOmqIWgdVpk7aZezzj6v3tGZ9fNfaHI1JK+LnGcfxT5+WNQ9cLSKVRccbAOIcxtvwpm7ZtBykl/lstX+Hh9Q6r7RNALD4EVIIetM4tUyMZ9kKg73somiilgtYaKkvNomutByhR48BW9N1xGVL1hFro6CbTjWnE4AzkoGiQhbGmfFpr4b1HIMUYEYimbNrT+/QqQFVdN8g6EyaS96EYdrMEKefjPBmlKbtzgmOYIM6ZV0JIQlbIGac0ZTgMhqgNkWZawLlAlAHK0m8uLYWEFNE7iiy6i2Eu4HRi0xbmDPM9p6JGeiDFQEMiXaeZK+9iOg3MdLhfP2LTbi+GjLdUgixbnShTKYH1CnVL4rJIaHtzlK6PWClFig5Gk2FwhSQTdl2HPMhSlli4bte1eSHkH8/Yr18wNBtAHwslYxy73b6U1TSnknE+Y855KsZT444iir8afgPzWgvkiXnFzAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;4&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/fcda8/4.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/12f09/4.png 148w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/e4a3f/4.png 295w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/fcda8/4.png 590w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/efc66/4.png 885w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/c83ae/4.png 1180w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/d0fa6/4.png 1263w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+Account Settings에서 SSH and GPG keys 메뉴를 들어갑니다.
+흰 상자 부분은 제가 미리 등록해놓은 SSH키 입니다.
+New SSH Key를 눌러주시고&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/136a2/6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABJklEQVQoz51Ru07DQBD0/38CPQUtdKmREBIVDRSRoLAdx4/Y8ftu7zzsnk/JgZASWGm0D8tzs7NR2hC2OSEuesRxjCTdgYggsSzLnyAR1U2LYdLQZKG0hlIaxlhYa2ECWLv+ZD1+1idCzWqUJkjWZBykDzErcg9cCiGN8qpBN2oMs/mGfiL0M/meznOu5dvgs2BU1il1CrOqwy6vsC9rlwVZcXC9PJbuSyRZyfMDisMRTTeibge0/eTziOPAW5AnnJSBNcS+GRheWw4itfNQZox1RrzS72srJjsRjtrI9iz5skfh5REcYtYBIUIensk17XI9JMTDWa9E0XPyjoftEzYfLyjZj1Et6GbL5l+PdmJbjFe4+XzEzesdbt/u0aruLPUfIRZ8AZ0eDnp4p9zvAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;6&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/fcda8/6.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/12f09/6.png 148w,https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/e4a3f/6.png 295w,https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/fcda8/6.png 590w,https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/136a2/6.png 884w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/4e6ec/5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 12.162162162162163%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAVklEQVQI1z2MOwoAIAxDvf8lBRer1fpZHSIp6BBempKEnDNaaxCRT6rW6iqlOPlba2GMgTmn83nmZIwRIaUEjrJIvTFV9RGWWKDMDL33n5G8994457i/fO2Wo674rtUAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;5&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/fcda8/5.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/12f09/5.png 148w,https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/e4a3f/5.png 295w,https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/fcda8/5.png 590w,https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/4e6ec/5.png 827w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;cat id_rsa_self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;pub&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;생성한 SSH키의 pub파일을 cat으로 읽어 안에 내용을 모두 복사해서
+key부분에 복사해줍니다.
+title은 알아서 적어주세요~
+(!참고로 깃허브 계정과 키가 서로 일치하게 등록해주세요 )&lt;/p&gt;
+&lt;p&gt;이것도 키 수에 맞게 계정별로 등록해주셔야합니다.
+저는 회사계정, 개인계정 2번 등록했습니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;ssh &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;T&lt;/span&gt; git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;깃허브에 등록을 완료하면 ssh명령어를 이용해 확인을 해줍니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;Enter passphrase &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; key &lt;span class=&quot;token string&quot;&gt;&apos;/Users/hongjieun/.ssh/id_rsa_self&apos;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; 
+Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos;ve successfully authenticated&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; but GitHub does not provide shell access&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;뭐가 나와서 yes를 입력하면 이렇게 나옵니다
+그러면 성공! ( 암호 등록하신 분들은 암호 입력하라고 나와요 )&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/5caea/7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 33.108108108108105%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsTAAALEwEAmpwYAAABTUlEQVQoz2VRW07DMBDM/T+5A0fgAvDHRyWKioQEBUrSpnbejt+Oh91QIQSRRuv17nh3JsWrcHipNXaVwcNBY/tp8HS0OAiFYVIwPsISjAtr/H3+HbX1mI1DIZuOiDPafsSoDATlsh0wzWaNo9I4ieanR3bfd9zHPeLCTxHIhMLrGcZYKmo4T5O0gbEW1jk45xFjorNHiBE+hBWRzpMinnVQxNPEfx8qbMUzigygG0Z0NJ2Jihq1MURQWJYFOWcCLjEjpoSwAP1IlowTxQlDP+Fmf4urzTVt6D2OVYn6LFGTNJb01yv2ZwXljagxvN0jOYV/X1xQxJRxGhzOQqJpu1VSos14O5bT0gCWzXlKCynpUe7uUH7sydsWQjY4yxZ9+QhdbejBJUOqsPrBPrEkBj86kflsBz8UCVyfyeNh9usP6anGXvoQEZREmI74AhOoGge1TMJmAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;7&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/fcda8/7.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/12f09/7.png 148w,https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/e4a3f/7.png 295w,https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/fcda8/7.png 590w,https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/efc66/7.png 885w,https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/5caea/7.png 996w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+그리고 이제 git project clone받으실때 ssh 주소를 복사합니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git
+
+git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;복사한 주소에서 git@github.com 바로 옆에 ssh config파일에 등록한 설정명을 적어줍니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git clone git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이렇게 클론하시면 끝!&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git remote set&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;url origin git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;기존에 있던 프로젝트는 위에 명령어로 변경 가능합니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;퇴근하자&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
               </content:encoded></item></channel></rss>
