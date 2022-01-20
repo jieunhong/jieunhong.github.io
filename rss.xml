@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://jieunhong.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 19 Jan 2022 09:04:56 GMT</lastBuildDate><item><title><![CDATA[드디어 개발 블로그를 만들었습니다! ]]></title><description><![CDATA[(feat. 요즘은 개츠비가 유행이라길래..)]]></description><link>https://jieunhong.github.io/1st/</link><guid isPermaLink="false">https://jieunhong.github.io/1st/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;네이버 블로그만 쓰다가, 슬슬 개발 블로그도 만들어야하지 않을까.. 라는 추세에 혼자 등떠밀려 만들게 되었습니다.
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://jieunhong.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 20 Jan 2022 01:46:59 GMT</lastBuildDate><item><title><![CDATA[드디어 개발 블로그를 만들었습니다! ]]></title><description><![CDATA[(feat. 요즘은 개츠비가 유행이라길래..)]]></description><link>https://jieunhong.github.io/1st/</link><guid isPermaLink="false">https://jieunhong.github.io/1st/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;네이버 블로그만 쓰다가, 슬슬 개발 블로그도 만들어야하지 않을까.. 라는 추세에 혼자 등떠밀려 만들게 되었습니다.
 원래 지킬로 하려는데 친구가 개츠비가 유행이라고 해서 개츠비로 만들었습니다.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;개츠비 템플릿 적용시키는데 &lt;code class=&quot;language-text&quot;&gt;sharp&lt;/code&gt; 라는 라이브러리가 제대로 설치가 안된다고 해서 삽질했습니다.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;제가 궁금하시다구요?? &lt;a href=&quot;http://bbubbu.me&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;궁금하지 않으셔도 알려드립니다!&lt;/a&gt; &lt;/p&gt;
@@ -230,18 +230,151 @@ Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos
   &lt;/a&gt;
     
 그리고 이제 git project clone받으실때 ssh 주소를 복사합니다.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git
+&lt;div class=&quot;gatsby-highlight has-highlighted-lines&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git
 
-git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;복사한 주소에서 git@github.com 바로 옆에 ssh config파일에 등록한 설정명을 적어줍니다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git clone git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이렇게 클론하시면 끝!&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git remote set&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;url origin git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;기존에 있던 프로젝트는 위에 명령어로 변경 가능합니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://jieunhong.github.io/git-multi-config2/&quot;&gt;git 계정 정보 프로젝트 별로 관리하기(.gitconfig)&lt;/a&gt; &lt;/p&gt;
 &lt;hr&gt;
 &lt;ul&gt;
 &lt;li&gt;퇴근하자&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
                 &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[git 계정 정보 프로젝트 별로 관리하기(.gitconfig)]]></title><description><![CDATA[git에 표시되는 계정 정보 변경하기]]></description><link>https://jieunhong.github.io/git-multi-config2/</link><guid isPermaLink="false">https://jieunhong.github.io/git-multi-config2/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt;
+에서 이어지는 게시글 입니다.&lt;/p&gt;
+&lt;p&gt;깃 commit을 할 때!
+컴퓨터에 등록된 전역 계정 정보가 등록되어서
+곤란한 적 있으셨나요?
+프로젝트별로 계정을 바꿔주는 것도 너무 귀찮고..&lt;/p&gt;
+&lt;p&gt;그럴때! .gitconfig를 커스텀해서 바꿔봅시다!&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;cd &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;루트 폴더로 이동해줍니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;vi &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gitconfig&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;.gitconfig파일을 열어서 편집을 해줍시다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight has-highlighted-lines&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;filter &lt;span class=&quot;token string&quot;&gt;&quot;lfs&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+        clean &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; git&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;lfs clean &lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt;f
+        smudge &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; git&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;lfs smudge &lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt;f
+        process &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; git&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;lfs filter&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;process
+        required &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;user&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+        name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; company&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;jieun
+        email &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; jieun&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hong@company&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com
+
+
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;includeIf &lt;span class=&quot;token string&quot;&gt;&quot;gitdir:~/project/private/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        path &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gitconfig&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;아래에 표시되어있는 2개 줄을 복사해주세요.
+includeIf “gitdir:~/project/private/”
+여기에 전역 계정 말고 커스텀으로 표시하고 싶은 프로젝트 경로를 넣어주세요&lt;/p&gt;
+&lt;p&gt;path = .gitconfig-self
+path에는 커스텀 깃 설정 파일이름을 적어줍니다.(만들 예정)&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 556px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 47.972972972972975%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABY0lEQVQoz52R207CQBCG+5omvo13euOTmHiliUGh9NxKIaAW8AQBSkDQttADbPu72yIWbTBxkulmNjNf/9mfa2tX0OpVPNRM9DodxHGMNSEg9PQ8D47jgJAYCYAkYV/A930EQYCvYDOr1SpNzlIuoTUo0KxvgUiydJwPzOZzNrIZ/QayzAOjKEIYhuAMSUPbbOC+VkuBLAZuBC8k24ERrd/9NVWdbFViozhfs+AkXoZ8c42mrqPf7YLQhiNzgUNhCXEcpU2nrSUO+CXO+1lNkmIwS06TVCiVMkxZThWytrMXH8fNBe5mGeCiH+CkSX9gZ+8W/1C1o1ARFKg8T6EVPFsWXNfFZGxjPBpi9jZNjbGHA7w8PcKmd8ww5Az6BZQlHbpQRcu4RY+uzBqZW+yBmdOs9qmjk+k0vc+vVwhURZXCDFjU5deNKX9Fsm9lXdZgiMKOy3kV+7IQyJcliKVSIfA/8QkJRfo4NKSkdwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;10&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/12f09/10.png 148w,https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/e4a3f/10.png 295w,https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png 556w&quot;
+        sizes=&quot;(max-width: 556px) 100vw, 556px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+참고로 제 project/private 경로엔 프로젝트가 2개 있습니다.
+이런식으로~~&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;vi &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gitconfig&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;아까 .gitconfig에 입력해준 path명과 똑같은 파일을 생성해줍니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;user&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+  name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; jieunhong
+  email &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; hong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;bbubbu@gmail&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;표시하고싶은 계정의 정보를 적어줍니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;cd &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;project&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;끝입니다. 확인은 아까 조건처리 해줬던 경로로 들어가서&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;cd &lt;span class=&quot;token constant&quot;&gt;HONG_BBUBBU_BLOG&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;프로젝트에 들어가서&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git config &lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;list&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;깃 설정 리스트를 뽑아봅시다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight has-highlighted-lines&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;credential&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;helper&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;osxkeychain
+filter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;lfs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;clean&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;git&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;lfs clean &lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt;f
+filter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;lfs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;smudge&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;git&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;lfs smudge &lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt;f
+filter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;lfs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;process&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;git&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;lfs filter&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;process
+filter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;lfs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;required&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;company&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;jieun &lt;span class=&quot;token comment&quot;&gt;//global 계정 이름&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;email&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;jieun&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hong@company&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com &lt;span class=&quot;token comment&quot;&gt;//global 계정 이메일&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;includeif&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gitdir&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;project&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;path&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gitconfig&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self &lt;span class=&quot;token comment&quot;&gt;//.gitconfig에 조건처리한 커스텀 gitconfig&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;name&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;jieunhong &lt;span class=&quot;token comment&quot;&gt;// 커스텀 .gitconfig에 입력한 계정 이름&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;user&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;email&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;hong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;bbubbu@gmail&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com &lt;span class=&quot;token comment&quot;&gt;// 커스텀 .gitconfig에 입력한 계정 이메일&lt;/span&gt;&lt;/span&gt;core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;repositoryformatversion&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;
+core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;filemode&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;bare&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;logallrefupdates&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ignorecase&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;precomposeunicode&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;remote&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;origin&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;HONG_BBUBBU_BLOG&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git &lt;span class=&quot;token comment&quot;&gt;// +추가로 전 편에서 바꾼 git계정 정보&lt;/span&gt;&lt;/span&gt;remote&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;origin&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fetch&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;refs&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;heads&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;하이라이트된 줄을 보시면
+전역 계정 정보와 분기처리된 구문에서 설정한 커스텀 설정 그리고 커스텀 계정의 정보를 확인할 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;추가로 &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;전 편&lt;/a&gt; 에서 ssh로 깃 계정을 변경한 부분도 여기에서 확인 할 수 있습니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 507px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAABVElEQVQoz32Qy0rDQBSG8yJFNz6CWxFfwK2P4FatuBYXijtfR6gI3VS80FKwLTSBNmkube5pJplMkt+ZwUqRtge+OTNzbv+McnRv4fTJweGticbVDPvXvzRn2GsaO9DRaJo4uBzi7K6Fk8c5jh8sKB/fU3wNpnjrTzC2CFQ74xBoTo6Jy3ZiBDUGEx+tl1f0Rga6QwNKThLEoQfftRG4DkgSIAoWSPjdbqvlSkmE7nub1zvwFjYUVdMwHI0QhhFYWcHzfYRRhKqqsUwJXNdDkixR8hhjpfRFwUCLApQWyHOKJOb5vL9ACcMQaZoip5Qnlzwh5wWFnC7OYi+81FTXG1mPKYwxaOoYZBkhimP4XCHlzauq2siq+P+AlSm97iduLs7R77RgmhY0TYWu6xDKBUEQyCFiv1K+TalUOHdsdNrP8J2Z/BvxZKEwyzIJIeSPdWXb7AeEEExgSGXw6gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;9&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/12f09/9.png 148w,https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/e4a3f/9.png 295w,https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png 507w&quot;
+        sizes=&quot;(max-width: 507px) 100vw, 507px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+이제 시스템 상에서 원하는 계정으로 깃 이력이 남게됩니다!
+깃허브 잔디밭에도 잔디가 심어져요.&lt;/p&gt;
+&lt;p&gt;이전 게시글입니다 !
+&lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt; &lt;/p&gt;
+&lt;!-- ![7](./7.png) --&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;블로그에 댓글 기능이 생겼어요!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/git-multi-config2/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
               </content:encoded></item></channel></rss>
