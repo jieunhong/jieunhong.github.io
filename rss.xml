@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://jieunhong.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 20 Jan 2022 07:59:31 GMT</lastBuildDate><item><title><![CDATA[깃허브 블로그 도메인 지정하기(Github blog + Custom Domain + Route53)]]></title><description><![CDATA[도메인을 간지나게 변경해봅시다.]]></description><link>https://jieunhong.github.io/github-blog-domain/</link><guid isPermaLink="false">https://jieunhong.github.io/github-blog-domain/</guid><pubDate>Thu, 20 Jan 2022 07:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 20 Jan 2022 08:33:20 GMT</lastBuildDate><item><title><![CDATA[깃허브 블로그 도메인 지정하기(Github blog + Custom Domain + Route53)]]></title><description><![CDATA[도메인을 간지나게 변경해봅시다.]]></description><link>https://blog.bbubbu.me/github-blog-domain/</link><guid isPermaLink="false">https://blog.bbubbu.me/github-blog-domain/</guid><pubDate>Thu, 20 Jan 2022 07:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;개인 도메인이 있는데! 깃허브 도메인(github.io) 말고 그걸 쓰고싶다!&lt;/strong&gt;&lt;br&gt;
 하시는 분들을 위한.. &lt;em&gt;사실 제가 그랬습니다.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;저는 기존에 깃허브 블로그와, aws route53에서 관리중인 도메인이 있었습니다.&lt;br&gt;
@@ -6,7 +6,7 @@
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/de766/1.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/ee0a1f06692835eadef090745928bb42/de766/1.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -25,8 +25,8 @@
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;1&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/fcda8/1.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/12f09/1.png 148w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/e4a3f/1.png 295w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/fcda8/1.png 590w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/efc66/1.png 885w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/c83ae/1.png 1180w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/de766/1.png 1838w&quot;
+        src=&quot;https://blog.bbubbu.me/static/ee0a1f06692835eadef090745928bb42/fcda8/1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/ee0a1f06692835eadef090745928bb42/12f09/1.png 148w,https://blog.bbubbu.me/static/ee0a1f06692835eadef090745928bb42/e4a3f/1.png 295w,https://blog.bbubbu.me/static/ee0a1f06692835eadef090745928bb42/fcda8/1.png 590w,https://blog.bbubbu.me/static/ee0a1f06692835eadef090745928bb42/efc66/1.png 885w,https://blog.bbubbu.me/static/ee0a1f06692835eadef090745928bb42/c83ae/1.png 1180w,https://blog.bbubbu.me/static/ee0a1f06692835eadef090745928bb42/de766/1.png 1838w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -39,7 +39,7 @@
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/9ac09/2.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/b9c38590abee2a2ac309d353b91a0203/9ac09/2.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -58,8 +58,8 @@
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;2&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/fcda8/2.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/12f09/2.png 148w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/e4a3f/2.png 295w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/fcda8/2.png 590w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/efc66/2.png 885w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/c83ae/2.png 1180w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/9ac09/2.png 2204w&quot;
+        src=&quot;https://blog.bbubbu.me/static/b9c38590abee2a2ac309d353b91a0203/fcda8/2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/b9c38590abee2a2ac309d353b91a0203/12f09/2.png 148w,https://blog.bbubbu.me/static/b9c38590abee2a2ac309d353b91a0203/e4a3f/2.png 295w,https://blog.bbubbu.me/static/b9c38590abee2a2ac309d353b91a0203/fcda8/2.png 590w,https://blog.bbubbu.me/static/b9c38590abee2a2ac309d353b91a0203/efc66/2.png 885w,https://blog.bbubbu.me/static/b9c38590abee2a2ac309d353b91a0203/c83ae/2.png 1180w,https://blog.bbubbu.me/static/b9c38590abee2a2ac309d353b91a0203/9ac09/2.png 2204w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -74,7 +74,7 @@
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/82747/3.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/28b67ac38b62707a0590a76921a0e768/82747/3.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -93,8 +93,8 @@
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;3&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/fcda8/3.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/12f09/3.png 148w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/e4a3f/3.png 295w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/fcda8/3.png 590w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/efc66/3.png 885w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/c83ae/3.png 1180w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/82747/3.png 2232w&quot;
+        src=&quot;https://blog.bbubbu.me/static/28b67ac38b62707a0590a76921a0e768/fcda8/3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/28b67ac38b62707a0590a76921a0e768/12f09/3.png 148w,https://blog.bbubbu.me/static/28b67ac38b62707a0590a76921a0e768/e4a3f/3.png 295w,https://blog.bbubbu.me/static/28b67ac38b62707a0590a76921a0e768/fcda8/3.png 590w,https://blog.bbubbu.me/static/28b67ac38b62707a0590a76921a0e768/efc66/3.png 885w,https://blog.bbubbu.me/static/28b67ac38b62707a0590a76921a0e768/c83ae/3.png 1180w,https://blog.bbubbu.me/static/28b67ac38b62707a0590a76921a0e768/82747/3.png 2232w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -107,7 +107,7 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/49ee2/4.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/291570710d37d496f03e91f1a0e056b1/49ee2/4.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -126,8 +126,8 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;4&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/fcda8/4.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/12f09/4.png 148w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/e4a3f/4.png 295w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/fcda8/4.png 590w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/efc66/4.png 885w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/c83ae/4.png 1180w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/49ee2/4.png 1618w&quot;
+        src=&quot;https://blog.bbubbu.me/static/291570710d37d496f03e91f1a0e056b1/fcda8/4.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/291570710d37d496f03e91f1a0e056b1/12f09/4.png 148w,https://blog.bbubbu.me/static/291570710d37d496f03e91f1a0e056b1/e4a3f/4.png 295w,https://blog.bbubbu.me/static/291570710d37d496f03e91f1a0e056b1/fcda8/4.png 590w,https://blog.bbubbu.me/static/291570710d37d496f03e91f1a0e056b1/efc66/4.png 885w,https://blog.bbubbu.me/static/291570710d37d496f03e91f1a0e056b1/c83ae/4.png 1180w,https://blog.bbubbu.me/static/291570710d37d496f03e91f1a0e056b1/49ee2/4.png 1618w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -138,7 +138,7 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/4971b/5.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/37957fc88ea30f1f51234df8ab2e007f/4971b/5.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -157,8 +157,8 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;5&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/fcda8/5.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/12f09/5.png 148w,https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/e4a3f/5.png 295w,https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/fcda8/5.png 590w,https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/4971b/5.png 784w&quot;
+        src=&quot;https://blog.bbubbu.me/static/37957fc88ea30f1f51234df8ab2e007f/fcda8/5.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/37957fc88ea30f1f51234df8ab2e007f/12f09/5.png 148w,https://blog.bbubbu.me/static/37957fc88ea30f1f51234df8ab2e007f/e4a3f/5.png 295w,https://blog.bbubbu.me/static/37957fc88ea30f1f51234df8ab2e007f/fcda8/5.png 590w,https://blog.bbubbu.me/static/37957fc88ea30f1f51234df8ab2e007f/4971b/5.png 784w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -170,7 +170,7 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -189,8 +189,8 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;6&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/12f09/6.png 148w,https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/e4a3f/6.png 295w,https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png 509w&quot;
+        src=&quot;https://blog.bbubbu.me/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/1cf8cc75e04297c43265e5afbda832ea/12f09/6.png 148w,https://blog.bbubbu.me/static/1cf8cc75e04297c43265e5afbda832ea/e4a3f/6.png 295w,https://blog.bbubbu.me/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png 509w&quot;
         sizes=&quot;(max-width: 509px) 100vw, 509px&quot;
       /&gt;
     &lt;/span&gt;
@@ -205,9 +205,9 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
 &lt;em&gt;마크다운 문법을 익히는 중입니다. 생각보다 되게 재미있네요&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/github-blog-domain/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
-              </content:encoded></item><item><title><![CDATA[git 계정 정보 프로젝트 별로 관리하기(.gitconfig)]]></title><description><![CDATA[git에 표시되는 계정 정보 변경하기]]></description><link>https://jieunhong.github.io/git-multi-config2/</link><guid isPermaLink="false">https://jieunhong.github.io/git-multi-config2/</guid><pubDate>Thu, 20 Jan 2022 03:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt;&lt;br&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/github-blog-domain/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[git 계정 정보 프로젝트 별로 관리하기(.gitconfig)]]></title><description><![CDATA[git에 표시되는 계정 정보 변경하기]]></description><link>https://blog.bbubbu.me/git-multi-config2/</link><guid isPermaLink="false">https://blog.bbubbu.me/git-multi-config2/</guid><pubDate>Thu, 20 Jan 2022 03:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.bbubbu.me/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt;&lt;br&gt;
 에서 이어지는 게시글 입니다.   &lt;/p&gt;
 &lt;p&gt;깃 commit을 할 때!&lt;br&gt;
 컴퓨터에 등록된 전역 계정 정보가 등록되어서
@@ -237,7 +237,7 @@ path에는 커스텀 깃 설정 파일이름을 적어줍니다.(만들 예정) 
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -256,8 +256,8 @@ path에는 커스텀 깃 설정 파일이름을 적어줍니다.(만들 예정) 
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;10&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/12f09/10.png 148w,https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/e4a3f/10.png 295w,https://jieunhong.github.io/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png 556w&quot;
+        src=&quot;https://blog.bbubbu.me/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/49ee3433f4269b9bd7e581e7be98202c/12f09/10.png 148w,https://blog.bbubbu.me/static/49ee3433f4269b9bd7e581e7be98202c/e4a3f/10.png 295w,https://blog.bbubbu.me/static/49ee3433f4269b9bd7e581e7be98202c/96638/10.png 556w&quot;
         sizes=&quot;(max-width: 556px) 100vw, 556px&quot;
       /&gt;
     &lt;/span&gt;
@@ -293,11 +293,11 @@ core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;precomposeunic
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;remote&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;origin&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;HONG_BBUBBU_BLOG&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git &lt;span class=&quot;token comment&quot;&gt;// +추가로 전 편에서 바꾼 git계정 정보&lt;/span&gt;&lt;/span&gt;remote&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;origin&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fetch&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;refs&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;heads&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;하이라이트된 줄을 보시면&lt;br&gt;
 전역 계정 정보와 분기처리된 구문에서 설정한 커스텀 설정 그리고 커스텀 계정의 정보를 확인할 수 있습니다.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;+ 추가로 &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;전 편&lt;/a&gt; 에서 ssh로 깃 계정을 변경한 부분도 여기에서 확인 할 수 있습니다.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;+ 추가로 &lt;a href=&quot;https://blog.bbubbu.me/git-multi-config/&quot;&gt;전 편&lt;/a&gt; 에서 ssh로 깃 계정을 변경한 부분도 여기에서 확인 할 수 있습니다.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -316,8 +316,8 @@ core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;precomposeunic
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;9&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/12f09/9.png 148w,https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/e4a3f/9.png 295w,https://jieunhong.github.io/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png 507w&quot;
+        src=&quot;https://blog.bbubbu.me/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/4ee772fd9a4f34e10e8dbbec34b313f5/12f09/9.png 148w,https://blog.bbubbu.me/static/4ee772fd9a4f34e10e8dbbec34b313f5/e4a3f/9.png 295w,https://blog.bbubbu.me/static/4ee772fd9a4f34e10e8dbbec34b313f5/3ebb1/9.png 507w&quot;
         sizes=&quot;(max-width: 507px) 100vw, 507px&quot;
       /&gt;
     &lt;/span&gt;
@@ -328,15 +328,15 @@ core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;precomposeunic
 이제 시스템 상에서 원하는 계정으로 깃 이력이 남게됩니다!&lt;br&gt;
 깃허브 잔디밭에도 잔디가 심어져요.&lt;/p&gt;
 &lt;p&gt;이전 게시글입니다 !&lt;br&gt;
-&lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt; &lt;/p&gt;
+&lt;a href=&quot;https://blog.bbubbu.me/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt; &lt;/p&gt;
 &lt;!-- ![7](./7.png) --&gt;
 &lt;hr&gt;
 &lt;ul&gt;
 &lt;li&gt;블로그에 댓글 기능이 생겼어요!&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/git-multi-config2/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
-              </content:encoded></item><item><title><![CDATA[한 컴퓨터에서 Git계정 여러개 설정하기(ssh)]]></title><description><![CDATA[ssh를 이용해 프로젝트 별로 git 계정 설정하기]]></description><link>https://jieunhong.github.io/git-multi-config/</link><guid isPermaLink="false">https://jieunhong.github.io/git-multi-config/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/git-multi-config2/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[한 컴퓨터에서 Git계정 여러개 설정하기(ssh)]]></title><description><![CDATA[ssh를 이용해 프로젝트 별로 git 계정 설정하기]]></description><link>https://blog.bbubbu.me/git-multi-config/</link><guid isPermaLink="false">https://blog.bbubbu.me/git-multi-config/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
 &lt;p&gt;일을 하다보면 git계정을 여러개 써야하는 경우가 생깁니다.&lt;br&gt;
 특히 private repository인 경우에는 깃 작업시마다 계정을 바꿔줘야해서 굉장히~~~
 번거롭고 귀찮습니다.&lt;br&gt;
@@ -376,7 +376,7 @@ Enter passphrase (empty for no passphrase):&lt;br&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/af590/2.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/28e280431ff46815ff4b0909b6d2e909/af590/2.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -395,8 +395,8 @@ Enter passphrase (empty for no passphrase):&lt;br&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;2&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/fcda8/2.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/12f09/2.png 148w,https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/e4a3f/2.png 295w,https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/fcda8/2.png 590w,https://jieunhong.github.io/static/28e280431ff46815ff4b0909b6d2e909/af590/2.png 626w&quot;
+        src=&quot;https://blog.bbubbu.me/static/28e280431ff46815ff4b0909b6d2e909/fcda8/2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/28e280431ff46815ff4b0909b6d2e909/12f09/2.png 148w,https://blog.bbubbu.me/static/28e280431ff46815ff4b0909b6d2e909/e4a3f/2.png 295w,https://blog.bbubbu.me/static/28e280431ff46815ff4b0909b6d2e909/fcda8/2.png 590w,https://blog.bbubbu.me/static/28e280431ff46815ff4b0909b6d2e909/af590/2.png 626w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -423,7 +423,7 @@ vi로 config파일을 작성합니다.&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/d0fa6/4.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/74cf88526db7ca942e54a41bf2322393/d0fa6/4.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -442,8 +442,8 @@ vi로 config파일을 작성합니다.&lt;/p&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;4&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/fcda8/4.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/12f09/4.png 148w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/e4a3f/4.png 295w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/fcda8/4.png 590w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/efc66/4.png 885w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/c83ae/4.png 1180w,https://jieunhong.github.io/static/74cf88526db7ca942e54a41bf2322393/d0fa6/4.png 1263w&quot;
+        src=&quot;https://blog.bbubbu.me/static/74cf88526db7ca942e54a41bf2322393/fcda8/4.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/74cf88526db7ca942e54a41bf2322393/12f09/4.png 148w,https://blog.bbubbu.me/static/74cf88526db7ca942e54a41bf2322393/e4a3f/4.png 295w,https://blog.bbubbu.me/static/74cf88526db7ca942e54a41bf2322393/fcda8/4.png 590w,https://blog.bbubbu.me/static/74cf88526db7ca942e54a41bf2322393/efc66/4.png 885w,https://blog.bbubbu.me/static/74cf88526db7ca942e54a41bf2322393/c83ae/4.png 1180w,https://blog.bbubbu.me/static/74cf88526db7ca942e54a41bf2322393/d0fa6/4.png 1263w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -457,7 +457,7 @@ New SSH Key를 눌러주시고&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/136a2/6.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/31f61651d838f3df3fd554698c7c1224/136a2/6.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -476,8 +476,8 @@ New SSH Key를 눌러주시고&lt;/p&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;6&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/fcda8/6.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/12f09/6.png 148w,https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/e4a3f/6.png 295w,https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/fcda8/6.png 590w,https://jieunhong.github.io/static/31f61651d838f3df3fd554698c7c1224/136a2/6.png 884w&quot;
+        src=&quot;https://blog.bbubbu.me/static/31f61651d838f3df3fd554698c7c1224/fcda8/6.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/31f61651d838f3df3fd554698c7c1224/12f09/6.png 148w,https://blog.bbubbu.me/static/31f61651d838f3df3fd554698c7c1224/e4a3f/6.png 295w,https://blog.bbubbu.me/static/31f61651d838f3df3fd554698c7c1224/fcda8/6.png 590w,https://blog.bbubbu.me/static/31f61651d838f3df3fd554698c7c1224/136a2/6.png 884w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -488,7 +488,7 @@ New SSH Key를 눌러주시고&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/4e6ec/5.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/ef290781bacbec1c1988f56442c52623/4e6ec/5.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -507,8 +507,8 @@ New SSH Key를 눌러주시고&lt;/p&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;5&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/fcda8/5.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/12f09/5.png 148w,https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/e4a3f/5.png 295w,https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/fcda8/5.png 590w,https://jieunhong.github.io/static/ef290781bacbec1c1988f56442c52623/4e6ec/5.png 827w&quot;
+        src=&quot;https://blog.bbubbu.me/static/ef290781bacbec1c1988f56442c52623/fcda8/5.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/ef290781bacbec1c1988f56442c52623/12f09/5.png 148w,https://blog.bbubbu.me/static/ef290781bacbec1c1988f56442c52623/e4a3f/5.png 295w,https://blog.bbubbu.me/static/ef290781bacbec1c1988f56442c52623/fcda8/5.png 590w,https://blog.bbubbu.me/static/ef290781bacbec1c1988f56442c52623/4e6ec/5.png 827w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -532,7 +532,7 @@ Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/5caea/7.png&quot;
+    href=&quot;https://blog.bbubbu.me/static/3e5d03d82628ccedc2b6185b03cde7d4/5caea/7.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -551,8 +551,8 @@ Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;7&quot;
         title=&quot;&quot;
-        src=&quot;https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/fcda8/7.png&quot;
-        srcset=&quot;https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/12f09/7.png 148w,https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/e4a3f/7.png 295w,https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/fcda8/7.png 590w,https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/efc66/7.png 885w,https://jieunhong.github.io/static/3e5d03d82628ccedc2b6185b03cde7d4/5caea/7.png 996w&quot;
+        src=&quot;https://blog.bbubbu.me/static/3e5d03d82628ccedc2b6185b03cde7d4/fcda8/7.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/3e5d03d82628ccedc2b6185b03cde7d4/12f09/7.png 148w,https://blog.bbubbu.me/static/3e5d03d82628ccedc2b6185b03cde7d4/e4a3f/7.png 295w,https://blog.bbubbu.me/static/3e5d03d82628ccedc2b6185b03cde7d4/fcda8/7.png 590w,https://blog.bbubbu.me/static/3e5d03d82628ccedc2b6185b03cde7d4/efc66/7.png 885w,https://blog.bbubbu.me/static/3e5d03d82628ccedc2b6185b03cde7d4/5caea/7.png 996w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
       /&gt;
     &lt;/span&gt;
@@ -570,14 +570,14 @@ Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git remote set&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;url origin git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;기존에 있던 프로젝트는 위에 명령어로 변경 가능합니다.&lt;/p&gt;
 &lt;p&gt;이어지는 게시글입니다 !&lt;br&gt;
-&lt;a href=&quot;https://jieunhong.github.io/git-multi-config2/&quot;&gt;git 계정 정보 프로젝트 별로 관리하기(.gitconfig)&lt;/a&gt; &lt;/p&gt;
+&lt;a href=&quot;https://blog.bbubbu.me/git-multi-config2/&quot;&gt;git 계정 정보 프로젝트 별로 관리하기(.gitconfig)&lt;/a&gt; &lt;/p&gt;
 &lt;hr&gt;
 &lt;ul&gt;
 &lt;li&gt;퇴근하자&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
-              </content:encoded></item><item><title><![CDATA[드디어 개발 블로그를 만들었습니다! ]]></title><description><![CDATA[(feat. 요즘은 개츠비가 유행이라길래..)]]></description><link>https://jieunhong.github.io/1st/</link><guid isPermaLink="false">https://jieunhong.github.io/1st/</guid><pubDate>Tue, 18 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;네이버 블로그만 쓰다가, 슬슬 개발 블로그도 만들어야하지 않을까.. 라는 추세에 혼자 등떠밀려 만들게 되었습니다.
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/git-multi-config/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[드디어 개발 블로그를 만들었습니다! ]]></title><description><![CDATA[(feat. 요즘은 개츠비가 유행이라길래..)]]></description><link>https://blog.bbubbu.me/1st/</link><guid isPermaLink="false">https://blog.bbubbu.me/1st/</guid><pubDate>Tue, 18 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;네이버 블로그만 쓰다가, 슬슬 개발 블로그도 만들어야하지 않을까.. 라는 추세에 혼자 등떠밀려 만들게 되었습니다.
 원래 지킬로 하려는데 친구가 개츠비가 유행이라고 해서 개츠비로 만들었습니다.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;개츠비 템플릿 적용시키는데 &lt;code class=&quot;language-text&quot;&gt;sharp&lt;/code&gt; 라는 라이브러리가 제대로 설치가 안된다고 해서 삽질했습니다.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;제가 궁금하시다구요?? &lt;a href=&quot;http://bbubbu.me&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;궁금하지 않으셔도 알려드립니다!&lt;/a&gt; &lt;/p&gt;
@@ -587,5 +587,5 @@ Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos
 &lt;hr&gt;
 &lt;p&gt;&lt;em&gt;짧은 말: 오늘은 코인도 주식도 쭉쭉 내려오는 슬픈 날이네요.. 기운이 나지 않습니다..💜&lt;/em&gt;&lt;/p&gt;
 &lt;hr&gt;
-                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/1st/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/1st/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
               </content:encoded></item></channel></rss>
