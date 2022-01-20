@@ -1,11 +1,219 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://jieunhong.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 20 Jan 2022 01:50:48 GMT</lastBuildDate><item><title><![CDATA[git 계정 정보 프로젝트 별로 관리하기(.gitconfig)]]></title><description><![CDATA[git에 표시되는 계정 정보 변경하기]]></description><link>https://jieunhong.github.io/git-multi-config2/</link><guid isPermaLink="false">https://jieunhong.github.io/git-multi-config2/</guid><pubDate>Thu, 20 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt;
-에서 이어지는 게시글 입니다.&lt;/p&gt;
-&lt;p&gt;깃 commit을 할 때!
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://jieunhong.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 20 Jan 2022 07:59:31 GMT</lastBuildDate><item><title><![CDATA[깃허브 블로그 도메인 지정하기(Github blog + Custom Domain + Route53)]]></title><description><![CDATA[도메인을 간지나게 변경해봅시다.]]></description><link>https://jieunhong.github.io/github-blog-domain/</link><guid isPermaLink="false">https://jieunhong.github.io/github-blog-domain/</guid><pubDate>Thu, 20 Jan 2022 07:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;개인 도메인이 있는데! 깃허브 도메인(github.io) 말고 그걸 쓰고싶다!&lt;/strong&gt;&lt;br&gt;
+하시는 분들을 위한.. &lt;em&gt;사실 제가 그랬습니다.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;저는 기존에 깃허브 블로그와, aws route53에서 관리중인 도메인이 있었습니다.&lt;br&gt;
+그 기준으로 작성합니다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/de766/1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 54.72972972972974%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB00lEQVQoz42TSZLbMAxFdfGcIKfpTapS2eQKXalU0nanNdiSrZmDRFLy8INPtZMss0CJIMDHTwBKVF9jrN7QDQPywxF120YrZH2sTlBaQxvz35Y09RnVIcMwjugFSgCNa+5Zo2GtEbOw02ZG1tpu34fR34Bth19vGep+lMAEI5tMmKZJDs9QCzCIjfMKNTkM1sH5gHVdsSzLH6M/zTOSUSl0XS90i/FdXVlWKMozuvQZ4+eP6J8+QH3/AuMXWBfgwwb41y6XC2bnkFCN0gaTOEZU0Xp5qrYzvKrhd19hv32CO/0QkI9Pn0WJ8z4CvHx9CHFfCydhIMiG9yEGQjQqELtcsdyBAMCvtxhj/gMSlr9KeYZlikBaKR21UkMGedM8O4xUqhUWUdZKrQlijLmncx3zqZa1Iyw25aGqLEtpwoTb7QYnT7ler/EZVME1L2KsaVrsdnv8fHkRcIVhkOnoB7lcxamIQN5MIEE8pKUxBBhpFC9jwekTzHEqigPyvBBQH89SJV9EQe/AgP3+NSZyBFoZbCYTTCBBhN7vdyilsZPcNE2jwjTLkBcFsixH3TRISGWn458h40K/7TpwPjlS9J3bOspa83nMPRyPccRYP+bwS85vxhBHul0OlycAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;1&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/fcda8/1.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/12f09/1.png 148w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/e4a3f/1.png 295w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/fcda8/1.png 590w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/efc66/1.png 885w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/c83ae/1.png 1180w,https://jieunhong.github.io/static/ee0a1f06692835eadef090745928bb42/de766/1.png 1838w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+일단 AWS Route53에 들어가서 원하는 도메인을 선택해주세요.&lt;br&gt;
+그리고 새로운 레코드 생성 버튼을 눌러주세요.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/9ac09/2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 43.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABQElEQVQoz42S6XKDMAyE/f5P2dCEMRBjA76vrezSJun0RzTzjfEl7VqwyzDg83qF3DWc9/An7ds597L2vPcydx7jekDsBmyeFxhjEGJCKaWTiVorWrSxEH0899tW6fNv2vndehgXwMR8Q/CGTjgkd6CGg7JEWOuwyg3WR+SUEImUc09orEGOHsgBlUBNWKYRSgpSOH5AqxmH5BB8gFWcEitoY3EXgpLKjlhXqG2HdwZyumDiN6h1psQWhQhOI+wczDmLFAOpiFQpo5aEfCopp+2XKBlu49CbIO5I/qCEmkRSYreCLatCKuhvkXLptPeSUmG4jrAh9gLNbiLbIbbCdAG5CwAJqCdtnUml0NjIjiGb9WzATxPwNH80CA/+GGCt5VobRKpc/7P4RjTl7X4TwH5/lSdb75N795e7AJ/mLuwLfle/qfESZdUAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/fcda8/2.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/12f09/2.png 148w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/e4a3f/2.png 295w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/fcda8/2.png 590w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/efc66/2.png 885w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/c83ae/2.png 1180w,https://jieunhong.github.io/static/b9c38590abee2a2ac309d353b91a0203/9ac09/2.png 2204w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+저는 서브도메인으로 등록을 했습니다.&lt;br&gt;
+레코드 이름은 각자 알아서 정해주세요. 저는 blog.도메인으로 했습니다.
+레코드 유형은 CNAME 이고
+값은 본인의 github 블로그 주소를 입력해주세요.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/82747/3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 48.64864864864865%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABrUlEQVQoz22S6XLcIBCE9f4vGMc/suV4s6sLcQ436gwosV2pqOqTBBRNTw/Tc9lxe7vj0BYUMyhE+FRxMw2vOzEOr5vD99XiRRS8HA3fBK/bE++eoU/uPJ6E1BDSwFJgsXTBwrMrWHzFyixUxnemhpk3PXnzGk7s8R8SC677gf1Q7Kp8iJEP2NYVWilYo+GshZIS5Cw8k7xD4EpCasB5gl8fTPMm8Fi2Ieb+EGLC47ng7f2ObRc4lMYvHltH0JYQc0VtjTnRWPD8wrQJiS7qR35Xyf1/5kO6iLEOMV6HkPe8VkEZ/326x6mX23PsIm4IZgTSmO83PH7+QHQHzmTR/hINalCMRmHGNzo0nkNNmBZ21x06nz4dmg3rumCeZ87QQGuNddughLhy5Uw9EYgcvCeYUJGCA5+A6VAGyrgvJWcOXcPKFXJ/IvN/jRbBSWTqzgxvJHbtcOYu4tkZExXOEjFJ7p6PEaVUlNoGjQOXh8DCDrWS3GUzMNxxYxRjBr3rJUfUknC2Mjo+Cc6wl91zDOlymVm8Xx1l+LroC6nNoM8d2kNTGlfHD9JlhAV/A/joA5F8oA8/AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;3&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/fcda8/3.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/12f09/3.png 148w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/e4a3f/3.png 295w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/fcda8/3.png 590w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/efc66/3.png 885w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/c83ae/3.png 1180w,https://jieunhong.github.io/static/28b67ac38b62707a0590a76921a0e768/82747/3.png 2232w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+레코드 추가를 완료한 뒤에, 깃허브 블로그 프로젝트 설정에서 Pages메뉴에 갑니다.&lt;br&gt;
+Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌러주세요.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/49ee2/4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 20.945945945945947%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAvklEQVQY03XMYU/CMBDGcb7/lyMOI0YDxoQNdSgeba/ttvbvbRDjG5v8crmn7bM6i6PZ7nl8fqXZ3CMi5JxJMd4kVHXJou1RLUvp937OSpm4nsoqjZWTn/gKExIi4iNOE5eZ7ZclU7wVz/Pswu2d8j1zig4TeaoMxQplgOZz5KH3bD6CsfnuuTsKTZ9Ynyrrviy2Ai8KuwD7P3YenlylVSuM1tyFwtFluksyedFKpPMjrS8c3NWbfejT/2So/AAJnjKoO5oaywAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;4&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/fcda8/4.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/12f09/4.png 148w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/e4a3f/4.png 295w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/fcda8/4.png 590w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/efc66/4.png 885w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/c83ae/4.png 1180w,https://jieunhong.github.io/static/291570710d37d496f03e91f1a0e056b1/49ee2/4.png 1618w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/4971b/5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 22.972972972972975%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAz0lEQVQY052OXUvEMBBF8/9/lrKiiF/70BW7jSDY1jbfbdNtk+01GcUX8cUJhzMzDOGytqnRdx+omwZ+9vhvbfltG1hRdTi+KZTlK+r3Fn6cMboJgxvh7Eg22tE+99YMtJ8GT6abRPqPivVhhIwTzDl5NRBLRkOcNGQm9f1J0dxnZkX+mb8xcYCODuzBF7iVe9yIJ1y197juHrFTJS4lx4WskivcTRzPkaMIHIfw5V+sHPvlBUyElGjVlIqSZK+W6JZEsggW+myh4t/kdDL5E1zyfMwCVP/OAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;5&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/fcda8/5.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/12f09/5.png 148w,https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/e4a3f/5.png 295w,https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/fcda8/5.png 590w,https://jieunhong.github.io/static/37957fc88ea30f1f51234df8ab2e007f/4971b/5.png 784w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+좀만 기다리면 커스텀 도메인에 등록이 완료되었다는 메세지가 뜹니다!&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 509px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAABj0lEQVQoz42Q204aURSG5/lML1rfoH0CH6AJN16Q3oGHGk0aSLgoib1oUlTSqq2HdIhFoOPZGRgj2gERBmaKMwzwuWbaJr2wh5V8ex32Wnv92crT5RzPl1M8WksxtVVgtXjMrPqF+UKR5LbKy70SS6UDkjsqi/sar7Rjnq1tMvEmx+TKJo/frfMktxExubKBMr27x4vPBWKqypwM7NfqbFVNPulV1k/O+HhusG1esFMzKVx9o2g1eX1qMF85YunwlEVh4esRC5InZbGSP9N5X7vkg3HBW+2QcqPJ+fU1Fd2gYhgcmCYn9TqNfp/m3V3k255HR2hLbvs+VreL1elQbbVQvNGIABiMxwx+em80jmq+xH6Uj3DkAVeGXX+AI/53wpo7+IESyNG6ucG2bbpdm/btLd9dl4Zl4ToOTq+HJ0r+15SOSE2l02QyGfL5PGmJNU0jFouRzWZJzsyQSCSIx+OUyuVoaCiKx6L8IZSwoS//EhIEAT1RNBwOI8W/CJfquh7FoYWDf1T4t8uH7F/998W7RcxkyuXVAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;6&quot;
+        title=&quot;&quot;
+        src=&quot;https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png&quot;
+        srcset=&quot;https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/12f09/6.png 148w,https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/e4a3f/6.png 295w,https://jieunhong.github.io/static/1cf8cc75e04297c43265e5afbda832ea/71554/6.png 509w&quot;
+        sizes=&quot;(max-width: 509px) 100vw, 509px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+이제 커스텀 도메인에 접근하시면 블로그가 나옵니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;개인블로그는 의외로 설정이 많네요.. ^*^&lt;br&gt;
+&lt;em&gt;마크다운 문법을 익히는 중입니다. 생각보다 되게 재미있네요&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/github-blog-domain/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[git 계정 정보 프로젝트 별로 관리하기(.gitconfig)]]></title><description><![CDATA[git에 표시되는 계정 정보 변경하기]]></description><link>https://jieunhong.github.io/git-multi-config2/</link><guid isPermaLink="false">https://jieunhong.github.io/git-multi-config2/</guid><pubDate>Thu, 20 Jan 2022 03:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt;&lt;br&gt;
+에서 이어지는 게시글 입니다.   &lt;/p&gt;
+&lt;p&gt;깃 commit을 할 때!&lt;br&gt;
 컴퓨터에 등록된 전역 계정 정보가 등록되어서
-곤란한 적 있으셨나요?
-프로젝트별로 계정을 바꿔주는 것도 너무 귀찮고..&lt;/p&gt;
-&lt;p&gt;그럴때! .gitconfig를 커스텀해서 바꿔봅시다!&lt;/p&gt;
+곤란한 적 있으셨나요?&lt;br&gt;
+프로젝트별로 계정을 바꿔주는 것도 너무 귀찮고..   &lt;/p&gt;
+&lt;p&gt;그럴때! .gitconfig를 커스텀해서 바꿔봅시다!   &lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;cd &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;루트 폴더로 이동해줍니다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;vi &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gitconfig&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -21,11 +229,11 @@
 
 
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;includeIf &lt;span class=&quot;token string&quot;&gt;&quot;gitdir:~/project/private/&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        path &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gitconfig&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;아래에 표시되어있는 2개 줄을 복사해주세요.
-includeIf “gitdir:~/project/private/”
+&lt;p&gt;아래에 표시되어있는 2개 줄을 복사해주세요.&lt;br&gt;
+includeIf “gitdir:~/project/private/”&lt;br&gt;
 여기에 전역 계정 말고 커스텀으로 표시하고 싶은 프로젝트 경로를 넣어주세요&lt;/p&gt;
-&lt;p&gt;path = .gitconfig-self
-path에는 커스텀 깃 설정 파일이름을 적어줍니다.(만들 예정)&lt;/p&gt;
+&lt;p&gt;path = .gitconfig-self&lt;br&gt;
+path에는 커스텀 깃 설정 파일이름을 적어줍니다.(만들 예정)   &lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -57,7 +265,7 @@ path에는 커스텀 깃 설정 파일이름을 적어줍니다.(만들 예정)&
   
   &lt;/a&gt;
     
-참고로 제 project/private 경로엔 프로젝트가 2개 있습니다.
+참고로 제 project/private 경로엔 프로젝트가 2개 있습니다.&lt;br&gt;
 이런식으로~~&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;vi &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;gitconfig&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;아까 .gitconfig에 입력해준 path명과 똑같은 파일을 생성해줍니다.&lt;/p&gt;
@@ -83,11 +291,9 @@ core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;logallrefupdat
 core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ignorecase&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;precomposeunicode&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;remote&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;origin&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;url&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;HONG_BBUBBU_BLOG&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git &lt;span class=&quot;token comment&quot;&gt;// +추가로 전 편에서 바꾼 git계정 정보&lt;/span&gt;&lt;/span&gt;remote&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;origin&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;fetch&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;refs&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;heads&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;하이라이트된 줄을 보시면
+&lt;p&gt;하이라이트된 줄을 보시면&lt;br&gt;
 전역 계정 정보와 분기처리된 구문에서 설정한 커스텀 설정 그리고 커스텀 계정의 정보를 확인할 수 있습니다.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;추가로 &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;전 편&lt;/a&gt; 에서 ssh로 깃 계정을 변경한 부분도 여기에서 확인 할 수 있습니다.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;+ 추가로 &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;전 편&lt;/a&gt; 에서 ssh로 깃 계정을 변경한 부분도 여기에서 확인 할 수 있습니다.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -119,9 +325,9 @@ core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;precomposeunic
   
   &lt;/a&gt;
     
-이제 시스템 상에서 원하는 계정으로 깃 이력이 남게됩니다!
+이제 시스템 상에서 원하는 계정으로 깃 이력이 남게됩니다!&lt;br&gt;
 깃허브 잔디밭에도 잔디가 심어져요.&lt;/p&gt;
-&lt;p&gt;이전 게시글입니다 !
+&lt;p&gt;이전 게시글입니다 !&lt;br&gt;
 &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;한 컴퓨터에서 Git계정 여러개 설정하기(ssh)&lt;/a&gt; &lt;/p&gt;
 &lt;!-- ![7](./7.png) --&gt;
 &lt;hr&gt;
@@ -130,26 +336,19 @@ core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;precomposeunic
 &lt;/ul&gt;
 &lt;hr&gt;
                 &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/git-multi-config2/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
-              </content:encoded></item><item><title><![CDATA[드디어 개발 블로그를 만들었습니다! ]]></title><description><![CDATA[(feat. 요즘은 개츠비가 유행이라길래..)]]></description><link>https://jieunhong.github.io/1st/</link><guid isPermaLink="false">https://jieunhong.github.io/1st/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;네이버 블로그만 쓰다가, 슬슬 개발 블로그도 만들어야하지 않을까.. 라는 추세에 혼자 등떠밀려 만들게 되었습니다.
-원래 지킬로 하려는데 친구가 개츠비가 유행이라고 해서 개츠비로 만들었습니다.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;개츠비 템플릿 적용시키는데 &lt;code class=&quot;language-text&quot;&gt;sharp&lt;/code&gt; 라는 라이브러리가 제대로 설치가 안된다고 해서 삽질했습니다.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;제가 궁금하시다구요?? &lt;a href=&quot;http://bbubbu.me&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;궁금하지 않으셔도 알려드립니다!&lt;/a&gt; &lt;/p&gt;
-&lt;p&gt;요즘 회사에서 너무 할게 없네요.. 일 좀 주셨으면 좋겠는데..
-그냥 가만히 있겠습니다.&lt;/p&gt;
-&lt;p&gt;끝&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;em&gt;짧은 말: 오늘은 코인도 주식도 쭉쭉 내려오는 슬픈 날이네요.. 기운이 나지 않습니다..💜&lt;/em&gt;&lt;/p&gt;
-&lt;hr&gt;
-                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/1st/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
               </content:encoded></item><item><title><![CDATA[한 컴퓨터에서 Git계정 여러개 설정하기(ssh)]]></title><description><![CDATA[ssh를 이용해 프로젝트 별로 git 계정 설정하기]]></description><link>https://jieunhong.github.io/git-multi-config/</link><guid isPermaLink="false">https://jieunhong.github.io/git-multi-config/</guid><pubDate>Wed, 19 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+&lt;p&gt;일을 하다보면 git계정을 여러개 써야하는 경우가 생깁니다.&lt;br&gt;
+특히 private repository인 경우에는 깃 작업시마다 계정을 바꿔줘야해서 굉장히~~~
+번거롭고 귀찮습니다.&lt;br&gt;
+그런 사람들을 위해 똑똑한 사람들이 이미 기능을 만들었더라구요.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;mkdir &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ssh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;루트 경로에 .ssh폴더가 없는 경우 mkdir로 폴더를 만들어주세요.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;cd &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ssh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;.ssh 폴더로 접근합니다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;ssh&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;keygen &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;t rsa &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;hong.bbubbu@gmail.com&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;f &lt;span class=&quot;token string&quot;&gt;&quot;id_rsa_self&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;ssh 키를 생성해줍니다.
-“hong.bbubbu@gmail.com”을 자신의 이메일로 변경해주세요.
-“id&lt;em&gt;rsa&lt;/em&gt;self”는 생성될 키의 이름입니다. 원하는 명칭으로 변경해주세요.&lt;/p&gt;
+&lt;p&gt;ssh 키를 생성해줍니다.&lt;br&gt;
+“hong.bbubbu@gmail.com”을 자신의 이메일로 변경해주세요.&lt;br&gt;
+“id_ rsa_ self”는 생성될 키의 이름입니다. 원하는 명칭으로 변경해주세요.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;Generating &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; rsa key pair&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
 Enter &lt;span class=&quot;token function&quot;&gt;passphrase&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;empty &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; no passphrase&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; 
 Enter same passphrase again&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; 
@@ -169,11 +368,11 @@ The key&apos;s randomart image is&lt;span class=&quot;token operator&quot;&gt;:&
 &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;o&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;           &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;   &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;           &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;SHA256&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;그러면 이렇게 나오게 됩니다.
-Enter passphrase (empty for no passphrase):
-암호를 입력하라고 나오는데 그냥 엔터 누르셔도 됩니다.
+&lt;p&gt;그러면 이렇게 나오게 됩니다.&lt;br&gt;
+Enter passphrase (empty for no passphrase):&lt;br&gt;
+암호를 입력하라고 나오는데 그냥 엔터 누르셔도 됩니다.&lt;br&gt;
 저는 암호 등록했어요!(등록하면 나중에 key 사용시마다 암호 입력이 필요합니다.)&lt;/p&gt;
-&lt;p&gt;저는 회사와 개인 계정 분리를 위해 2개의 키를 생성해주었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;저는 회사와 개인 계정 분리를 위해 2개의 키를 생성해주었습니다.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -205,7 +404,7 @@ Enter passphrase (empty for no passphrase):
   
   &lt;/a&gt;
     
-ls 구문으로 확인해보면 key가 생성되었습니다.
+ls 구문으로 확인해보면 key가 생성되었습니다.&lt;br&gt;
 .key와 -pub.key 2개가 1쌍입니다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;vi config&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;키를 등록합시다.
@@ -219,7 +418,7 @@ vi로 config파일을 작성합니다.&lt;/p&gt;
     HostName github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com
     User git
     IdentityFile &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ssh&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;id_rsa_huray &lt;span class=&quot;token comment&quot;&gt;//생성한 키 명칭 입력&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;HOST부분과 IdentityFile에서 끝부분을 각자 변경해주시면 됩니다.
+&lt;p&gt;HOST부분과 IdentityFile에서 끝부분을 각자 변경해주시면 됩니다.&lt;br&gt;
 편집 완료 후에 github에 로그인합니다.&lt;/p&gt;
 &lt;p&gt;
   &lt;a
@@ -252,7 +451,7 @@ vi로 config파일을 작성합니다.&lt;/p&gt;
   
   &lt;/a&gt;
     
-Account Settings에서 SSH and GPG keys 메뉴를 들어갑니다.
+Account Settings에서 SSH and GPG keys 메뉴를 들어갑니다.&lt;br&gt;
 흰 상자 부분은 제가 미리 등록해놓은 SSH키 입니다.
 New SSH Key를 눌러주시고&lt;/p&gt;
 &lt;p&gt;
@@ -319,16 +518,16 @@ New SSH Key를 눌러주시고&lt;/p&gt;
     &lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;cat id_rsa_self&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;pub&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;생성한 SSH키의 pub파일을 cat으로 읽어 안에 내용을 모두 복사해서
-key부분에 복사해줍니다.
+key부분에 복사해줍니다.&lt;br&gt;
 title은 알아서 적어주세요~
 (!참고로 깃허브 계정과 키가 서로 일치하게 등록해주세요 )&lt;/p&gt;
-&lt;p&gt;이것도 키 수에 맞게 계정별로 등록해주셔야합니다.
-저는 회사계정, 개인계정 2번 등록했습니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;이것도 키 수에 맞게 계정별로 등록해주셔야합니다.&lt;/strong&gt;&lt;br&gt;
+&lt;em&gt;저는 회사계정, 개인계정 2번 등록했습니다.&lt;/em&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;ssh &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;T&lt;/span&gt; git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;깃허브에 등록을 완료하면 ssh명령어를 이용해 확인을 해줍니다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;Enter passphrase &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; key &lt;span class=&quot;token string&quot;&gt;&apos;/Users/hongjieun/.ssh/id_rsa_self&apos;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; 
 Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos;ve successfully authenticated&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; but GitHub does not provide shell access&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;뭐가 나와서 yes를 입력하면 이렇게 나옵니다
+&lt;p&gt;뭐가 나와서 yes를 입력하면 이렇게 나옵니다&lt;br&gt;
 그러면 성공! ( 암호 등록하신 분들은 암호 입력하라고 나와요 )&lt;/p&gt;
 &lt;p&gt;
   &lt;a
@@ -370,11 +569,23 @@ Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos
 &lt;p&gt;이렇게 클론하시면 끝!&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;git remote set&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;url origin git@github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;com&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;self&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;jieunhong&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;jieunhong&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;github&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;io&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;기존에 있던 프로젝트는 위에 명령어로 변경 가능합니다.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://jieunhong.github.io/git-multi-config2/&quot;&gt;git 계정 정보 프로젝트 별로 관리하기(.gitconfig)&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;이어지는 게시글입니다 !&lt;br&gt;
+&lt;a href=&quot;https://jieunhong.github.io/git-multi-config2/&quot;&gt;git 계정 정보 프로젝트 별로 관리하기(.gitconfig)&lt;/a&gt; &lt;/p&gt;
 &lt;hr&gt;
 &lt;ul&gt;
 &lt;li&gt;퇴근하자&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
                 &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/git-multi-config/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[드디어 개발 블로그를 만들었습니다! ]]></title><description><![CDATA[(feat. 요즘은 개츠비가 유행이라길래..)]]></description><link>https://jieunhong.github.io/1st/</link><guid isPermaLink="false">https://jieunhong.github.io/1st/</guid><pubDate>Tue, 18 Jan 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;네이버 블로그만 쓰다가, 슬슬 개발 블로그도 만들어야하지 않을까.. 라는 추세에 혼자 등떠밀려 만들게 되었습니다.
+원래 지킬로 하려는데 친구가 개츠비가 유행이라고 해서 개츠비로 만들었습니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;개츠비 템플릿 적용시키는데 &lt;code class=&quot;language-text&quot;&gt;sharp&lt;/code&gt; 라는 라이브러리가 제대로 설치가 안된다고 해서 삽질했습니다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;제가 궁금하시다구요?? &lt;a href=&quot;http://bbubbu.me&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;궁금하지 않으셔도 알려드립니다!&lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;요즘 회사에서 너무 할게 없네요.. 일 좀 주셨으면 좋겠는데..
+그냥 가만히 있겠습니다.&lt;/p&gt;
+&lt;p&gt;끝&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;짧은 말: 오늘은 코인도 주식도 쭉쭉 내려오는 슬픈 날이네요.. 기운이 나지 않습니다..💜&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://jieunhong.github.io/1st/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
               </content:encoded></item></channel></rss>
