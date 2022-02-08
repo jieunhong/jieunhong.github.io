@@ -3,13 +3,15 @@ module.exports = {
     title: '지은이의 개발 Blog',
     author: 'Jieun Hong',
     description: 'Personal blog by 홍지은. I explain with words and code.',
-    siteUrl: 'https://jieunhong.github.io/',
+    siteUrl: 'https://blog.bbubbu.me',
     social: {
       twitter: '@dan_abramov',
     },
   },
   pathPrefix: '/',
   plugins: [
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-advanced-sitemap`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -190,5 +192,11 @@ module.exports = {
       },
     },
     `gatsby-plugin-catch-links`,
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `jieunhong`,
+      },
+    },
   ],
 };

@@ -8,12 +8,12 @@ class Bio extends React.Component {
       <div
         style={{
           display: 'flex',
-          marginBottom: rhythm(2),
+          marginBottom: rhythm(1),
         }}
       >
         <img
           src={profilePic}
-          alt={`Dan Abramov`}
+          alt={`jieunhong`}
           style={{
             marginRight: rhythm(1 / 2),
             marginBottom: 0,

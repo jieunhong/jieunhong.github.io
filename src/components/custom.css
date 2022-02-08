@@ -1,0 +1,4 @@
+.clicked {
+  color: white;
+  background-color: var(--textLink);
+}

@@ -9,12 +9,30 @@ import React from 'react';
 import SEO from '../components/SEO';
 import get from 'lodash/get';
 import { rhythm } from '../utils/typography';
+import '../components/custom.css';
 
 class BlogIndexTemplate extends React.Component {
+  constructor(props) {
+    super(props);
+    this.changeCategory = this.changeCategory.bind(this);
+    this.state = {
+      active: false,
+    };
+  }
+  toggleClass(e) {
+    document.getElementsByClassName('clicked')[0].classList.remove('clicked');
+    e.target.className = 'clicked';
+    // const currentState = this.state.active;
+    // this.setState({ active: !currentState });
+    // console.log( get(this, 'props.data.allMarkdownRemark.edges') );
+  }
+  changeCategory() {
+    document.getElementsByClassName('clicked')[0].classList.remove('clicked');
+  }
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title');
     const langKey = this.props.pageContext.langKey;
-
+    const categorys = ['전체', '개발', '일상'];
     const posts = get(this, 'props.data.allMarkdownRemark.edges');
 
     return (
@@ -37,7 +55,34 @@ class BlogIndexTemplate extends React.Component {
               .
             </Panel>
           )}
-
+          <span>카테고리 언젠가는 완성할 예정</span>
+          <div
+            style={{
+              marginBottom: '-1rem',
+              color: 'var(--textTitle)',
+              display: 'flex',
+            }}
+          >
+            {categorys.map(category => {
+              let categoryClass = category == '전체' ? 'clicked' : '';
+              return (
+                <a
+                  key={category}
+                  className={categoryClass}
+                  onClick={this.toggleClass}
+                  style={{
+                    padding: '0 15px',
+                    border: '0.1rem solid',
+                    borderRadius: '15px',
+                    textAlign: 'center',
+                    marginRight: '20px',
+                  }}
+                >
+                  {category}
+                </a>
+              );
+            })}
+          </div>
           {posts.map(({ node }) => {
             const title = get(node, 'frontmatter.title') || node.fields.slug;
             return (
@@ -78,6 +123,7 @@ class BlogIndexTemplate extends React.Component {
 
 export default BlogIndexTemplate;
 
+//filter: { frontmatter: { category: { eq: "개발" } }, fields: { langKey: { eq: $langKey } } }
 export const pageQuery = graphql`
   query($langKey: String!) {
     site {

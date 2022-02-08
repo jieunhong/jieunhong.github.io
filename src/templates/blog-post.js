@@ -16,20 +16,19 @@ import {
   loadFontsForCode,
   replaceAnchorLinksByLanguage,
 } from '../utils/i18n';
+import { Disqus } from 'gatsby-plugin-disqus';
 
 const GITHUB_USERNAME = 'gaearon';
 const GITHUB_REPO_NAME = 'overreacted.io';
 const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif`;
-
 class Translations extends React.Component {
   render() {
     let { translations, lang, languageLink, editUrl } = this.props;
 
     let readerTranslations = translations.filter(lang => lang !== 'ru');
     let hasRussianTranslation = translations.indexOf('ru') !== -1;
-
     return (
       <div className="translations">
         <Panel style={{ fontFamily: systemFont }}>
@@ -103,6 +102,10 @@ class BlogPostTemplate extends React.Component {
       translatedLinks,
     } = this.props.pageContext;
     const lang = post.fields.langKey;
+    let disqusConfig = {
+      identifier: post.frontmatter.title,
+      title: post.frontmatter.title,
+    };
 
     // Replace original links with translated when available.
     let html = post.html;
@@ -175,8 +178,9 @@ class BlogPostTemplate extends React.Component {
               )}
             </header>
             <div dangerouslySetInnerHTML={{ __html: html }} />
-            {/* <footer>
-              <p>
+            <footer>
+              <Disqus config={disqusConfig} />
+              {/* <p>
                 <a href={discussUrl} target="_blank" rel="noopener noreferrer">
                   Discuss on Twitter
                 </a>
@@ -184,8 +188,8 @@ class BlogPostTemplate extends React.Component {
                 <a href={editUrl} target="_blank" rel="noopener noreferrer">
                   Edit on GitHub
                 </a>
-              </p>
-            </footer> */}
+              </p> */}
+            </footer>
           </article>
         </main>
         <aside>
