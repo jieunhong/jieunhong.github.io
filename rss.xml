@@ -1,4 +1,300 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 05 Apr 2022 06:15:42 GMT</lastBuildDate><item><title><![CDATA[Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 1]]></title><link>https://blog.bbubbu.me/spring-cloud-MSA-1/</link><guid isPermaLink="false">https://blog.bbubbu.me/spring-cloud-MSA-1/</guid><pubDate>Tue, 05 Apr 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;spring-cloud로-개발하는-마이크로서비스-애플리케이션msa-스터디---session-1&quot;&gt;&lt;a href=&quot;#spring-cloud%EB%A1%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98msa-%EC%8A%A4%ED%84%B0%EB%94%94---session-1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 1&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 19 Apr 2022 04:48:14 GMT</lastBuildDate><item><title><![CDATA[Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 2]]></title><link>https://blog.bbubbu.me/spring-cloud-MSA-2/</link><guid isPermaLink="false">https://blog.bbubbu.me/spring-cloud-MSA-2/</guid><pubDate>Mon, 18 Apr 2022 06:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;spring-cloud로-개발하는-마이크로서비스-애플리케이션msa-스터디---session-2&quot;&gt;&lt;a href=&quot;#spring-cloud%EB%A1%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98msa-%EC%8A%A4%ED%84%B0%EB%94%94---session-2&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 2&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;아래 인프런 강의를 들으면서 학습한 내용을 정리한 포스팅입니다.&lt;/code&gt;&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://inf.run/Rro2&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA)&lt;/a&gt;&lt;br&gt;
+&lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 478px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 116.89189189189189%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFBUlEQVQ4y5WUeVCVVRjGPx0FRGvGf1pGJTENRZRFuegkGiiWCIKBW7igVsoQKpRFKJLgKDZU42h/qE2KlqbI5hiD2chyBUFIFlm67DXs3I0LYsC999e5HwNTNs3omXnmvOc97/uc57zv+T6pvbudkOgQgiKDCI4KZm3YWtYIhB3cQFzsVg7F7SDm0BaOnwynR1XKQ+UNYoQvPj6UY8d2yvaRozuJ/DiQwqJfkGobqpHekJAcBOZKuGxzZu+pMLKSdqE9vp72/S60xXijPeACZ/eiTfClY89seg560BW1iK59C+n5dAmd4Y48zrmM1GvQser9VUgzJewDZnG2+BxlukooTYPkKDjuC6e3QaI/w6e2w5dBcGgZJAXDiQDMR7zoj1+L+aTwF6cLwj4tucW3+ebyKdw2LcBp1xucz7+MTl3H6aQwImJWUlBwiT3hy1F4TcVj1csofF5B4T0Nj6D5ePrZEf1FMO4rppCadg5pyDTAmZsJxJ75jK9+TGTOtlnEXUukeaiDlfv8sXKbyGtr7JDmi5LMGymLXB7X15G2e+MV+y55f9zCO2IFpy8mIXUbutmetJXEC4kkJMdjH2LP0SsnqNHXExi1HmmOhJWLFTZu1nhsUbB4oxvum9xxDFjIopCleO5aju9HPsx+ezqXrp1BqmqpJjU/ha8Fod16e1xDHTmcnEC5tga/yABZzWTFFKwFYXBkMLtjd7P6w9XsPBzKih2eBISvE/6NzPR6lasp34ou//k7yke57DtxgIlLrJm9YSafC8KSnkf4Hlgnv4ApHi/gFDifeevm4RzkjIOfA+6b3XETauf4O+CyWcFUhS3paWeRGlvreTNcQfLP35NfepfN0YF8ci6aij6VIPSXFdoutsXK1WoMkxZNYrLwjROleM93OudDXVjmYUVaumiKxqDmovISc4Mc8Q/zQdVYye3KXLIacvCLChgjtFzZAhs3mzF7gqs1zp5T8X9nGjMWSGRnfodkxEyTrpFlO5bKXdwftwHdYy3V+iZ8ItbIPlt3UUOh6mnYLJ4kum2N5GYrlybv1gWkdnWbeHtO8nN4aemLvBU0g6hjoUTEf8BEJ4lxgnD8PzBu7r/XEywQcePtJJSZ55H0/b1k3MvkQc4NgVQKC25SmSvsrAtU56RQK2yVMl3MqdTmpVJfkIkqP02GvC98qnsZ1P56hX7RD8k4bKSrvZPe3j66utTo9X0MDAzS3a1BpzfI6/qGJnrUWlpbO/jtYTmNjS3U1zeJnH45zmJ3ilzLkIaGhrhz5w7FxUVUVVWRnZ0tEhooKysTn9w92a9U5lNXp6KhoYHMzAyKiu4LFFFRUU5zczOlpSXU1tQwNDiIZDabBUEjKpWKtrY2qqurqaysxGAw0NHRQUlJiUgolWMse+Xl5XJcXV2dvG5paaGpqQmNRjOicHh4WFaTn59PjTjFcrJSqZTVWJCRkUFKSopQUyHH5OXlyQdYYgoLC2Wf5YYWUpnQaDSi02lE3fplDP71REh/Iuqjw6L+eYYlXjKazLR3GWjr1NPZ3Y9aO4BaNyhsA0ajSQ40mUxysGUetUfXo/YoJLPpMWh+AN110P4k7KtitiAdtVpNT0+P5ej/JP4fJEyD0FcgUCygFHiASX8XY+99tFqNeDa6ses8E+Fj4xA3NHUU93VxS9dMxcAIgemp2jwz4bDZyF3x78tSV3C9q4Sq/tYRQuF/HqJR/A2V+jdeLrIOTwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/9f316145cbf9a93f0b883c4b05afb2a6/50978/2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/9f316145cbf9a93f0b883c4b05afb2a6/12f09/2.png 148w,https://blog.bbubbu.me/static/9f316145cbf9a93f0b883c4b05afb2a6/e4a3f/2.png 295w,https://blog.bbubbu.me/static/9f316145cbf9a93f0b883c4b05afb2a6/50978/2.png 478w&quot;
+        sizes=&quot;(max-width: 478px) 100vw, 478px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+&lt;a href=&quot;https://inf.run/Rro2&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://inf.run/Rro2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;퀵스텝&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;#spring-cloud-netflix-eureka&quot;&gt;Spring Cloud Netflix Eureka&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#eureka-service-discovery&quot;&gt;Eureka Service Discovery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#user-service---%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%83%9D%EC%84%B1&quot;&gt;User Service - 프로젝트 생성&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#user-service---%EB%93%B1%EB%A1%9D&quot;&gt;User Service - 등록&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#user-service---load-balancer&quot;&gt;User Service - Load Balancer&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;spring-cloud-netflix-eureka&quot;&gt;&lt;a href=&quot;#spring-cloud-netflix-eureka&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Spring Cloud Netflix Eureka&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;ServiceDiscovery&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;등록 -&amp;gt; API 게이트웨이에 전송 -&amp;gt; ServiceDiscovery -&amp;gt; 각 Server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;전송된 요청정보에 따라서 서비스를 판별하고 전달해주는 역할&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Server Application Dependencies&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Eureka Server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Client Application Dependencies&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Eureka Discovery Client&lt;/li&gt;
+&lt;li&gt;Spring web&lt;/li&gt;
+&lt;li&gt;Spring Boot DevTools&lt;/li&gt;
+&lt;li&gt;Lombok&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;eureka-service-discovery&quot;&gt;&lt;a href=&quot;#eureka-service-discovery&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Eureka Service Discovery&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;@SpringBootApplication
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;@EnableEurekaServer&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DiscoveryserviceApplication&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;String&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        SpringApplication&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;DiscoveryserviceApplication&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;class&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;@EnableEurekaServer&lt;/strong&gt;&lt;br&gt;
+-&gt; 현재 스프링부트 프로젝트에 유레카서버용 ServiceDiscovery라는 것을 등록해줌&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;server&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+  port&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8761&lt;/span&gt;
+
+spring&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+  application&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+    name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; discoveryservice
+
+eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+  client&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    register&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    fetch&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;registry&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    #자체로 서버를 띄우는 것이기 때문에 등록이 필요치 않음&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/2f97d292180ae9dc5b1d5e4a3c514632/3d22e/3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 70.94594594594594%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAACoklEQVQ4y3WSWU8TYRSG55+ocQOMa29cYuK1XBgTlwsv/AUqiQajgSC1LCJBJMYQjVJjLQgawSVRkEJnSkFREUwQsItdpnRvoaxt6et3DrQUEid58p7t284cqazPjBJFwZVuBddMVlyXh1E6NIqG0Ql02V147/HjgxrEJ18I98cmUfplDDeHf+EG8XUMV60juKR8w2VBieU7pLuvXqDGqEdzhwEPjU/Q3K6H/l0bnnW24nlnGwxdL2F4uwrFnr4xQi9iRIuw7xlbUPb4AbSPmqDTN0O6eOEczp4uxvkzp3Cy+AT2arZCc3QH9hRtQ8HOrSjYtU7hboptgeZAEQ7uL2Q9dvgQjh/RsO4r3A6pz2SCqbcXPd3dIFuRZVhkBRbl/1AN1+XZstnMKnm9XjidDrjdLkxP+7C0tJRjcXFxg7+wsMC6vLyc8+fn5xnOibjkcbtht9kQi8UwMzODaDTKRCIRUI40Ho/D5frLdeFQCDGRV1UvbLY/QlVxGTd8QmkPiRaEw2HehAL5ZGN0kNfjgd1uh8PhgEfYPp8q8OUOj4g9SKW5uTm+Muns7Cwv3gzFVdGaqalJvg352YM2IzmdTvweH8fkxAQ/h563+aZZKEfkH0x2Ft4wGo8gFAsgkUhws5PJJJNKpTbYlKOfxIgfsEHXoFdKwWAQXtXD7w+JGwYCAfj9fm46aTAYYJt+BH2ZTEaAVYS/srIiyHCODpded7Sjvq4W1bpK6LQV0N4qR9XtStTVVkNbUY7aah2aGhuY+roa3KnRCapEviqXa2yo57WtRgOknyM/xGD3iMH+KAb7MwYsskCBdcAiBtXM9tCgFYPWVV829zPKmlK9RZHR32cC7SVlx8HlconGJvgJSdGzFJNe72XOzyOdXqtLIS1sGvZ/njyxdEG1dYQAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;3&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/2f97d292180ae9dc5b1d5e4a3c514632/fcda8/3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/2f97d292180ae9dc5b1d5e4a3c514632/12f09/3.png 148w,https://blog.bbubbu.me/static/2f97d292180ae9dc5b1d5e4a3c514632/e4a3f/3.png 295w,https://blog.bbubbu.me/static/2f97d292180ae9dc5b1d5e4a3c514632/fcda8/3.png 590w,https://blog.bbubbu.me/static/2f97d292180ae9dc5b1d5e4a3c514632/efc66/3.png 885w,https://blog.bbubbu.me/static/2f97d292180ae9dc5b1d5e4a3c514632/c83ae/3.png 1180w,https://blog.bbubbu.me/static/2f97d292180ae9dc5b1d5e4a3c514632/3d22e/3.png 2010w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h2 id=&quot;user-service---프로젝트-생성&quot;&gt;&lt;a href=&quot;#user-service---%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%83%9D%EC%84%B1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;User Service - 프로젝트 생성&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;@SpringBootApplication
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;@EnableDiscoveryClient&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;UserServiceApplication&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;String&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        SpringApplication&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;UserServiceApplication&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;class&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;@EnableDiscoveryClient&lt;/strong&gt;  ㄴㄴㄴ
+-&gt; 현재 스프링부트 프로젝트에 유레카서버용 ServiceDiscovery라는 것을 등록해줌&lt;/p&gt;
+&lt;h2 id=&quot;user-service---프로젝트-등록&quot;&gt;&lt;a href=&quot;#user-service---%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%93%B1%EB%A1%9D&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;User Service - 프로젝트 등록&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;server&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  port&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;9001&lt;/span&gt;&lt;/span&gt;
+spring&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+  application&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+    name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; user&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;service
+
+eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+  client&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    register&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    fetch&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;registry&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    #서버에 등록을 하는 클라이언트이기 때문에 &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    service&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;url&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      defaultZone&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; http&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;127.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8761&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;eureka&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      #등록할 서버 주소 등록&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;똑같은 클라이언트 어플리케이션을 포트를 다르게 해서 2개를 동시에 띄웠을 때, 유레카 대시보드에서 띄워주는 정보&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/d905a23ac94a820c87d1057c76ddb75d/5b30f/6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 45.94594594594595%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABWUlEQVQoz5WQWU/CQBSF5/+/qQQJUWMiioKIgGzG5UH9DUKLtNANaKEtrUaF5jh3tAqID07yZe65y+ntsOFwCOKp24Xc6aCvadB0g6OvRRc1Y21OUVUwWZbRaj1CliRuPMB4PIbjOD/Y9pK2uSYW+0iP+FL2aASmKAo63JTEZDKB53kcF57ritiyrKW8qipiOM65vK/f68E0TQx4L/N9H9PpVPA5tIz7ZRzHktSG1G5D409DprShZZmi5nLNKEFv6Dj2WsNVc9M0YBgGfK5pGdp68aNM1zXIsiRWDsMQQRCIOwwDERPxHxCruSDgxDGHvbw+4z16A535fI4oijCbzb5j4j+HVS8qSKe2kUxs8juJ7WQCO+kU9vd2kdjaELXccRZHmQNkDzN/QnWCPdzf4ayQR7NeQ4NTq1ZwddnE7c21uClfKhVQLJ/gvJz/RbGcQ6lyKmYb9So+AJ+XiOieJOGFAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;6&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/d905a23ac94a820c87d1057c76ddb75d/fcda8/6.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/d905a23ac94a820c87d1057c76ddb75d/12f09/6.png 148w,https://blog.bbubbu.me/static/d905a23ac94a820c87d1057c76ddb75d/e4a3f/6.png 295w,https://blog.bbubbu.me/static/d905a23ac94a820c87d1057c76ddb75d/fcda8/6.png 590w,https://blog.bbubbu.me/static/d905a23ac94a820c87d1057c76ddb75d/efc66/6.png 885w,https://blog.bbubbu.me/static/d905a23ac94a820c87d1057c76ddb75d/c83ae/6.png 1180w,https://blog.bbubbu.me/static/d905a23ac94a820c87d1057c76ddb75d/5b30f/6.png 2372w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;따로 어플리케이션 파일 만들어서 실행시키기&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;user-service---load-balancer&quot;&gt;&lt;a href=&quot;#user-service---load-balancer&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;User Service - Load Balancer&lt;/h2&gt;
+&lt;p&gt;랜덤포트로 띄워주기
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/aa51f61a9b5282a922937f9083928e5a/a7115/7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 31.08108108108108%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAABAklEQVQY05WQ3W7CMAxG+yZj2lUTB5w0f01LKQMKa3n/1/lmOjZpN5N2cXRiK7EdV6EfMLQBPgS44NF2HWLK2LEV+Om/YctwjUXOCZV1UsQR/E6DtIZSClpMRP/CGAPeEip2Ac2OkJ2Bk+LGbKHq+hdamiilV+vV36if3GMY0jWqdDxjuC0YP+44XGek9wvKNKOflpVymRGHE+L+iDAIYv/kEa9+xllqVW0cUbw84BNKmnDY32HbGVQWmG4ByVmnK1Q4I8i9Ei9ohS5f0Um+xAmeR3j7RcXEaFSAefNoTEYfRvlexIYELng1CRvb42XbgnWSfe+lebfCtayLEpyOqx/xJzulwEdHw6kQAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;1&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/aa51f61a9b5282a922937f9083928e5a/fcda8/7.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/aa51f61a9b5282a922937f9083928e5a/12f09/7.png 148w,https://blog.bbubbu.me/static/aa51f61a9b5282a922937f9083928e5a/e4a3f/7.png 295w,https://blog.bbubbu.me/static/aa51f61a9b5282a922937f9083928e5a/fcda8/7.png 590w,https://blog.bbubbu.me/static/aa51f61a9b5282a922937f9083928e5a/efc66/7.png 885w,https://blog.bbubbu.me/static/aa51f61a9b5282a922937f9083928e5a/c83ae/7.png 1180w,https://blog.bbubbu.me/static/aa51f61a9b5282a922937f9083928e5a/a7115/7.png 2186w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/fb4f516bdf7b146d653577978c780503/42267/8.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 43.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABgElEQVQoz52S20oCURSG9+NkkBl2xAjqJuomgm7q4UIrNagsx0M6B/U9Emwg0dEZRp3Kwwh/e62mNOqqgY+91trrX//ewxYH+3s4Oz3B8dEhdnZXsRYLIRpdRGRpAZFwaMZcvrIcwsZaBOury4htRrG9JXXRMPeIx2IBaqmEWrUCw9Cg6WVoqqT8uarlEqOpKtc4lquh66gYOutq1Sp0TeM9YZrP6HQ6GA6HGI/HzGQy4fxdQjExGAy4Np1OOR+NRuj1ehKXV8qpLlqtFlzXhWPbsAMcx4FlWQzFjmOjXn9Co9FAs/nCvZbVhmma6AR9drfLWuF5r+j3+4HbDKp9QTkNo6FdKaRTkRENoD060BeCmtrtNjzPYzFdjfll4v4wmhlL5urCexvA96f8b3zfZygm/vOJ63QSyasLpJNXuEzEQXkqeYlE/BxK9h6FfA55RfmTnJKVPPxAZO5uUCzkpFBBUYrpKRi6BnpOeSm4zaQ/uQ8I4ptMCtlshg0LOeWbDwc+WQDNUSytAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;1&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/fb4f516bdf7b146d653577978c780503/fcda8/8.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/fb4f516bdf7b146d653577978c780503/12f09/8.png 148w,https://blog.bbubbu.me/static/fb4f516bdf7b146d653577978c780503/e4a3f/8.png 295w,https://blog.bbubbu.me/static/fb4f516bdf7b146d653577978c780503/fcda8/8.png 590w,https://blog.bbubbu.me/static/fb4f516bdf7b146d653577978c780503/efc66/8.png 885w,https://blog.bbubbu.me/static/fb4f516bdf7b146d653577978c780503/c83ae/8.png 1180w,https://blog.bbubbu.me/static/fb4f516bdf7b146d653577978c780503/42267/8.png 2670w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;HOST IP address application-name port번호를 조합하여 유니크한 이름 만들&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;server&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  port&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      #매번 실행시에 포트를 다르게 &lt;span class=&quot;token function&quot;&gt;넣어줌&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;random&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+spring&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+  application&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+    name&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; user&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;service
+
+eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+  instance&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    instance&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;id&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; $&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;spring&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;cloud&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;client&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hostname&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;$&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;spring&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;application&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;instance_id&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;$&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;random&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    #server&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;port &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;이면 실제 포트는 다르게 들어가지만&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Eureka Server에서 인스턴스 명이 port 가 &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;번으로 중복되어 &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;개로 표시해주기 때문에 아이디를 랜덤으로 지정해줌&lt;/span&gt;  client&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    register&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    fetch&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;registry&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    #서버에 등록을 하는 클라이언트이기 때문에 &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    service&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;url&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      defaultZone&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; http&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;127.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;8761&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;eureka&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;      #등록할 서버 주소 등록&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;$&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;spring&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;cloud&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;client&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hostname&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;$&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;spring&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;application&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;instance_id&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;$&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;random&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/f95b6b350cec4437bd3096d221ca3c55/c658e/10.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 59.45945945945946%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAACI0lEQVQoz42Sa2sTQRSG999YojSg1Wgt+SCKpSRNq21EKQiK4AdB/G/aNtmkqUVsSc1VJFHMdVNz2+xldrO5kPB6ZkyaluaDCw/n9s6ZM7Mj3XLfwNs3r/FsaxMvgtvwPljC7ZUFLHlcWHQtwH39Mouua1j2kOamGyv37sC77IH3/l3wPrwm7X76iP29XeyRDYf2EZHDws4nJKwcDgm4dgqPeU1SqlUoioJKuQzLsjAYDNDv9wW9Xu+fP8k5zizmtW63K9ZwHMeh2gBSuVRClZqapglN09DpdKARqqqiVlNErOu62LBULKLVaqHdbqPRqKNQ+E2aGvhQ9XqdtCokjcS6YcCghrypydg5xiTPaIJKpYJcLociNVUnGzabTVi2DZPqU73EqCHH5NCE59AikZvY5tkZFJqyRZNxvU4NDdIZNK1BUxs85g21eBydk2PoiQSs01OwdBqMfJb4BvY9S7k4WDIJO5lAN5uBnU7BShHkW9zP58FoI0b/gZ9QKtE9/Mz9wB9K2JSwaBfBBZ8Rpn5h+osn4tczPTZvaDkMvaGD0Wgs/t5gOLzCaDzG/37Sl6MjRGUZh7EoYgdRfD6MQab3dBCNCKIRGSfHX5HNZJCh65iRmov04f07bD9ZR/BpAK9e7mDneRBbm36KNxDwPcaGfxXrZP1rjwS+tYeCgG91LlK5XJq9P60jHqmmd1CpF1Bu/EKxnr8Ez6l6CzbpbPsqfwFNICUOEs4a2AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;1&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/f95b6b350cec4437bd3096d221ca3c55/fcda8/10.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/f95b6b350cec4437bd3096d221ca3c55/12f09/10.png 148w,https://blog.bbubbu.me/static/f95b6b350cec4437bd3096d221ca3c55/e4a3f/10.png 295w,https://blog.bbubbu.me/static/f95b6b350cec4437bd3096d221ca3c55/fcda8/10.png 590w,https://blog.bbubbu.me/static/f95b6b350cec4437bd3096d221ca3c55/efc66/10.png 885w,https://blog.bbubbu.me/static/f95b6b350cec4437bd3096d221ca3c55/c83ae/10.png 1180w,https://blog.bbubbu.me/static/f95b6b350cec4437bd3096d221ca3c55/c658e/10.png 2202w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+클라이언트 주소를 누르면, actuator관련 코드가 없어 404는 나지만 정상작동.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/d460308e9faf1c00d1428b89ba431149/c45c7/11.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 39.86486486486486%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABGklEQVQoz5WQ626CQBBGef/3wqDxB0jVBCrhDnK/SiKXr8y022iTpnaTk52dXQ4zI+FrLcuC/jYgzUsUVY0oviK6JrgmKYIoQriewyiGH0Z83/Y3NF3PtA9Iu90OiqJA13Vst1tomgbtcIBhmFDXWJZllGXJP73f7xjHEfM8P7BgWvdp+kQyTRPn83kVGDge32BZFi6Xd7iuC8/zsNls0LYtC6dpeoLkxNqfaBRS0zTIsgxpmqKua1RVhTzPead83/ccF0XBeXoXhiHHcRwjCAKWi7FJlCB83+eKHMdhSE4yqm4YBo67ruNYfPw4f4FEraqqitPphP1+D9u2vytJkoQrEx0QJP0peRLSYMUsROl/rd9kLPzP41f4ANK2ZTPQjF9iAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;1&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/d460308e9faf1c00d1428b89ba431149/fcda8/11.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/d460308e9faf1c00d1428b89ba431149/12f09/11.png 148w,https://blog.bbubbu.me/static/d460308e9faf1c00d1428b89ba431149/e4a3f/11.png 295w,https://blog.bbubbu.me/static/d460308e9faf1c00d1428b89ba431149/fcda8/11.png 590w,https://blog.bbubbu.me/static/d460308e9faf1c00d1428b89ba431149/efc66/11.png 885w,https://blog.bbubbu.me/static/d460308e9faf1c00d1428b89ba431149/c83ae/11.png 1180w,https://blog.bbubbu.me/static/d460308e9faf1c00d1428b89ba431149/c45c7/11.png 1346w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/spring-cloud-MSA-2/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 1]]></title><link>https://blog.bbubbu.me/spring-cloud-MSA-1/</link><guid isPermaLink="false">https://blog.bbubbu.me/spring-cloud-MSA-1/</guid><pubDate>Tue, 05 Apr 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;spring-cloud로-개발하는-마이크로서비스-애플리케이션msa-스터디---session-1&quot;&gt;&lt;a href=&quot;#spring-cloud%EB%A1%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98msa-%EC%8A%A4%ED%84%B0%EB%94%94---session-1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 1&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;아래 인프런 강의를 들으면서 학습한 내용을 정리한 포스팅입니다.&lt;/code&gt;&lt;/strong&gt;&lt;br&gt;
 &lt;a href=&quot;https://inf.run/Rro2&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA)&lt;/a&gt;&lt;br&gt;
 &lt;a href=&quot;https://inf.run/Rro2&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://inf.run/Rro2&lt;/a&gt;
