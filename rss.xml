@@ -1,4 +1,667 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 19 Apr 2022 04:48:14 GMT</lastBuildDate><item><title><![CDATA[Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 2]]></title><link>https://blog.bbubbu.me/spring-cloud-MSA-2/</link><guid isPermaLink="false">https://blog.bbubbu.me/spring-cloud-MSA-2/</guid><pubDate>Mon, 18 Apr 2022 06:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;spring-cloud로-개발하는-마이크로서비스-애플리케이션msa-스터디---session-2&quot;&gt;&lt;a href=&quot;#spring-cloud%EB%A1%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98msa-%EC%8A%A4%ED%84%B0%EB%94%94---session-2&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 2&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 15 Jun 2022 06:57:54 GMT</lastBuildDate><item><title><![CDATA[Jmeter UT 테스트 세팅 +  RequestBody 파일로 주입하기]]></title><link>https://blog.bbubbu.me/jmeter/</link><guid isPermaLink="false">https://blog.bbubbu.me/jmeter/</guid><pubDate>Wed, 15 Jun 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;jmeter-ut-테스트-세팅---requestbody-파일로-주입하기&quot;&gt;&lt;a href=&quot;#jmeter-ut-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%84%B8%ED%8C%85---requestbody-%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EC%A3%BC%EC%9E%85%ED%95%98%EA%B8%B0&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Jmeter UT 테스트 세팅 +  RequestBody 파일로 주입하기&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;Jmeter를 이번 프로젝트에 적용하게끔 도와준 초루님 감사합니다.&lt;/code&gt;&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;이번 회사 프로젝트에 Jmeter를 도입하기로 했는데, json테스트 데이터를 느릿한 jmeter 어플리케이션에 케이스 별로 하나하나 넣어 주는 작업이 너무 귀찮았고,&lt;br&gt;
+내 컴퓨터가 이상한건지 command+C / command+V 가 앱 상에서 되지 않아 너무 너무 불편하여 파일로 넣을 수는 없는지 찾다가 적용한 글이다.  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;아래는 참고한 글!&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://devqa.io/jmeter-send-json-file-as-request-in-body/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Jmeter Tutorial: How to Send a JSON File as Request in Body&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Jmeter다운받는 주소는 아래입니다!&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://jmeter.apache.org/download_jmeter.cgi&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Download Apache JMeter&lt;/a&gt;&lt;br&gt;
+꼭 자바 1.8 이상 버전 설치 후에 진행해야 한다.&lt;/p&gt;
+&lt;p&gt;먼저 테스트용으로 만든 API는 &lt;strong&gt;pathParam과 headerParam, RequestBody&lt;/strong&gt;를 받는 POST API이다.&lt;br&gt;
+따라서 우리가 필수적으로 주입해주어야하는 데이터는 이 3개이다.  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;Jmeter에 테스트 데이터 파일을 주입해서 실행할 수 있는데&lt;/code&gt;&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;JSON형태인 RequestBody의 값은 읽어들이지 못해서 따로 주입을 해주어야한다!&lt;/code&gt;&lt;/strong&gt; &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;@RestController
+@&lt;span class=&quot;token function&quot;&gt;RequestMapping&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;TestController&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    @&lt;span class=&quot;token function&quot;&gt;PostMapping&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;{pathParam}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; String &lt;span class=&quot;token function&quot;&gt;addExecuteSurvey&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;@&lt;span class=&quot;token function&quot;&gt;RequestHeader&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;headerParam&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; String headerParam&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;                                                 @PathVariable String pathParam&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;                                                 @RequestBody User dto&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;headerParam&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;error&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ResponseStatusException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;HttpStatus&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;UNAUTHORIZED&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;pathParam&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;error&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ResponseStatusException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;HttpStatus&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;BAD_REQUEST&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;dto&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;error&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ResponseStatusException&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;HttpStatus&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;FORBIDDEN&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; pathParam&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Jmeter가 설치된 폴더로 들어가서 sh파일을 실행시킨다.&lt;br&gt;
+눌러서 실행시켜도 된다..&lt;br&gt;
+하지만 난 sh확장자가 기본으로 코드 에디터가 뜨게 되어있어서 그냥 터미널로 실행시켰다.  &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;Last login&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Tue Jun &lt;span class=&quot;token number&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;05&lt;/span&gt; on ttys000
+hongjieun@hongjieunkkeo &lt;span class=&quot;token operator&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt; cd project&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;apache&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;jmeter&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5.4&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.3&lt;/span&gt; 
+hongjieun@hongjieunkkeo apache&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;jmeter&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5.4&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.3&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt; ls
+&lt;span class=&quot;token constant&quot;&gt;LICENSE&lt;/span&gt;		backups		extras		printable_docs
+&lt;span class=&quot;token constant&quot;&gt;NOTICE&lt;/span&gt;		bin		lib		project
+&lt;span class=&quot;token constant&quot;&gt;README&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;md	docs		licenses
+hongjieun@hongjieunkkeo apache&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;jmeter&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5.4&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.3&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt; cd bin
+&lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;hongjieun@hongjieunkkeo bin &lt;span class=&quot;token operator&quot;&gt;%&lt;/span&gt; sh jmeter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sh &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt; 그럼 휑한 목록을 마주할 수 있다.  &lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/5546623b38deedcce756d5f798e65380/4faaa/1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 62.16216216216216%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAABeElEQVQoz5VTDW+CMBTk//+0JQsRnCgoyrelhbZgJhrj7bXqQqbOrcmlffT1eu/1cGZzD+/TN6yjJaoiR5ZlYEwgztYWeZZjFc3x4btINyEWcQlWczRNAyEaO+d5QXsLJMkGjpAdKq4wDAOOxyNOpxNqOuD5PrbbLbTWFkopyCvGawsp0Rq0Es7hcMDPobuOyBgla0pUEE17PahQlCUquugWG5IL8SXX+dzvLcn5fLYwo+t7KqsG54LU1lYp5xw1oaoqS2hjqoSx2n6vr7Gzf0JoDrRt+28Q4fAroWn6K4zz/kRoZklQ1Hil5J2qMelDwr7fkSXE5fUo0ZBXZKUkK7FOC1pT3xij/jHb47Hah4S66xGSL4MgQBRFCGYzilco6eWTrLA+NJfc8LJkpTv4/hSe52EymcB1Xbs2irRW38rl40e5f2VjUqMuDENEqxjT+RJhnNJfkiJOMlumaQkniBGMzZ74cGc3jWmbW+Ovs1HJLGFzR2i8+AUCMYw12cJCHgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;1&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/5546623b38deedcce756d5f798e65380/fcda8/1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/5546623b38deedcce756d5f798e65380/12f09/1.png 148w,https://blog.bbubbu.me/static/5546623b38deedcce756d5f798e65380/e4a3f/1.png 295w,https://blog.bbubbu.me/static/5546623b38deedcce756d5f798e65380/fcda8/1.png 590w,https://blog.bbubbu.me/static/5546623b38deedcce756d5f798e65380/efc66/1.png 885w,https://blog.bbubbu.me/static/5546623b38deedcce756d5f798e65380/c83ae/1.png 1180w,https://blog.bbubbu.me/static/5546623b38deedcce756d5f798e65380/4faaa/1.png 2308w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt; 우리는 한 개의 API를 여러번 테스트해야하기 때문에 &lt;strong&gt;Thread Group&lt;/strong&gt;을 생성해야한다.  &lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/8284497645fae8b69b612cd35a792d2f/bb2fd/2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 51.35135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB/ElEQVQoz2VSbW+iQBjk//+PS+7bfWii6V2tWFQ4i/iKoCiIyusCKrZq08a5Z9fGeyOZ7AMMszOzSPbch7Nh+FpR8KWiQR0t0Rq4BA/t4RVKb46aOsK9YuCupqEiP6P+c4yHVh8/Wj0BWbcx8wJIccJwOpZQtTaqjyqMiYvRbE1YoWf50M0lBraPak3Bt7t71BoquqMpvtebdF9F9UGmWcFjs4N1mEJaBxHK1zPGpglrYuHlcMChLFFy7EsUxVbAMAz4vk/P9sizHLbtwLKn8DwfxXYHxjJa95A2QQh+zeYeut0ugiDAwl1gtVoR2cNuWyAlclvrYmw52JALzw+w2sTYklCeF8jyXKx5UUCK4hjH8xvsmYtmS6XoHSjNNswJdeK4JMBIMIeu62g0ZDjODFnG4K8DpClDkqRI0iviJIEUhpFw6JBDWX4SonLjCYuFi6woMV9GCGMGvdujjVroD4aI4lQIZhSdMSbiXsFIMIqF4Ia67PUHIh4jYvpJ4lEiOjjuvK1qqNcbGI1N2iSlyAX1+zdugtyRpmkUgxO34iV3kKSZ6IjHn1hT6EYfg6EJ/ndwTi76+w0pCK+HMl8s0Xk2yN2WIjH6IBNR+SHw+UKc9/cPmlPs97ub2H8O40+Hh5cjucnxejzfcDy9CfD5crngdDojoM7/FPtX9BfOK9aBfPx8iQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/8284497645fae8b69b612cd35a792d2f/fcda8/2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/8284497645fae8b69b612cd35a792d2f/12f09/2.png 148w,https://blog.bbubbu.me/static/8284497645fae8b69b612cd35a792d2f/e4a3f/2.png 295w,https://blog.bbubbu.me/static/8284497645fae8b69b612cd35a792d2f/fcda8/2.png 590w,https://blog.bbubbu.me/static/8284497645fae8b69b612cd35a792d2f/efc66/2.png 885w,https://blog.bbubbu.me/static/8284497645fae8b69b612cd35a792d2f/bb2fd/2.png 1058w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt; Thread 1개를 여러번 돌리기 위해서는 루프 카운트 항목에 테스팅 할 만큼의 숫자를 적어준다.&lt;br&gt;
+예시용 데이터에서는 에러 케이스 3개, 성공 케이스 1개로 총 4가지의 항목을 테스팅한다.&lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/7e5c32f968b3f30492e400d5e42d4260/807a0/3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 50.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABLElEQVQoz52S2W6DQAxF5/+/joQghXVCJkCGnYSlb7fX06qtqrRV+nBkywbb1x4VxTGCIMDhECDLMvT9gKZpSPsv1N73kSQpjLngamtMtzvmecGybpiX9Yv99H9D6VOOOE44nUYYhjgej7B17YrX7Hi1lraBtbXz265D1/W0j1Hl1SLTJ5hLCU2b52cUZYUkTXEpSqRpxlwBaZwyJrKk6E+o/GwQRRFKFun63iGd+mFwkzjr4oPz5aemfUxLlEzh+3viw/M8Jlps2wuWj719Z3vAinXbMI4TlMiTCY0xlJlRZuEOMzD5DOM0OSWq4rLDKMZu53HKA3eY8+lQNidt32X8ieyP33eyw4pHObGI1pqXtLjPs5M7P4nIHqfbW8GqqhzSQYJ3vsP/IDt8BZDD8Dqh1525AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;3&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/7e5c32f968b3f30492e400d5e42d4260/fcda8/3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/7e5c32f968b3f30492e400d5e42d4260/12f09/3.png 148w,https://blog.bbubbu.me/static/7e5c32f968b3f30492e400d5e42d4260/e4a3f/3.png 295w,https://blog.bbubbu.me/static/7e5c32f968b3f30492e400d5e42d4260/fcda8/3.png 590w,https://blog.bbubbu.me/static/7e5c32f968b3f30492e400d5e42d4260/efc66/3.png 885w,https://blog.bbubbu.me/static/7e5c32f968b3f30492e400d5e42d4260/c83ae/3.png 1180w,https://blog.bbubbu.me/static/7e5c32f968b3f30492e400d5e42d4260/807a0/3.png 1652w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt; 공통으로 사용할 데이터를 만들어준다.&lt;br&gt;
+&lt;strong&gt;CSV Dataset과 Http Header관리자&lt;/strong&gt;를 쓰레드 그룹 안에 추가한다.  &lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/4693c56a03d575e5869246f957f57bde/cf8e5/4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 83.1081081081081%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAACzElEQVQ4y31UiW7aQBTk/z+g7V+0qtS0VdI6xJyJ4xNz2iaAje8Dm0BapZm+3ZAUo6grPbEY7+y8mXk03DCHZk4hGVOYtoc4K7F/+I3tbo/d/heKcgtzNIGiajAMA8ZggNVqhSRNEccJkqRejcfHPyiqHbykxNmVjO9tHS1lhrZq06cF4XqIi94AQt9EpydBVjQs3QBZUaLa3mNTVihZVRXfN3C0HMeBaZowh0NMJlOMxxMMRyP4vo9iU+JGUnDZFGHZC8zvlsjygoC2HKjYVHzfeHp6Aiu2NE1Hu92GTcDT6Qx3iwU2BJRSe1mWEzsFrZYI23b4ha7n0d7Ggt5zvTUsy6oDGgNiRkBpVpBGOeIkQ0Q6rdYRgijFaDyDM7/DYuXDp+85tR1ECUKqOI6xXnungAM4dGNRFAdWdCjP4AcxHUrx7WcLn75eQmhe4aZ7iX6nSSXA0CTokznUqVsHlBWVt8K0iZP0tVZeBM9PIPZuIfZ1mGoP118+QPj4Hu3P7+DIZ5gRkcl8fcrQJNo+2Z/yVp9jkR4iknK9lsslN8s0h5DlW+ikO+tkW5UoN0UdcDK1oFLezOGImM4obx6BPesYEaBl2Vx4pnOn24fY6qB51YJumKTvlNyfn7isG/SCCFFsYU7iM2eTo5YZM03TuPssEb1eFwo5H4Yhj1YURXVA0xzx22POiLWbcQ0ZO+bmYrkiSdZkWIYR5bPf7/MLmIF5nhOBrA7IqFuWw9sMo5gXA/bDBAGV7wfEJuCHVQLqdruQJIkzY88YcA3Q9XzOptruKP1bSv49ZXKDdRDxrDFmjEVGhyXpFoIg4Pz8nMyRDzHL/o3eC+jp2u0fiF3EX2aHXqZGUVWuHxtV13Vff68xfNkfP9vRv05ArZ8Carr+qiFnfQz4FlgN8A2G+gHQti0kNHZsomotn67/ApKGN5KMix8CZXbMZz48zPRfrfboKwGqh1cAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;4&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/4693c56a03d575e5869246f957f57bde/fcda8/4.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/4693c56a03d575e5869246f957f57bde/12f09/4.png 148w,https://blog.bbubbu.me/static/4693c56a03d575e5869246f957f57bde/e4a3f/4.png 295w,https://blog.bbubbu.me/static/4693c56a03d575e5869246f957f57bde/fcda8/4.png 590w,https://blog.bbubbu.me/static/4693c56a03d575e5869246f957f57bde/efc66/4.png 885w,https://blog.bbubbu.me/static/4693c56a03d575e5869246f957f57bde/c83ae/4.png 1180w,https://blog.bbubbu.me/static/4693c56a03d575e5869246f957f57bde/cf8e5/4.png 1402w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt; CSV Dataset은 API에 전달해줄 값들을 세팅하는 부분이다.&lt;/p&gt;
+&lt;p&gt; &lt;strong&gt;1. CSV파일을 생성해서 파일 이름에 경로를 넣어준다.&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;2. 파일에 담긴 데이터 순서대로 변수 이름을 할당해준다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt; &lt;strong&gt;참고로 JSON과 같은 데이터 형태는 받지 못한다.&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/a1e7d83d52cacaf3d0377e3e1d7baf5f/cb425/5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 72.2972972972973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAACaklEQVQ4y41T204bMRTc3+cr+tp+AS9VVVUqTQIkTQKEwGZvju31XrOb3YAIZDo2ICHaSlganSNfxuM5x95icY0wihHFCUyWY9v1aNqti/3uzsWPoO933L+DF5MoCAKHLM9RbzZomhapyXhJzLnC5fayV9h9dl6nxq3ZPFprhImCZzeUZelQ1zXSNEWSJJjNphiPJ1BpjrXSjBljirysUTdbVJsWZd042FxlNXxhqDARTt1iscB4MiHJGCcnJxiNRphMfuM2iCC1cWRCpjB5ibzaOGIXX3JLnOYVPCu5qiqnLAxDKpuRaILZdIqLi0v4YYI0KyGpVJmckUr137DzoUj5ZL6/rmpH2jYNtNaYz+ckHWM4HGF0PkUkJGJ6FAnlYPNnPOcRYyI1rvwYnhQx1kbRoxSKZIaKtVUbRbhiB8wvF/CDEDFJrZdSpy4mUjnYXDAqzoeJhCdupizCCrtii47m2qcbY1yBclbTXiJ54Nb3sV5LCCFYWYOG3jVpyf0GBV9nu0VpVlnS7E+TYxydfcFxMEJBL+yCtcAS2wteL7F2KKXQlhucrRc4Ov2M2yRAV5VYs8XytIDXbluIvsBNq5DdbfCwf8D+8RH7/R6PjP8Cng7QdY5vy3P4UuL7qsOAn+Nn+BXe/f09dtsOhubWRUnCPT4y7viLNLtAL6/g+1N6fo1V4lNh22IwHGB0doohe6/rOnfgcDj8F3Z0/Gb6fAAz/oVs9QO5uKTnNbwNv9pyuXT+SMrfvyh8e/h1vJ3r+x4yo99sOz8QSNhOxrAP7YKtaMMetIV4S/h+vCfMM1aYnaBZRMPCFUWBP7cKFNiQdxaqAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;5&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/a1e7d83d52cacaf3d0377e3e1d7baf5f/fcda8/5.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/a1e7d83d52cacaf3d0377e3e1d7baf5f/12f09/5.png 148w,https://blog.bbubbu.me/static/a1e7d83d52cacaf3d0377e3e1d7baf5f/e4a3f/5.png 295w,https://blog.bbubbu.me/static/a1e7d83d52cacaf3d0377e3e1d7baf5f/fcda8/5.png 590w,https://blog.bbubbu.me/static/a1e7d83d52cacaf3d0377e3e1d7baf5f/efc66/5.png 885w,https://blog.bbubbu.me/static/a1e7d83d52cacaf3d0377e3e1d7baf5f/c83ae/5.png 1180w,https://blog.bbubbu.me/static/a1e7d83d52cacaf3d0377e3e1d7baf5f/cb425/5.png 1678w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;  &lt;strong&gt;Http Header관리자에는 headerParam 변수를 넘겨주고&lt;/strong&gt;&lt;br&gt;
+requestBody데이터가 json타입으로 갈 예정이기 때문에&lt;br&gt;
+&lt;strong&gt;content-type : application/json&lt;/strong&gt;&lt;br&gt;
+항목을 추가해준다.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/81de131b6ba6c46b36f30e26f91652bd/5b6ee/6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 46.621621621621614%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA+UlEQVQoz62SyXKDMBBE+f/PCwjbwsFLgFTQarElp85ILGU7UMkhhwdV00P3MFK02x+QJAxxHKOsKhhroZSG0k8ovV4PmoJzDmmaImL0uFyuOBMfdY2269G03Q+6vg+saa5pMXx+IeMZohMZHThHnp9QFCWZCpr0nZINJE3kqYXEW1mhIGohgub7fN3rQirYm8NLnIyGx9c8CB1Nd3NNwM1vStfGgmdHcJpA0scN1R76yKwfBrB0h8gnWWPCHrbQWsFQj0dPO7tHShl2yBgbDecmPS1ZPzEeyH3Aoy6nQ0nWDLdYDDe0MOH8y38x/C1suTb/YbjskO7zNxUzpMBAusl6AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;6&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/81de131b6ba6c46b36f30e26f91652bd/fcda8/6.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/81de131b6ba6c46b36f30e26f91652bd/12f09/6.png 148w,https://blog.bbubbu.me/static/81de131b6ba6c46b36f30e26f91652bd/e4a3f/6.png 295w,https://blog.bbubbu.me/static/81de131b6ba6c46b36f30e26f91652bd/fcda8/6.png 590w,https://blog.bbubbu.me/static/81de131b6ba6c46b36f30e26f91652bd/efc66/6.png 885w,https://blog.bbubbu.me/static/81de131b6ba6c46b36f30e26f91652bd/c83ae/6.png 1180w,https://blog.bbubbu.me/static/81de131b6ba6c46b36f30e26f91652bd/5b6ee/6.png 1672w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt; 각 테스트 항목이 돌 때마다 다른 에러, 성공값이 나올텐데&lt;br&gt;
+각기 다른 리턴 데이터를 체크해주어야 하기 때문에 &lt;strong&gt;If Controller&lt;/strong&gt;를 만들어준다.&lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/811f9ae46b05f091d19aeedd8e34ccf7/cd536/7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 72.97297297297297%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC70lEQVQ4y01U2XKiQBTN/3/HPE5NXrKYxBhF3BFlURBRWWVv1GQm83bmdmucUHWrqQZOn+Vebrw4R1tZ4U5eoKls0dU8qKs9pqtYrDMnwdSO8DJc4PbuGff3D+j1B7DsFQzTwufnX5xO7zgejzgejrgBXfbaQ1Maot2fQhrOIE90Ua2egodXGerCheMn6Ews/Lh9wc9HCc2Rjbu2gl8NCY3uDB11DVnbngHTNMVyYSIMfOy2LgLfg7/bIk32yNIENavw5+OElbNB4+UNnW4frhehNxij8fSMZquNhe0gTvMzYLxP0Gq9YTxR6CMHrruBZdlIsxx1fUBVVWB1je12B6nTgdztIggC6LqB8XiMTruDsihwOBzOgJ4fQaJTozhBVR9RVjUqdkBeVFQl/ChDklVYux6mMx1hlCCg0vQFJoqKrjxAn9gWJTsD+kEIVVXBGBNsvoqR1LpmCOOMDmFwNzuMxlPMdROasYRpLjAcDiDLXbo3vzMM8NRoIMsyAqgFEAfnVTMOmCPNK6zWG0iSDGWqClVTWjtkQbP5ijzPBQkBGIQx5pohJKZZgSwvL1WJPQ6Y5QyOuyOZpvDWD2Jomg5FmWAwGGA+n6MgHwXgzvMpBAsfH78F7fpS5UU6Xzlzzw8FyHJpwXFcTChEWZbx+PgI27bx/v5+SZnCGI5GIlnDMEXSjrOmYBjK8gzKAcPozMq2LfFMNwzhIWfIgTnopW1SNF/f0OsN8NaWCHCNhHqKJ1yQZD/KEScFoiSHQz7quk4SNeEhB+I+tlotzGazM2AY7WmchjAXFqbqnPyJRNtwH4WH+1z4GBHo2t2S5CWNHSWtaej3+xRKkxQ5NIKnL8BY0OZecR8Yq69S/7cQwz5J4Xk0Rb5PhxUUkHFNebPZ0nvsK5RATAmXyF/MBbPyKpkz5G2TJJmYkDAMEUWR6EvDXBLrHU3SiRq7/vIwgzo3SOaRQBhyevC9MtrjHqZZee1PzvpwqIVM/qcRPUvB/QNXyDd1MMedzwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;7&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/811f9ae46b05f091d19aeedd8e34ccf7/fcda8/7.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/811f9ae46b05f091d19aeedd8e34ccf7/12f09/7.png 148w,https://blog.bbubbu.me/static/811f9ae46b05f091d19aeedd8e34ccf7/e4a3f/7.png 295w,https://blog.bbubbu.me/static/811f9ae46b05f091d19aeedd8e34ccf7/fcda8/7.png 590w,https://blog.bbubbu.me/static/811f9ae46b05f091d19aeedd8e34ccf7/efc66/7.png 885w,https://blog.bbubbu.me/static/811f9ae46b05f091d19aeedd8e34ccf7/cd536/7.png 1114w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;이름은 알아서 넣고, 조건에 csv파일에서 받아왔던 Count값을 이용해 체크를 한다.
+4개의 열 중에 1번째 열을 테스팅하는 구문이다.&lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/8f4b5b8f8ef105ee78f899e321f677e9/569c6/8.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 38.513513513513516%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABRUlEQVQoz52SW0/CMBiG+/9/jneemCYYLiRykEl2hIGJ21hPaycwE17bwhZNvHLJk6fv2n79spWMx2Nk2y24EKCMg/ILjDmzS2YmM0rP2PEfUMpAVnECJSQa3UAba6nQ1BpamWxtkeesjl/Qhxa62f9GWx8gZA3CHu5Q3Q9APQ9yNAL3BqiGA/ChB+HdQDzeQl5fQTx54PNn8GBuuv8w3fzFDiQJA4TLJbZpCk45FMtBixn2fImjCtF+Bmib4Gzpo1XmfZs42t6p8656B6mVgkXWNTgX+O9zOsEUtN9wtUJqurPebDYIwxC+7yMIAsRxhCiKkCSxIenXZVmGbp+ds/sYZ6ZgBbLw3zCdzTGZzvC68PEymbocmwJFUTjKsujHPynLsje9/H1iq9uT1uu168KS5zmklG4Bd1eGO3ewzv18d20ovgHM31TSCrEVoAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;8&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/8f4b5b8f8ef105ee78f899e321f677e9/fcda8/8.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/8f4b5b8f8ef105ee78f899e321f677e9/12f09/8.png 148w,https://blog.bbubbu.me/static/8f4b5b8f8ef105ee78f899e321f677e9/e4a3f/8.png 295w,https://blog.bbubbu.me/static/8f4b5b8f8ef105ee78f899e321f677e9/fcda8/8.png 590w,https://blog.bbubbu.me/static/8f4b5b8f8ef105ee78f899e321f677e9/efc66/8.png 885w,https://blog.bbubbu.me/static/8f4b5b8f8ef105ee78f899e321f677e9/c83ae/8.png 1180w,https://blog.bbubbu.me/static/8f4b5b8f8ef105ee78f899e321f677e9/569c6/8.png 1674w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;실제로 HTTP 요청을 하기위해 추가해준다.&lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/0f695dfbdc8acbe72d023283f43409e9/afa26/9.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 79.05405405405406%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC8ElEQVQ4y2VUaVPiUBDk//+YrdraD1iLKIdyIyDhiOYgBEjISVgLVJTenodasktV10uA9Ex3zyQXbnZw5w4s08A22yDLMvz72e/30HUdzWYDo9EI2+0WaZpgk6Y8TzhdJ8jtng8IwjUMew5NN3kd4f0IHN6OCrzE026P8UTH4F6Dac+QbraIkhRRnCJON0TG+w0Sfp9759Mvr0eMzDl+ldood6codaYoC7o6is0Rig0NtwMTpfYEP/IV5Cs9FGpD/Px9g3y5g2rvERViOHGQw/GoZB15drtdFC4v0eFpz2Z4NAxMJhMYhsluYrhLD/VmB+VqDe1uH+VyGfmLCwyHQyTZFoFtISdExw/SZquNarWK1WpFL7cnbzYZsSFSGKaNzl0f1myOES3o9QZoNFtotToII0qOFydC+bzzvB+OYFozxPRjHYREhIDw/BBLL4S78HBzW0d/MMRUN9hAC41GExU24Thz/Hnan3dYq9Xw8KAjY0dJEhOJSk6CclchO/dQKldJ0sJk+oBS6VrZ5DgOwjAgos8OT4QiQdcfkFBqFEVEjJjeCeHSjzB3V1ShwbId+mspMtM0Yds2PM/DYrH8Jplp35FwufLVOIRRohCEMfx1RMRYLH3+p0+iO+X31dWVIjUYnnSZcJTOPBxqGlx3jvXah+97Cilli3QJJQgCpj6FbVkYjScc9Cbq9TrG47FSdCZZjh6rVyoVjkOFPjVgWbaqKtI/kXKQZVNcypPuZIOkkBQN+fs5IdOr3tSYWk1thkiXpFdMeeau4a1PXcgY2dyYQqEAjarkXor9RygeatqYQ+3QrxUJWTWMlY9CKl7Kg0LgzF20222lRIKRrr8RQhH2+wPKtNRQiwRJWKCqkzT6uP4kFLLr62tF6Pu+mt2zDrt3A9iOq9IVqesg/kpZBtsPImW+vJFM08LFRZ6EVygWiySv08vwvMPd7pmvqhe+LA4nvBzwenhDtn3itgRfc6k6ZOEBN0u2psO9VlvF4n8BqS2V4O9TgcMAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;9&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/0f695dfbdc8acbe72d023283f43409e9/fcda8/9.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/0f695dfbdc8acbe72d023283f43409e9/12f09/9.png 148w,https://blog.bbubbu.me/static/0f695dfbdc8acbe72d023283f43409e9/e4a3f/9.png 295w,https://blog.bbubbu.me/static/0f695dfbdc8acbe72d023283f43409e9/fcda8/9.png 590w,https://blog.bbubbu.me/static/0f695dfbdc8acbe72d023283f43409e9/efc66/9.png 885w,https://blog.bbubbu.me/static/0f695dfbdc8acbe72d023283f43409e9/c83ae/9.png 1180w,https://blog.bbubbu.me/static/0f695dfbdc8acbe72d023283f43409e9/afa26/9.png 1258w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt; 서버 주소와 포트번호를 넣고 요청 타입을 POST로 넣어주고 경로에 url 경로를 넣어준다.
+우리는 pathParam을 경로에 받기 때문에 변수를 넣어준다.  &lt;/p&gt;
+&lt;p&gt; @RequestBody json을 넣어주려면 Body data에 직접 json을 넣어도 되지만&lt;br&gt;
+나는 귀찮아서 케이스별로 json 내용이 담긴 파일을 생성해서 불러오게 해주었다.  &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;$&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;__FileToString&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;Users&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;hongjieun&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;project&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;apache&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;jmeter&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5.4&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.3&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;project&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;테스트&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt;$&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;count&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;txt&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/c09da0ad3088b043fea472ce2ac68ad5/5c263/10.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 43.91891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABaElEQVQoz62R3W6bQBBGef8H6n2bqOmFY1LHdsAYYzCwmL9dwE5trPZ0MEkqVZF6ka50NDsz385oZi3XdZnPF6RpitaGqq6pP4DlOA5KKbQxHI/PdN2B7vDKkcM/6K780Vvfvq9Y+jFLd00UK/ZFjdqXV9KsIFE5yWCz/C/G3KBReXXVDzFrYj9yb8/YJYosL/H8gG24e/PL2rxPpWU9zVUTvOiLUmM9Lhwcx6U2jXQpCMOQRPYZxbE81LSyAtO2NF1H046YwUp8oKxqvPWaYLulkj+wVpuQlbchjBSzp0A+yGEhTfxNRLRLyWSMfV6TJBmp2qNe/J3kUhm5656JZVUDxrRYXhDz8HDD3fQLt5MbJvZnbr9+Yv50hx/YUnjKOpiKtYnC5RgTPH+C799L4RlF7qAbTybcYJW649fPI32vuVwMl97QXxp+nGpOb1Scz5Lv29E/j5xPAxW93KEh19VY8H+dsjnzGymfoq4ieo43AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;10&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/c09da0ad3088b043fea472ce2ac68ad5/fcda8/10.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/c09da0ad3088b043fea472ce2ac68ad5/12f09/10.png 148w,https://blog.bbubbu.me/static/c09da0ad3088b043fea472ce2ac68ad5/e4a3f/10.png 295w,https://blog.bbubbu.me/static/c09da0ad3088b043fea472ce2ac68ad5/fcda8/10.png 590w,https://blog.bbubbu.me/static/c09da0ad3088b043fea472ce2ac68ad5/efc66/10.png 885w,https://blog.bbubbu.me/static/c09da0ad3088b043fea472ce2ac68ad5/c83ae/10.png 1180w,https://blog.bbubbu.me/static/c09da0ad3088b043fea472ce2ac68ad5/5c263/10.png 1636w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt;예상한 값이 들어왔는지 확인하는 &lt;strong&gt;응답 Assertion을 2개!&lt;/strong&gt; 추가한다.&lt;br&gt;
+&lt;strong&gt;Response Code와 Data&lt;/strong&gt;를 확인하기 위함이다.  &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/2cb704f5fb4d6822d6daeedc4bd44b97/fbf76/11.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABvklEQVQoz0WRe2+aUBiH+/2/yfbHknVLbXUXKSpaLopFrE0nCnjlJt5ou2zP3kKTkTw5h0PynN/v5cIPVziTXwwfpszCNfvzK7vjs/Ai+9/EuxOmPWY6D8l2Obt8X5JnO/I0I5ezvZDL2dt68ecvuE8+n25Urpo6V4rOjWpxLVx+12i0B7TtJ3T7gZbaYjieEPVtCkWhaDQ4X9c4aBon2e8/X3KBPEG4xe736WkdZt6UJI6INmuWi5CtrMXpwGji8fFrkw9fflD71qVeb1GrqzRbfTTdpdVxiObmu3AT01RuMQyTKIpJpUqSpqRZtcZxwr37iNIxS3HXHIpIQ9XuMGwHT8bmLTa8vBaV8HwusKTGYrkiTlI225htVLFaRyzWMX4Qoqoq/f4A1x1j6HcM7QG9rsYyDGSWGcfTuRIeDkd+NpuEQcBOPqRpIqRkWSUPVzFzP+BWbWPb94zGj+iGhT10SiJpECUZI7moSlg80+vpBJIikbpvFUuShLWMYyFCbxbgjNwyqTMa0+l0UOTH6LohiV2mU0/E8f+EpjUQQfZeNSmJhKp+ItW3ZV3DMBgM7FJmWVb57vt+OftEAvwDVuI/7AcOprkAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;11&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/2cb704f5fb4d6822d6daeedc4bd44b97/fcda8/11.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/2cb704f5fb4d6822d6daeedc4bd44b97/12f09/11.png 148w,https://blog.bbubbu.me/static/2cb704f5fb4d6822d6daeedc4bd44b97/e4a3f/11.png 295w,https://blog.bbubbu.me/static/2cb704f5fb4d6822d6daeedc4bd44b97/fcda8/11.png 590w,https://blog.bbubbu.me/static/2cb704f5fb4d6822d6daeedc4bd44b97/efc66/11.png 885w,https://blog.bbubbu.me/static/2cb704f5fb4d6822d6daeedc4bd44b97/c83ae/11.png 1180w,https://blog.bbubbu.me/static/2cb704f5fb4d6822d6daeedc4bd44b97/fbf76/11.png 1252w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br&gt;
+Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응답코드를 적고 equals 로 놓는다.&lt;br&gt;
+에러 테스팅인 경우, 옆에 상태코드 무시를 체크한다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/aee4789728708067027a68a0282a30aa/b54cd/12.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABZElEQVQoz31S2W6DQAzk//+srdQSFImWMwmwsAdHw9HHqW0EIlXbh5HXjpmMx/bCMMT5fIZSCn3fo207dF2HtnuMK/p/wb1ekqSotaGkx7x8YZoXwfbmuL3v4/QD40MuhKdTgDy/ICPcihLXWyFI0pTyClEUI79cUJTVgWTESO9xmney4T6uhL5/QppmqBuNhpQWpRLCStWSq7oRYq5ZsoPhCHVjUFZqz63j2MJ7ffPBPg7Dp3jIROypMUbyYRhI4RVBEEhNfCWCjyiB7/vQWkvNuZbqRPj0/IIojsVDS0WGNhbGOnlzZLDarbb1MKxzooxrorCsKmrWe0HVWvwsaJw0y0ndDQV5W1Y15RmuND5bwH3rqO0OVu6F4buMxAo3L45K2MOYLoGtEMU7weodg79tZCoLj++HtybnQlub5iMW2Sb7yz2znNThd+rnTS90Vsauf+5thv4OJ0a3sog1/7t3HfkbvHbss4ppXh0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;12&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/aee4789728708067027a68a0282a30aa/fcda8/12.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/aee4789728708067027a68a0282a30aa/12f09/12.png 148w,https://blog.bbubbu.me/static/aee4789728708067027a68a0282a30aa/e4a3f/12.png 295w,https://blog.bbubbu.me/static/aee4789728708067027a68a0282a30aa/fcda8/12.png 590w,https://blog.bbubbu.me/static/aee4789728708067027a68a0282a30aa/efc66/12.png 885w,https://blog.bbubbu.me/static/aee4789728708067027a68a0282a30aa/c83ae/12.png 1180w,https://blog.bbubbu.me/static/aee4789728708067027a68a0282a30aa/b54cd/12.png 1662w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt;Response Data에는 필드를 텍스트 코드로 선택하고 응답 데이터를 적는다  &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/9ceb9a5f8a3ccbb2558cf6dc88ee05a0/573d3/13.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 43.91891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABU0lEQVQoz4VS2XKDMAz0/39Zpn1JCyGEhPsIhw0kXI9bSQGmM51MH3bkldeSvLaybRuWZcNxHLRt+z+67j3aDurieSjuJapa4/EcMM0LhnHCOM1/8BxG0bxD/3hCOe4F5/MZYRghihMEFPPiDt8PECcpwiiGHwSUD1HXzV54GMe10bTySYoq73rD8fiFLM9xLyuZNssLKpbsnBtw4YyiNh0a3QqY50W552ptoPwgwuFwQFEU6Pte4AchXNeVdbf6ZtsnyYmPxlABA4v8d04nGOKc0wTleld8fHzSJNy9FSGjbrRwQwU4Mq/oyoaMZ/47x3q9nlNplsl1ObEVTNJM/OTI3vH6ZUOKgKZPshwx7b0atK+zKxR7821ZIt6mY2FZ1RIZ/FAX70a3qNa8FtSN2c+whyVpVds9RMTGy7ehlxPMW1z27zKufNPsX4peeF4WFGWNH+szoBg9wCVwAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;13&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/9ceb9a5f8a3ccbb2558cf6dc88ee05a0/fcda8/13.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/9ceb9a5f8a3ccbb2558cf6dc88ee05a0/12f09/13.png 148w,https://blog.bbubbu.me/static/9ceb9a5f8a3ccbb2558cf6dc88ee05a0/e4a3f/13.png 295w,https://blog.bbubbu.me/static/9ceb9a5f8a3ccbb2558cf6dc88ee05a0/fcda8/13.png 590w,https://blog.bbubbu.me/static/9ceb9a5f8a3ccbb2558cf6dc88ee05a0/efc66/13.png 885w,https://blog.bbubbu.me/static/9ceb9a5f8a3ccbb2558cf6dc88ee05a0/c83ae/13.png 1180w,https://blog.bbubbu.me/static/9ceb9a5f8a3ccbb2558cf6dc88ee05a0/573d3/13.png 1650w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt;마지막으로 결과를 확인하기 위한 &lt;strong&gt;결과 트리&lt;/strong&gt;를 추가해주고 완성된 &lt;strong&gt;if Controller를 복제하여&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;원하는 테스트 데이터 수 만큼 생성&lt;/strong&gt;한다. (각자 예상 response데이터는 수정해주어야한다.)  &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/5aaa1b1158ea33e21eb1b0d409ee266a/35252/14.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 85.8108108108108%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAADAklEQVQ4y11Ui26iUBT0/39ls0mT3Wzrdn3U9wOxCCJFsaL44HFB0G3dVp0996KtlmRyIbmZM3PmHDIs2WG+CjCZOjAnc/gBw35/AH+O+HyeJ1PU6w1Uq1W4rovNdosoihCFJ0QpMvvDEVH8An00w/ffNRTaBqqKhZJsotwdirMoGcg1+8i3dEiPOjqdLuzZAkG8xZaKb9732Ly9CQjCePsPYRRDlru4/5PDn1wBal/HwDCh6QO0pA5schCwCP0BFarU0JC6WPT6SFpNxOUqEllFTBCErjvHzHGgan00yJZpmojjGOv1GvE6RpIkH5YeFQ09tQ/DHGPakpAoPbBKHqvqDVjzBzIHahcLFgjDgC7qqFTr8HwG1wuu4Cw8LF2Gvm6g0WhiOBpjQffi1x1ejztyOcHufYHMZesnExuWNRLKwpARQoEoCrFY+WDhGsaTiWz2HhL10aNCry8vuHwyx+MRh0OaqkLyC4V8SshYSkrnmghnc1coLNZlfPv1QCHp+Jlr4CZbRrbcQaljoK3bKSGHUGjPMLLGQgm3fYn50heEpmVDUQdQdRMlCieXL8AcWVh5PqbO8kyYKuxTsoZhCJu+7xMCBDSXjKUIKZThcARJakPt9dCiUFptSYjwiHDl+l8VTtFut9HtdgmPlLomLjIWpoRUaObMqc8WHDpVTaf7kghpRCoZDfgVoTm0kC8UUXwooUJ2eIGAcbWpZQ7+zXucJBtoNGa1Wo1UDz8cXRGOn220aYiVngZ9YIg15P3jp0NktuPRd0BqAyJNFyF7d0dBFtCjFnhfCblsWZbFAJ9tpmf6zvvJyXny0amfiqIIGIMBptPZNeGTSRd6qlgxl3rnnYaaW+FzuFwFwj4n55skU6/vSOHt7S1seyLacUXozFewyHay+UuJ0rqtU/A9X654isHJMhOWNZoK/vfhQaqqmlo+T/iZ9Px+FGf6zX9nrkj7c4TOCnO5HIWjYTy2xERkcKHwUq1YydM7J+TV+dicCXkPeYvkrkL7/YTpbE5FGf4DgW/jxsIvuA0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;14&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/5aaa1b1158ea33e21eb1b0d409ee266a/fcda8/14.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/5aaa1b1158ea33e21eb1b0d409ee266a/12f09/14.png 148w,https://blog.bbubbu.me/static/5aaa1b1158ea33e21eb1b0d409ee266a/e4a3f/14.png 295w,https://blog.bbubbu.me/static/5aaa1b1158ea33e21eb1b0d409ee266a/fcda8/14.png 590w,https://blog.bbubbu.me/static/5aaa1b1158ea33e21eb1b0d409ee266a/efc66/14.png 885w,https://blog.bbubbu.me/static/5aaa1b1158ea33e21eb1b0d409ee266a/c83ae/14.png 1180w,https://blog.bbubbu.me/static/5aaa1b1158ea33e21eb1b0d409ee266a/35252/14.png 1204w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt;완성본&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/eebcf4e9a2158d53c25002cfdfe24460/40040/15.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 152.7027027027027%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAfCAYAAADnTu3OAAAACXBIWXMAABYlAAAWJQFJUiTwAAADQElEQVRIx5WWiW7TUBBF+f/f4BsAgQSqKiSgrEqalmb1bjfet3hNLnNf66qoS9wnWfGzlaOZuTP3+VWc1TD8At61j8V8Ds/zMJlMUDcN7q/D4YCn1vCubTu82u/3mOoZZnMNG82AbZnwXBtxGMA0NKRJgsVicffHx8D/AXnTdXvotg/d8rDa6Pjw+Q/env7Cx28XSLICURQ+AN4H/wfkppMoi6pHnNfwkwrvvkzw+s0p3n9dIEoL9F2Lvu+fTP9BhK1E2PV78PmuarCNXISxRKxpsCwLFxcXyPNc/YklejZCdSMwQvv9QYA1YrfAdhtiOp1gtVrBNE116bqOqqrGA/fyIi5qXC63Io6F9XqtIFT++voamkQ8RPo8UGCEcpW7Gmc/f8C2bTiOo37vA8uyPA5k/aqmRyMPkjTD97MzATlIpGUYESFFUSBN0ztxjqqciMJukMGPctiOgelsijAMn23koykrUeoWtm/C3dpSP0OlfHV1hd1u92RzPyMKa1ghD0oEQYTZ7BybzUYJM9SyruuXqZyWNeZzH47tyu9cASkOYbxnLUcCexVhLipP/l5J3xkwDEP1n+u66iJwfNt0e/Uiy3KcnpxIY2+VqnEcy7NMKR4EwTiVe1GZNkaVt2Ei42bi/Pz8gcocu6PmMKTctD0quXZVB91ZQ7PWYl8WfN9XDT2IMa5t+pu2GVTO0lwsK1Y+SIU5zwQz/ebWeEerXOwa6IsIjuXi8vJSRcexe7E5NARKiIm0zWylSboGlsulio5Qqsw2ojijVO5uzaGQuT359OlOZQpDSBRFSuWu644AOcsCS8sGQVzAD2MspXZMl7DBUNkurN8ogyWwFrdJxAuzsoXnW1hu5jIh7l3/DZGNNodh7WRSgsiXIyBUNaQYjJYps3WOp3wLvGlwqlxjK8eq5/nS3FMF5SxzDOng41S+Bd4cARWmC0sdAYTwkKIxMG3uOYajgMMqmw5/TU/cxlaNzaiYNiPlF8WII+AgfUhToBEE8IMQltg/AYTx4j0VZ5Rt244wB9nr2hzm5jdW640yh4VAhoOJjv0Y4Ekgt46twdYmMl6mqhkjY/04HRRltNsMm04+N3Boj35hHftY+gel4Vrv9NnhfgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;15&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/eebcf4e9a2158d53c25002cfdfe24460/fcda8/15.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/eebcf4e9a2158d53c25002cfdfe24460/12f09/15.png 148w,https://blog.bbubbu.me/static/eebcf4e9a2158d53c25002cfdfe24460/e4a3f/15.png 295w,https://blog.bbubbu.me/static/eebcf4e9a2158d53c25002cfdfe24460/fcda8/15.png 590w,https://blog.bbubbu.me/static/eebcf4e9a2158d53c25002cfdfe24460/40040/15.png 616w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt;위에 RUN 버튼을 누르면 자동으로 쓰레드가 실행된다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/90d54a37f50da462cd319b2b12da6411/68638/16.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB70lEQVQoz21SCXKbQBDk/39KKpU4TkW2hA4EAmHu+4blUCSgPaxt5ahsVdewy2xPT88Ka20LTXnAVhRhnVQ4pkn7HWzHge1FiEMPjvEdivYIw7Dgui5sS8fLaQtZkqBJjwgCGz93Z+hOBOFkWng5y4jCAKyq0LUd2pah63oUZY39QYL4/A26riBNM8RxTIgo3yeigMckiRBECaI4gdC0vxAlKaSzhTCr8ecahgGKIsNxPLqUoe8HsLalglSUCn6A8X3Hz4XlYl4wbKQzjqqBnn7M74QN6yDSuRNmcLwAfhgjK0qkeYE0K5AsSPPfoL0wTjN8P+Qt11UJxthdIesGfF0d8LRXIZ90mLYP14/J2xBuEMMLE4RxRsjvEFh/g0sJeZ7dieb5TWPXX3CUFWzWz5Tjk+IW5uK5YcDzffhBiLKqUTcMVd3wKPTDlTwy+fTSNMX1er0Tt6TwoJxhWDZv0yVFqkYWuB6s5RVQTLMceVmRbSXZQS1P04iWFWiaBmVZYhzHvwg1w8FeUri/O8XC01bB81qEdDxBN2yYlkNqI96lTcMT8J/10TKjCZpuDE1dQVIfsNp9gaz+wEH6jO3+Ew1qTWQiKV3zb9ffvBEuBP9iWTV5lpbLkEbMU0+JF2AaeJynC3XTY7x1uL1jvPV4BWOp7BOpZ2WNAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;16&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/90d54a37f50da462cd319b2b12da6411/fcda8/16.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/90d54a37f50da462cd319b2b12da6411/12f09/16.png 148w,https://blog.bbubbu.me/static/90d54a37f50da462cd319b2b12da6411/e4a3f/16.png 295w,https://blog.bbubbu.me/static/90d54a37f50da462cd319b2b12da6411/fcda8/16.png 590w,https://blog.bbubbu.me/static/90d54a37f50da462cd319b2b12da6411/efc66/16.png 885w,https://blog.bbubbu.me/static/90d54a37f50da462cd319b2b12da6411/c83ae/16.png 1180w,https://blog.bbubbu.me/static/90d54a37f50da462cd319b2b12da6411/68638/16.png 1510w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt;실제로 마지막에 추가한 결과트리 항목을 눌러보면 요청에 대한 결과 값이 예상한 값과 일치하는지 확인한 내용을 볼 수 있다.&lt;br&gt;
+따로 파일로 만들어준 requestBody를 제대로 불러와서 요청한 것을 확인할 수 있다.  &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/31f6b6a81b580eef10f98e20065f338a/668c6/17.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 74.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACOUlEQVQ4y41Ua3PaMBD0//9J/dKP6UCAaUICBvx+SH7K2AaMsb09ySSBZpj2Znb2kMTe6k6grdc6ZrMZlm9v8P0AZVlBCPEN+X9C2xkGHNcF4xGSJEWW5Sj2JfYkfIuqPhBqxfXhOELlN58p1/TtDtPpM4IghE+wbQeZKFBWtRKSXOwrbG0fhkP7jgvDNGFaNizKLdvFzrRozcLacKGZtOAFDEleIMmEEouTjFz78KgFjuvBdgOsDA/LjQ3dsKlwoPY8MiDZ9YMrh9IhVTNtxHGMkK7thRHWOwdPkznmL++YvGwwXbxiqRswXQbbY2BRQmcTxTxOCdmVU+nQgzNfQKw2OFIfLl2Htc3x83mLhe5j8nsD3SQnTCCICvhcwAkzuCyH6cXYWCEhwMZm0Im1OEsRJBFVj0mshwyW7hHK6lGEvMoRVwkCwRAVMeJ9iuPphObcUo9LJGmGiM6lNEw5Ay3LBT5iGEZmSQHOOAT1sqUvXtoW7aVFN3QKj0Ia0lIaxEBKfT8olhHEAnVVYTg06OoGQ3mWp2VJQk/nPtAp9KpIj1PTjIKjuy9BltA7LOQjX+LcGLIESXm0/wXgb/apDd4jwYKueLlxRA6Ui9GR5FsMV4fNuXks2JwvSm9cxz8h40T9/uzhrSCnKXfd4+Y/HArdSkvvpjwK+jxHlNcQVYNsf7xDWhy/rUnk5UkZ0fyQqz8Hzjkq+t0eDjV2DsOPXys8vVpYvJvYuhF29E4lZL695negR751OP4Aay10TYqU5x8AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;17&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/31f6b6a81b580eef10f98e20065f338a/fcda8/17.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/31f6b6a81b580eef10f98e20065f338a/12f09/17.png 148w,https://blog.bbubbu.me/static/31f6b6a81b580eef10f98e20065f338a/e4a3f/17.png 295w,https://blog.bbubbu.me/static/31f6b6a81b580eef10f98e20065f338a/fcda8/17.png 590w,https://blog.bbubbu.me/static/31f6b6a81b580eef10f98e20065f338a/efc66/17.png 885w,https://blog.bbubbu.me/static/31f6b6a81b580eef10f98e20065f338a/c83ae/17.png 1180w,https://blog.bbubbu.me/static/31f6b6a81b580eef10f98e20065f338a/668c6/17.png 1692w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;p&gt;응답 데이터에서는 어떤 값이 내려왔는지 확인할 수 있다.   &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/04edc66cd43c2990c9c5ecde80bbd236/81315/18.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 78.37837837837837%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAACMUlEQVQ4y5WT63KbMBCFef9X6v9Omk5tx44NBHO/SCDAXAw4MfbpCkNrZ5yk1cw3u9IsR3sRynK5xGw2h6qqiJMEu6JAlmUj+UiG9B9R1usNTMtCGEYQIkWe71Dvmxv2RNt2aNqW6O7Sdt0Qo6ye15CiCYl5vg8/CCnLEmW1R1HVKOs97StsnQBuyOG4HiVgD7heAMtxYdPZi7GF6QZQHNenUgWynErdFchJLBYZQsYR8RhBFBEcG9PHUnewtb2hGnlxMFqJ5wewvZBK1gx4LIbPEvghg+MzaIaNx19zrDY6FisN32cqFpoD3aTs3BAsFojoG8YTcEqGJ+lATCiGbiJ5WqKhG2Qf6qbFSrPw8HOBx5WJbw8bLF8oA5ZBZBW42CGKc7BkBz8SsNyIsg7ooggGWSXNBTRVg2czTCtOC4QRAw9pSGmJqi6ojzmqfT1cKocjbVmWw8uI45hmIChjDkVOSK7zKNb3PZK8grXdQn02oKs2DNWDrTPUxSuOx0vc+Yy7S2moxEvAJeJ0IsGshufMYVs/4DozWPoMXclxaBje3iKKEhQ/kQyA/GPPPxDMa/Ik+UhGpKPNKDYd9tJOyH3fJ/cETxBUstx+xPuSJ5+69ZngeeistNf+pdu3TOey/8r+naA8/CuIP4JfMX2ryPFfr9PpfCuIr9f1C1F29LtV9J46elv98Q2vhwNNubwI/g9DyScomhXiSXehuxxWmBEp1nYysHEEMfmfs6ZYw2X4DdRrwz7u2psxAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;18&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/04edc66cd43c2990c9c5ecde80bbd236/fcda8/18.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/04edc66cd43c2990c9c5ecde80bbd236/12f09/18.png 148w,https://blog.bbubbu.me/static/04edc66cd43c2990c9c5ecde80bbd236/e4a3f/18.png 295w,https://blog.bbubbu.me/static/04edc66cd43c2990c9c5ecde80bbd236/fcda8/18.png 590w,https://blog.bbubbu.me/static/04edc66cd43c2990c9c5ecde80bbd236/efc66/18.png 885w,https://blog.bbubbu.me/static/04edc66cd43c2990c9c5ecde80bbd236/c83ae/18.png 1180w,https://blog.bbubbu.me/static/04edc66cd43c2990c9c5ecde80bbd236/81315/18.png 1656w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+        &lt;/p&gt;
+&lt;p&gt;pathParam을 return값으로 넘겨주는 API를 테스팅했기 때문에 result Data는 pathParam으로 내려온다.  &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/fcd74d52b7e70636232c7943098fd779/3a1b1/19.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 50.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfElEQVQoz5VR3VLyMBTs+z+WN14oAkIL9C9N0qT/hbYKFIX1pFS/zxl19MzsbHqabPZsLNtx8DCdwiFWSqGqauRFgeI/5PnPyPIcZVXB831Ytu1g47oQQqIsK+yaBt3T8yfs9wfsD4eRjyPG3vjdn06QMoa1JMHpbEa3FBDUiLjAdteg7Z7QtN3AQqVgUg//GYsQhAyMS4JAGAky5IHHKZYrF1bIOImV5KxFTUKGCxpbKg2dZIiJ/UhiFRA8Bi4VRaMR6+QKWhtnXI2CztqDG9DG2GxIIYjXdPBuMsXCXmHhbHD7QOxyEo4hdTZkbCbKi/IDVV0jCAJYcZJg7geYrSVayqvpnjHfCNxMXEyWPu7nKzihRqRL6KxGnFSQBK4K+FwjGMFkikebHJq8TF3wr1RaDjke+xMOxx593w/8/gBmbR7LRJWkKTLjkhwvzMjVdncVvFwlX15fUdQNLucz/lo+E7DqLwTLbffR+w3O4+VeyL8TbP8k+H7WCL4BFtjzSKDRCYMAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;19&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/fcd74d52b7e70636232c7943098fd779/fcda8/19.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/fcd74d52b7e70636232c7943098fd779/12f09/19.png 148w,https://blog.bbubbu.me/static/fcd74d52b7e70636232c7943098fd779/e4a3f/19.png 295w,https://blog.bbubbu.me/static/fcd74d52b7e70636232c7943098fd779/fcda8/19.png 590w,https://blog.bbubbu.me/static/fcd74d52b7e70636232c7943098fd779/efc66/19.png 885w,https://blog.bbubbu.me/static/fcd74d52b7e70636232c7943098fd779/c83ae/19.png 1180w,https://blog.bbubbu.me/static/fcd74d52b7e70636232c7943098fd779/3a1b1/19.png 1686w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+        &lt;/p&gt;
+&lt;p&gt;끝! &lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;Jmeter를 이번 프로젝트에 적용하게끔 도와준 초루님 감사합니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/jmeter/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 2]]></title><link>https://blog.bbubbu.me/spring-cloud-MSA-2/</link><guid isPermaLink="false">https://blog.bbubbu.me/spring-cloud-MSA-2/</guid><pubDate>Mon, 18 Apr 2022 06:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;spring-cloud로-개발하는-마이크로서비스-애플리케이션msa-스터디---session-2&quot;&gt;&lt;a href=&quot;#spring-cloud%EB%A1%9C-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C%EC%84%9C%EB%B9%84%EC%8A%A4-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98msa-%EC%8A%A4%ED%84%B0%EB%94%94---session-2&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA) 스터디 - SESSION 2&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;아래 인프런 강의를 들으면서 학습한 내용을 정리한 포스팅입니다.&lt;/code&gt;&lt;/strong&gt;&lt;br&gt;
 &lt;a href=&quot;https://inf.run/Rro2&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Spring Cloud로 개발하는 마이크로서비스 애플리케이션(MSA)&lt;/a&gt;&lt;br&gt;
 &lt;span
@@ -107,8 +770,8 @@ eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;@EnableDiscoveryClient&lt;/strong&gt;  ㄴㄴㄴ
--&gt; 현재 스프링부트 프로젝트에 유레카서버용 ServiceDiscovery라는 것을 등록해줌&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;@EnableDiscoveryClient&lt;/strong&gt;
+-&gt; 현재 어플리케이션이 Service Discovery라고 등록해주는 어노테이션&lt;/p&gt;
 &lt;h2 id=&quot;user-service---프로젝트-등록&quot;&gt;&lt;a href=&quot;#user-service---%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%93%B1%EB%A1%9D&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;User Service - 프로젝트 등록&lt;/h2&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;server&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
 &lt;span class=&quot;gatsby-highlight-code-line&quot;&gt;  port&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;9001&lt;/span&gt;&lt;/span&gt;
