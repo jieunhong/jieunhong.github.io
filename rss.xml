@@ -1,4 +1,192 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 15 Jun 2022 06:57:54 GMT</lastBuildDate><item><title><![CDATA[Jmeter UT 테스트 세팅 +  RequestBody 파일로 주입하기]]></title><link>https://blog.bbubbu.me/jmeter/</link><guid isPermaLink="false">https://blog.bbubbu.me/jmeter/</guid><pubDate>Wed, 15 Jun 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;jmeter-ut-테스트-세팅---requestbody-파일로-주입하기&quot;&gt;&lt;a href=&quot;#jmeter-ut-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%84%B8%ED%8C%85---requestbody-%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EC%A3%BC%EC%9E%85%ED%95%98%EA%B8%B0&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Jmeter UT 테스트 세팅 +  RequestBody 파일로 주입하기&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 20 Jun 2022 05:14:29 GMT</lastBuildDate><item><title><![CDATA[PIT Mutation Testing 적용 ]]></title><link>https://blog.bbubbu.me/mutation-test-pitest/</link><guid isPermaLink="false">https://blog.bbubbu.me/mutation-test-pitest/</guid><pubDate>Mon, 20 Jun 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;pit-mutation-testing-적용&quot;&gt;&lt;a href=&quot;#pit-mutation-testing-%EC%A0%81%EC%9A%A9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;PIT Mutation Testing 적용&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;Toss Slash 21 - 테스트 커버리지 100% 영상에서 나온 pitest를 따로 설정해보았습니다.&lt;/code&gt;&lt;/strong&gt;    &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;아래는 참고한 글!&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://pitest.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;PitTest 공식 문서&lt;/a&gt;    &lt;/p&gt;
+&lt;p&gt;자세한 내용은 공식 문서를 참조해주세요.  &lt;/p&gt;
+&lt;p&gt;돌연변이 테스트란, 실제 코드 값을 조금씩 변경했을 때, 테스트 데이터 결과에 문제가 있는지 없는지 검증하는 테스트 기법입니다.&lt;br&gt;
+보통 유효성 검증에 대한 정도를 확인하고, 코드에 신뢰성을 주기 위해 테스트를 실행합니다.  &lt;/p&gt;
+&lt;h2 id=&quot;mutation-test의-커버리지-퍼센트가-소스의-신뢰성에-비례하지-않습니다&quot;&gt;&lt;a href=&quot;#mutation-test%EC%9D%98-%EC%BB%A4%EB%B2%84%EB%A6%AC%EC%A7%80-%ED%8D%BC%EC%84%BC%ED%8A%B8%EA%B0%80-%EC%86%8C%EC%8A%A4%EC%9D%98-%EC%8B%A0%EB%A2%B0%EC%84%B1%EC%97%90-%EB%B9%84%EB%A1%80%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Mutation Test의 커버리지 퍼센트가 소스의 신뢰성에 비례하지 않습니다.&lt;/h2&gt;
+&lt;p&gt; 정상적인 코드를  &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;foo&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;bar&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;아래처럼 부호를 바꾼다던지, return 값을 바꾸는 등의 조그마난 코드 변경을 한 뒤 실행 했을 때의 결과를 확인합니다.  &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;foo&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;bar&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;변경된 코드 테스트가 실패한다면 killed, 성공한다면 lived입니다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;코드가 변경 되었는데도 lived인 구문이라면 유효성에 문제가 있을 수도 있으니 확인을 필요로 합니다.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;아래 상태값에 대한 설명은 공식문서에 자세하게 나와있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If your tests fail then the mutation is killed, if your tests pass then the mutation lived.&lt;/strong&gt;  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Killed&lt;/strong&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Lived&lt;/strong&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;No coverage&lt;/strong&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Non viable&lt;/strong&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Timed Out&lt;/strong&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Memory error&lt;/strong&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Run error&lt;/strong&gt;  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pitest는  이러한 뮤테이션 테스트 기법을 JVM 환경에서 제공해주는 도구입니다.&lt;br&gt;
+저는 gradle로 작업했지만 공식문서에는 다른 도구들도 지원합니다.  &lt;/p&gt;
+&lt;h2 id=&quot;buildgradle에-추가&quot;&gt;&lt;a href=&quot;#buildgradle%EC%97%90-%EC%B6%94%EA%B0%80&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;build.gradle에 추가&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;plugins &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    id &lt;span class=&quot;token string&quot;&gt;&apos;info.solidsoft.pitest&apos;&lt;/span&gt; version &lt;span class=&quot;token string&quot;&gt;&apos;1.7.4&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;test &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    systemProperty &lt;span class=&quot;token string&quot;&gt;&apos;spring.test.constructor.autowire.mode&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;all&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+pitest &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    jvmArgs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;-Dspring.test.constructor.autowire.mode=all&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+    junit5PluginVersion &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;0.15&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;build&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;dependsOn &lt;span class=&quot;token string&quot;&gt;&apos;pitest&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;gradle에 pitest를 눌러서 빌드&lt;/strong&gt;   &lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/2476d7c94df922f236e2744bdc549768/27524/1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 138.51351351351352%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAYAAABh2p9gAAAACXBIWXMAAAsTAAALEwEAmpwYAAADo0lEQVRIx41V2ZLbRBTVD1EFgZhYmyVL1t6t3UvGQxLGMw6kkhQUk6LykrzyC7wC38AboaiCgq863NuyHMuZeObhVLdat0+f23dpLchXKNdbVAQ7WUIPGhhhq0adxrEaO4x3a/rBGkPZ76BNQ4Egq+HFBSw/hTGNFXhuegmcQKqRMQnE4B+D57obqXXdjaFFSYooyTCdBbCdKR4YJlzPx9n5I5i2gywvMIsSRHGC8qsNJmmOumkRRDFEXiIVEmPaw7aGPYFmTVx4QYwwlWSUIMm60QsidVAqc1h0kGFNoE9odDza6CiYtJf399+MjjCMUbZLtKs1msUKeVkjJLJE5ATZETLBDobtKrJD4h6abtrKKEgE4odfo6wb1O0CtuthTP90UtZvMnYwjzBQyHfW//DDBNn6ArKeo5kvUM9J9XJF9xsqYvMGsmNoum0rF1gRX748v0DeLJTS3tW9whtc/IDQ2BHy5lmUIn90hYJcrtt5F126y8nUHyg8RapxqNmgI0yQU2qwQllUyKtauZzKQpHeRvYBoU/RFucbdYeC8k+WFURRomrman4nwrFpqcj1CiUFhV1OKWX6CPM4iPYpl3VrSMgKc1JYUTXw2l2ie3gA5eF7wiDOUDzeQlSNcpmrxPUDlY+HSg9xrJoU2nt23hw0ZyjmK1WnzWKpKsXxZvRvpuqdbfi7WwtuULgj3CsgNbJeqMiWdauqpiDFJV0BR5zXuDRrSnxe4/wdEHJQBuVDpKJqKboVWqprjjCDyRqqHCbkkQ9yvPf5uXd5zPcw8WA6PtWzRE5BScjdglSKskVBORlSnZvUZSzXJ8wU2J7XeO8hNMO4D8scKTj2AzhxhIxyrpQB2opqO6XNNtU72ZnGaDd2837fIbT74VOM5I8YZT/gi/QV7OwbXD19gatnr/H8uzc4f/ISoXyML8U1RuIV4foktM/OfsW97d/4/PIPfLL5B+Xz3/DyzS9YvP0XVz/9B3n9Dmcvfoax/R2fbv7Cvct3hD8/Cs3LZoiaDCG5NysihGWEy+0K3z8r8e1FivWSot4GCOsMUZ3eCmpfFhzfQywFyocUiIoCQp2mpLSQ1MJSuk8vpgeI7CzXgT11T4IaLBnSWxELSuQnG4rqfJ8qjD7vuIo4mXWrewI+BtWxuew86tZhu0aUCkqTFHEmVLVwG+Oc5G7DD9et3Ua9KTThBB2TWq7bY7AXjOMkvrl9Gdad3oq7dOsB4bHh4fdwfvrA/wFlgP+cctRHjgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;1&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/2476d7c94df922f236e2744bdc549768/fcda8/1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/2476d7c94df922f236e2744bdc549768/12f09/1.png 148w,https://blog.bbubbu.me/static/2476d7c94df922f236e2744bdc549768/e4a3f/1.png 295w,https://blog.bbubbu.me/static/2476d7c94df922f236e2744bdc549768/fcda8/1.png 590w,https://blog.bbubbu.me/static/2476d7c94df922f236e2744bdc549768/27524/1.png 646w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+      &lt;/p&gt;
+&lt;h2 id=&quot;result&quot;&gt;&lt;a href=&quot;#result&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;RESULT&lt;/h2&gt;
+&lt;p&gt;아래 경로에 테스트 페이지가 생성됩니다.  &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;build&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;reports&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;pitest&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;202206161059&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;html&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/bb297b93dcce4f0861f412d3a2666b84/e185b/2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 68.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsSAAALEgHS3X78AAAC6ElEQVQ4y12Ta3eaSACG+f8/o9t+2O0m2WbbJO1JTFITFW/RKN5vCHhD1ABRBPTpgKYnu3MOxxnO8PheZqROp0Ov1yP6bTQaNJtNnopFhsMhb2O/3/Nu8Xv9n/fHIUUftlotdF3HdRxeXmyc9Zr165ogCPH3u3hjKOaBHxAh9kfYe/DbIxnGiOl0xty0mDsLKsUsL6021tKi2VHop9O45hzDGvGsFHDFH78f/1cvWdZMqLIE1GA8jTYLFd4Gz/NwXJv1akXo+6yDLevQZx+GeNstmyDA2x3U++JdtN4fLPu0277Iz+W5bKGqYkMAtr0SqufYrsvyZUW/lEe9uSEwTXSRt5pIMEom2YqYxtUq3e9XuI06Urkc8vAQkM2G5PM7MfdFSSFhGPx2shSQxeUVxoePbERxi14f6/PfLP75wqs5Y5GRmX78hHN7i6QoAbIcUCgEFIsROEBRQlzXY7cLY6A5naBm7ml+O2XTbjFW+/Turhhd/IsrOjDqZVo/zrHyGaTn54DHRz8G5XKHuabt2G4j4CGjyXhEV5FpfT3FqzfQ9AHd5A8m519whjrqoEbj/oLVYxKpWg1Ip/1YYQQslQIsax+X8gacC1tq9iedkz/xanVGAthPXDA9OcHRDfRGmWbiK1YuFWUYxLlFtlOpA1j0wFqcxfAI1KcjajMF5e4br50W2mRIR75hdnbGaqAy0BpUKvdMGk8Hy6mjZVn2Y8vd7g7f90QxB+BsPqNbTtH940OsUJ9oDBOXmAJoa8Ky1qSZu2GVekAqlUJ+JgMymZBUOiQjh3Eptr0VqANwMTdR80nap3/FLY91Ff3iHPPkFGc0xmhX6Z99xrlOILXrr5TzNkrJoSoeteOK/PZsNlt2x2s3no5RpjVKhVvsYQ/VNKioRYzvl9iqRm+pUuxnsQqyODaVLXLao5DzeCp4wr4nbs0uvjG7o+X5bMqwlKF1LTIcDphoIrfsHcZDIlY46tTopq5ZisP/C9q+BIqo3bOiAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/bb297b93dcce4f0861f412d3a2666b84/fcda8/2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/bb297b93dcce4f0861f412d3a2666b84/12f09/2.png 148w,https://blog.bbubbu.me/static/bb297b93dcce4f0861f412d3a2666b84/e4a3f/2.png 295w,https://blog.bbubbu.me/static/bb297b93dcce4f0861f412d3a2666b84/fcda8/2.png 590w,https://blog.bbubbu.me/static/bb297b93dcce4f0861f412d3a2666b84/e185b/2.png 691w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;gradle에 테스트 범위를 all로 해서 모든 패키지가 검사되었습니다.  &lt;/p&gt;
+&lt;p&gt;예시 파일에 접근을 하면 아래와 같이 killed된 구문은 초록색 아닌 구문들은 빨간색으로 표시됩니다.  &lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/dedef83fd8da42190012732b31070c11/e185b/3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 14.864864864864865%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAArUlEQVQI123HzW6CQABFYd7/kcrKRsVUmRolRsXBUZBBwNgBmuLv6Wi6Meni5LvXib4UATP6hUdX9+gk77wtXdyVa38XrxggaoGofKtPdJWk7Eju8b85Wse0KiSffqKGA7ZDDz0esZ8IMmsiPkgnPjoMyOSMfD3noJbWBaW1VAuyaE5hMybFyXXKbZvwozYYKTmGKyoZvbZWNK2hudQ0J0N9tvtcPfu+/Pno1vALeHfbP2vsw48AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;3&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/dedef83fd8da42190012732b31070c11/fcda8/3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/dedef83fd8da42190012732b31070c11/12f09/3.png 148w,https://blog.bbubbu.me/static/dedef83fd8da42190012732b31070c11/e4a3f/3.png 295w,https://blog.bbubbu.me/static/dedef83fd8da42190012732b31070c11/fcda8/3.png 590w,https://blog.bbubbu.me/static/dedef83fd8da42190012732b31070c11/e185b/3.png 691w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;옆에 라인을 hover하면 코드를 어떤 조건으로 변경했을 시에 어떤 결과가 나왔는지 보여줍니다.  &lt;/p&gt;
+&lt;p&gt;제 경우에는 if(executeSurvey.getId() == null) 부분의 조건을 부정조건을 변경했을때 테스트가 성공해서 빨간 표시가 뜨게 되었습니다.  &lt;/p&gt;
+&lt;p&gt; 
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/079c464152b64b3919420eeec71b60a0/e185b/4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 10.135135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsSAAALEgHS3X78AAAAfElEQVQI1z2L2w6CMBQE+f+/81KTQigUVEpSBO0BIlHH2gcfJjvZ7GbiLe6iMcUOWx052xNNrajNIXlrFdPUIqsjLF1C1h7vDX2luJr4Kff0ceu3jmxrWpbSMBYFXmtuec4YSRm7SeeEwSEfQV7hT3jeCfPA44f45PIOfAGGdZSUk3/86gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;4&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/079c464152b64b3919420eeec71b60a0/fcda8/4.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/079c464152b64b3919420eeec71b60a0/12f09/4.png 148w,https://blog.bbubbu.me/static/079c464152b64b3919420eeec71b60a0/e4a3f/4.png 295w,https://blog.bbubbu.me/static/079c464152b64b3919420eeec71b60a0/fcda8/4.png 590w,https://blog.bbubbu.me/static/079c464152b64b3919420eeec71b60a0/e185b/4.png 691w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;이런식으로 코드 유효성에 허점이 있는지 확인을 해주는 도구입니다!  &lt;/p&gt;
+&lt;p&gt;junit테스팅 후에, 한 번씩 돌려서 혹시라도 놓친 부분은 없는지 확인 용으로 활용하면 좋을 것 같네요.  &lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;참고로 엄청 오래 걸립니다. gradle에서 설정 시에 원하는 패키지 범위 설정을 하고 적용하는게 좋을 듯 합니다..&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/mutation-test-pitest/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[Jmeter UT 테스트 세팅 +  RequestBody 파일로 주입하기]]></title><link>https://blog.bbubbu.me/jmeter/</link><guid isPermaLink="false">https://blog.bbubbu.me/jmeter/</guid><pubDate>Wed, 15 Jun 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;jmeter-ut-테스트-세팅---requestbody-파일로-주입하기&quot;&gt;&lt;a href=&quot;#jmeter-ut-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%84%B8%ED%8C%85---requestbody-%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EC%A3%BC%EC%9E%85%ED%95%98%EA%B8%B0&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Jmeter UT 테스트 세팅 +  RequestBody 파일로 주입하기&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;Jmeter를 이번 프로젝트에 적용하게끔 도와준 초루님 감사합니다.&lt;/code&gt;&lt;/strong&gt;  &lt;/p&gt;
 &lt;p&gt;이번 회사 프로젝트에 Jmeter를 도입하기로 했는데, json테스트 데이터를 느릿한 jmeter 어플리케이션에 케이스 별로 하나하나 넣어 주는 작업이 너무 귀찮았고,&lt;br&gt;
 내 컴퓨터가 이상한건지 command+C / command+V 가 앱 상에서 되지 않아 너무 너무 불편하여 파일로 넣을 수는 없는지 찾다가 적용한 글이다.  &lt;/p&gt;
