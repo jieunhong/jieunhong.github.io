@@ -2,6 +2,10 @@ body {
   --pink: rgb(255, 167, 196);
   background-color: var(--bg);
   font-family: 'MaruBuri' !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 body.light {
