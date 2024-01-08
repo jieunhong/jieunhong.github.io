@@ -1,4 +1,567 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 20 Jun 2022 05:14:29 GMT</lastBuildDate><item><title><![CDATA[PIT Mutation Testing 적용 ]]></title><link>https://blog.bbubbu.me/mutation-test-pitest/</link><guid isPermaLink="false">https://blog.bbubbu.me/mutation-test-pitest/</guid><pubDate>Mon, 20 Jun 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;pit-mutation-testing-적용&quot;&gt;&lt;a href=&quot;#pit-mutation-testing-%EC%A0%81%EC%9A%A9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;PIT Mutation Testing 적용&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 08 Jan 2024 11:41:10 GMT</lastBuildDate><item><title><![CDATA[JPA 프로그래밍 - 5장 연관관계 매핑 기초]]></title><link>https://blog.bbubbu.me/jpa5/</link><guid isPermaLink="false">https://blog.bbubbu.me/jpa5/</guid><pubDate>Thu, 11 Aug 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;5장-연관관계-매핑-기초&quot;&gt;&lt;a href=&quot;#5%EC%9E%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EB%A7%A4%ED%95%91-%EA%B8%B0%EC%B4%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5장 연관관계 매핑 기초&lt;/h1&gt;
+&lt;p&gt;객체의 참조와 테이블의 외래 키를 매핑하는 것이 이 장의 목표다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;방향(Direction)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[단방향, 양방향]&lt;/li&gt;
+&lt;li&gt;회원 → 팀 또는 팀 → 회원 처럼 둘 중 한 쪽만 참조하는 것을 단방향 관계라고 한다.&lt;/li&gt;
+&lt;li&gt;회원 &amp;#x3C;-&gt; 팀 처럼 서로 참조하는 것을 양방향 관계라고 한다.&lt;/li&gt;
+&lt;li&gt;방향은 객체관계에만 존재하고 테이블 관계는 항상 양방향이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;다중성(Multiplicity)&lt;/strong&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[다대일(N:1), 일대다(1:N), 일대일(1:1), 다대다(N:M)]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;연관관계의 주인(Owner)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;객체를 양방향 연관관계로 만들면 연관관계의 주인이 있어야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;51-단방향-연관관계&quot;&gt;&lt;a href=&quot;#51-%EB%8B%A8%EB%B0%A9%ED%96%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5.1 &lt;strong&gt;단방향 연관관계&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;단방향 연관관계&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;다대일(N:1) 단방향 관계&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;회원과 팀이 있다.&lt;/li&gt;
+&lt;li&gt;회원은 하나의 팀에만 소속될 수 있다.&lt;/li&gt;
+&lt;li&gt;회원과 팀은 다대일 관계다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/c395c53b8663ae915476828d07c841ab/a9b70/0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 479px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 58.78378378378378%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAAsTAAALEwEAmpwYAAABiUlEQVR42m2RWYvCQBCE5///GB8UEQmI4A0JMcRrNRo1GI8cZnXVdTXZ/ZyBRdB+aHpmqqura8Tvu7jf7+v1OoqiIAh2ux1FlmWvMJGm6beM6/X6I4OC43w+9zyPPJvNIKKZ+8vlojAAGCD2+73v+4A0TSuXy5ZlccPxS8bxePyU4TgOMOiKxeJoNNpsNih6NBuGwTNnREIJMUUqA21JkpxOp8Ph0O/3qaEDo/CCQ7Va1XW9Xq9DD5qeMAz/l1QFgk3T7Ha7y+VytVq5rgtGwDocDlFC5krtycOrPZkMqNmWTC1eEWSU0x/HcSKDghlv3L7dbhgDYrvdqu85n89kTJ5MJghZLBZKC8rZHBg20YL5QuF6vV4ulysUCs1mkwaMVdxQo0K5MJ1Ox+NxPp/HHRiZ9HC7VCrxSY1Go9PpkD9kYDheMgcheAuap1qtNhgMoLBtmwECJVxVKpVWqwUlYxmIczTTgzYlge9pt9v0Yy1uowJewSYwsR63FPDxGTj07PBzsAK7YDj1H4+ellMN8XUSAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/c395c53b8663ae915476828d07c841ab/a9b70/0.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/c395c53b8663ae915476828d07c841ab/12f09/0.png 148w,https://blog.bbubbu.me/static/c395c53b8663ae915476828d07c841ab/e4a3f/0.png 295w,https://blog.bbubbu.me/static/c395c53b8663ae915476828d07c841ab/a9b70/0.png 479w&quot;
+        sizes=&quot;(max-width: 479px) 100vw, 479px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3 id=&quot;객체-연관관계&quot;&gt;&lt;a href=&quot;#%EA%B0%9D%EC%B2%B4-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;객체 연관관계&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;회원 객체는 Member.team 필드(멤버변수)로 팀 객체와 연관관계를 맺는다.&lt;/li&gt;
+&lt;li&gt;회원과 팀 객체는 &lt;strong&gt;단방향 관계&lt;/strong&gt;다. 회원은 Member.team 필드를 통해서 팀을 알 수 있지만 반대로 팀은 회원을 알 수 없다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;테이블-연관관계&quot;&gt;&lt;a href=&quot;#%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;테이블 연관관계&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;회원 테이블은 TEAM_ID 외래 키로 팀 테이블과 연관관계를 맺는다.&lt;/li&gt;
+&lt;li&gt;회원 테이블과 팀 테이블은 &lt;strong&gt;양방향 관계&lt;/strong&gt;다. 회원 테이블의 TEAM_ID 외래 키를 통해서 회원과 팀을 조인할 수 있고 반대로 팀과 회원도 조인할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sql&quot;&gt;&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; MEMBER M
+&lt;span class=&quot;token keyword&quot;&gt;JOIN&lt;/span&gt; TEAM T &lt;span class=&quot;token keyword&quot;&gt;ON&lt;/span&gt; M&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TEAM_ID &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; T&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ID&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sql&quot;&gt;&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; TEAM T
+&lt;span class=&quot;token keyword&quot;&gt;JOIN&lt;/span&gt; MEMBER M &lt;span class=&quot;token keyword&quot;&gt;ON&lt;/span&gt;  T&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TEAM_ID &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; M&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TEAM_ID&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;객체와 테이블의 다른 점&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;참조를 통한 연관간계는 언제나 단방향이다. 객체간에 연관관계를 양방향으로 만들고 싶&lt;strong&gt;으면 반대쪽에도 필드를 추가해서 참조를 보관해야 한다.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;정확히 이야기하면 이것은 &lt;strong&gt;양방향 관계가 아니라 서로 다른 단방향 관계 2개다.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;반면에 테이블은 외래 키 하나로 양방향으로 조인할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;객체는 참조(주소)로 연관관계를 맺는다. (a.getB().getC())&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;테이블은 외래키로 연관관계를 맺는다. (A JOIN B AND B JOIN A)&lt;/code&gt; &lt;/p&gt;
+&lt;h3 id=&quot;511-순수한-객체-연관관계&quot;&gt;&lt;a href=&quot;#511-%EC%88%9C%EC%88%98%ED%95%9C-%EA%B0%9D%EC%B2%B4-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.1.1. 순수한 객체 연관관계&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; username&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Getter&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Setter&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//팀의 참조를 보관&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Getter&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Setter&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;team1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;팀1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; member1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;member1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;회원1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; member2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;member2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;회원2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+member2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; findTeam &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;회원1이 속한 팀 1을 조회해보자&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; findTeam &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이처럼 객체는 참조를 사용해서 연관관계를 탐색할 수 있는데 이것을 &lt;strong&gt;객체 그래프 탐색&lt;/strong&gt;이라한다.&lt;/p&gt;
+&lt;h3 id=&quot;512-테이블-연관관계&quot;&gt;&lt;a href=&quot;#512-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.1.2. 테이블 연관관계&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sql&quot;&gt;&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; MEMBER &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    MEMBER_ID &lt;span class=&quot;token keyword&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    TEAM_ID &lt;span class=&quot;token keyword&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    USERNAME &lt;span class=&quot;token keyword&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;KEY&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;MEMBER_ID&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; TEAM &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    TEAM_ID &lt;span class=&quot;token keyword&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    NAME &lt;span class=&quot;token keyword&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;KEY&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;TEAM_ID&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;ALTER&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;TABLE&lt;/span&gt; MEMBER &lt;span class=&quot;token keyword&quot;&gt;ADD&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;CONSTRAINT&lt;/span&gt; FK_MEMBER_TEAM
+    &lt;span class=&quot;token keyword&quot;&gt;FOREIGN&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;KEY&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;TEAM_ID&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;REFERENCES&lt;/span&gt; TEAM&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이런 테이블 구조에서 member1 이라는 ID를 가진 멤버의 팀을 같이 조회해보자.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sql&quot;&gt;&lt;pre class=&quot;language-sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;SELECT&lt;/span&gt; T&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; 
+&lt;span class=&quot;token keyword&quot;&gt;FROM&lt;/span&gt; MEMBER M
+		&lt;span class=&quot;token keyword&quot;&gt;JOIN&lt;/span&gt; TEAM T &lt;span class=&quot;token keyword&quot;&gt;ON&lt;/span&gt; M&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TEAM_ID &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; T&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TEAM_ID
+&lt;span class=&quot;token keyword&quot;&gt;WHERE&lt;/span&gt; M&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;MEMBER_ID &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;member1&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이처럼 외래키를 사용해 연관관계를 탐색하는 것을 &lt;strong&gt;조인&lt;/strong&gt;이라고 한다.&lt;/p&gt;
+&lt;h3 id=&quot;513-객체관계-매핑&quot;&gt;&lt;a href=&quot;#513-%EA%B0%9D%EC%B2%B4%EA%B4%80%EA%B3%84-%EB%A7%A4%ED%95%91&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.1.3. 객체관계 매핑&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;JPA 상에서 둘을 매핑해보자&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@Entity&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Getter&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Setter&lt;/span&gt;
+pubilc &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Id&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Column&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;MEMBER_ID&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; username&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token comment&quot;&gt;//연관관계 매핑&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@ManyToOne&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@JoinColumn&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;TEAM_ID&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Entity&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Getter&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Setter&lt;/span&gt;
+pubilc &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Id&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Column&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;TEAM_ID&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; id&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; name&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;객체 연관관계 : [Member.team](http://Member.team) 필드 사용&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;테이블 연관관계 : MEMBER.TEAM_ID 외래 키 컬럼 사용&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;514-joincolumn&quot;&gt;&lt;a href=&quot;#514-joincolumn&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.1.4. @JoinColumn&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;@JoinColumn을 생략하면 외래키를 찾을 시 기본 전략을 사용한다.&lt;/strong&gt; &lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;속성&lt;/th&gt;
+&lt;th&gt;기능&lt;/th&gt;
+&lt;th&gt;기본값&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;name&lt;/td&gt;
+&lt;td&gt;매핑할 외래 키 이름&lt;/td&gt;
+&lt;td&gt;필드명 + _ + 참조하는 테이블의 기본 키 컬럼명&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;referencedColumnName&lt;/td&gt;
+&lt;td&gt;외래 키가 참조하는 대상 테이블의 컬럼명 8장 참조&lt;/td&gt;
+&lt;td&gt;참조하는 테이블의 기본 키 컬럼명&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;foreignKey(DDL)&lt;/td&gt;
+&lt;td&gt;외래 키 제약조건을 직접 지정. 테이블을 생성할 때만 사용 8장 참고&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;| unique
+nullable
+insertable
+updatable
+columnDefinition
+table | @Column 속성과 같음 |  |&lt;/p&gt;
+&lt;h3 id=&quot;515-manytoone&quot;&gt;&lt;a href=&quot;#515-manytoone&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.1.5 @ManyToOne&lt;/strong&gt;&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;속성&lt;/th&gt;
+&lt;th&gt;기능&lt;/th&gt;
+&lt;th&gt;기본값&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;optional&lt;/td&gt;
+&lt;td&gt;false로 설정하면 연관된 엔티티가 항상 있어야 한다&lt;/td&gt;
+&lt;td&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;fetch&lt;/td&gt;
+&lt;td&gt;글로벌 페치 전략을 설정한다. 8장 참조&lt;/td&gt;
+&lt;td&gt;@ManyToOne=EAGER&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@OneToMany=LAZY&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cascade&lt;/td&gt;
+&lt;td&gt;영속성 전이을 사용한다. 8장 참조&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;targetEntity&lt;/td&gt;
+&lt;td&gt;연관된 엔티티의 타입 정보를 설정 - 제너릭으로 타입 정보 확인 가능 (거의 사용 X)&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&quot;52-연관관계-사용&quot;&gt;&lt;a href=&quot;#52-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EC%82%AC%EC%9A%A9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5.2 연관관계 사용&lt;/h2&gt;
+&lt;h3 id=&quot;521-저장&quot;&gt;&lt;a href=&quot;#521-%EC%A0%80%EC%9E%A5&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.2.1. 저장&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;//팀1 저장&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;team1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;팀1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;//회원1 저장&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; member1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;member1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;회원1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;//회원2 저장&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; member2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;member2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;회원2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+member2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;! JPA에서 엔티티 저장시 연관된 모든 엔티티는 영속 상태여야 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;member2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 회원 -&gt; 팀 참조&lt;/span&gt;
+em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 저장&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;522-조회&quot;&gt;&lt;a href=&quot;#522-%EC%A1%B0%ED%9A%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.2.2. 조회&lt;/strong&gt;&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;객체 그래프 탐색 (객체 연관관계를 사용한 조회)&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; member &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;member1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; member&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//객체 그래프 탐색&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;객체지향 쿼리사용 JPQL&lt;/p&gt;
+&lt;p&gt;10장에서 알아보자..&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;523-수정&quot;&gt;&lt;a href=&quot;#523-%EC%88%98%EC%A0%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.2.3. 수정&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;//새로운 팀2&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;team2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;팀2&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;//회원1에 새로운 팀2 설정&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; member1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;member1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;3장참조) 수정은 em.update와 같은 메소드가 없다.&lt;/li&gt;
+&lt;li&gt;단순히 엔티티의 값이 변경되면 플러시에서 변경감지 기능이 동작하여 변경사항을 자동으로 DB에 반영한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;524-연관관계-제거&quot;&gt;&lt;a href=&quot;#524-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EC%A0%9C%EA%B1%B0&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.2.4. 연관관계 제거&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; member1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;member1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//연관관계 제거&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;525-연관관계-삭제&quot;&gt;&lt;a href=&quot;#525-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EC%82%AD%EC%A0%9C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.2.5. 연관관계 삭제&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//회원1 연관관계 제거&lt;/span&gt;
+member2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//회원2 연관관계 제거&lt;/span&gt;
+em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//팀 삭제&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;연관된 엔티티를 삭제하려면 기존에 있던 연관관계를 먼저 제거하고 삭제해야한다.&lt;/li&gt;
+&lt;li&gt;지키지 않으면 외래키 제약조건으로 인해 오류 발생&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;53-양방향-연관관계&quot;&gt;&lt;a href=&quot;#53-%EC%96%91%EB%B0%A9%ED%96%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5.3 양방향 연관관계&lt;/h2&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/0bef100b880538702212a3f47d169c98/dd104/1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 30.405405405405407%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA9ElEQVR42nVRy6qDUBDz/z9KdOOiorjyVeq7tbUqouILNCVzsdxNA8NwzskkGVXwA3VdI4oiFEWBsiylZ1mGJEnk/AvKuq4YxxFt2+LxeOD1emEYBtzvdwRBgOfziaqqRITFe4pO0ySmJ58a+75DIYlDYRhC0zToui4DJN5uN3Rdh77vZYim5Hqeh/f7DcdxoKqq3MVxjHme/wQvlwuaphEhDhOn638w1bIskpLrb9v2faOZCNLJMAzYti2dBiSSwHQEVzmO4zvMNOSapgnLsqS4DT+fwhRMlqapuNKdxZ9AR+IUOzuNrterlO/7cF0XeZ7L+wf8BMJDVBgkaAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/0bef100b880538702212a3f47d169c98/fcda8/1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/0bef100b880538702212a3f47d169c98/12f09/1.png 148w,https://blog.bbubbu.me/static/0bef100b880538702212a3f47d169c98/e4a3f/1.png 295w,https://blog.bbubbu.me/static/0bef100b880538702212a3f47d169c98/fcda8/1.png 590w,https://blog.bbubbu.me/static/0bef100b880538702212a3f47d169c98/efc66/1.png 885w,https://blog.bbubbu.me/static/0bef100b880538702212a3f47d169c98/dd104/1.png 1064w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;여러건과 관계를 맺을 수 있기 때문에 컬렉션 타입을 사용해야한다. &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/68c407aecc85a036c1fd48870449cff9/1ac29/2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 26.351351351351354%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA6klEQVR42m2RyYqEQBBE+///xrOKiAoi2LSgoCJ6sF1AcV9xiSETpnsOk5BUHSJfRGU97vvGcRz4W9d1Yds2uK6LKIqQJAniOObe9x3neX60NEsMKjofXdeh73seVlUVlmWhaRq0bYtpmjCOI5Zl4fu6rqjrGsMw4Pl84vV6sZYYH2CapjAMA5qmMVDXdYZTGnKnJkOC0bDjOKyTZZm1pmkiz/MvMMsyCIIASZKgKArD53lm4Pv95jSUjsD01CAIIIoibNsGhQnDEEVRfIHk6vs+Cz3PY1FZlqiqCv8VgWm/lJhWQf37BwT8AeeNdF7zE2qbAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/68c407aecc85a036c1fd48870449cff9/fcda8/2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/68c407aecc85a036c1fd48870449cff9/12f09/2.png 148w,https://blog.bbubbu.me/static/68c407aecc85a036c1fd48870449cff9/e4a3f/2.png 295w,https://blog.bbubbu.me/static/68c407aecc85a036c1fd48870449cff9/fcda8/2.png 590w,https://blog.bbubbu.me/static/68c407aecc85a036c1fd48870449cff9/efc66/2.png 885w,https://blog.bbubbu.me/static/68c407aecc85a036c1fd48870449cff9/1ac29/2.png 1022w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;데이터베이스 테이블은 외래 키 하나로 양방향 조회가 가능하다. 따라서 추가해야할 내용이 없음.&lt;/p&gt;
+&lt;h3 id=&quot;531-양방향-연관관계-매핑&quot;&gt;&lt;a href=&quot;#531-%EC%96%91%EB%B0%A9%ED%96%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EB%A7%A4%ED%95%91&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.3.1. 양방향 연관관계 매핑&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@Entity&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;//추가되는 부분&lt;/span&gt;
+  &lt;span class=&quot;token annotation punctuation&quot;&gt;@OneToMany&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mappedBy &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;team&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Membmer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; members &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;팀과 회원이 일대다 관계이기 때문에 List&lt;Member&gt;타입으로 변수를 추가해주었다.&lt;/p&gt;
+&lt;p&gt;@OneToMany 매핑정보 추가&lt;/p&gt;
+&lt;p&gt;@MappedBy 는 양방향 매핑시 사용. 5.4챕터에서 나올 예정&lt;/p&gt;
+&lt;h3 id=&quot;532-일대다-컬렉션-조회&quot;&gt;&lt;a href=&quot;#532-%EC%9D%BC%EB%8C%80%EB%8B%A4-%EC%BB%AC%EB%A0%89%EC%85%98-%EC%A1%B0%ED%9A%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.3.2 일대다 컬렉션 조회&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;team1&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; members &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 팀 -&gt; 회원&lt;/span&gt;
+																					&lt;span class=&quot;token comment&quot;&gt;// 객체 그래프 탐색&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;54-연관관계의-주인&quot;&gt;&lt;a href=&quot;#54-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%EC%9D%98-%EC%A3%BC%EC%9D%B8&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5.4 연관관계의 주인&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;연관관계의 주인&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;테이블은 외래 키 하나로 두 테이블의 연관관계를 관리한다.&lt;/li&gt;
+&lt;li&gt;엔티티를 단방향으로 매핑하면 참조를 하나만 사용한다.&lt;/li&gt;
+&lt;li&gt;하지만 양방향으로 매핑하게 되면 서로를 참조해야한다.&lt;/li&gt;
+&lt;li&gt;= 관리포인트가 2곳으로 늘어난다.&lt;/li&gt;
+&lt;li&gt;엔티티를 양방향 연관관계로 설정하면 참조는 둘, 외래키는 1개이기 때문에 차이가 발생한다.&lt;/li&gt;
+&lt;li&gt;따라서 구 객체 연관관계 중 하나를 정해서 테이블의 외래키를 관리한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;541-양방향-매핑의-규칙--연관관계의-주인&quot;&gt;&lt;a href=&quot;#541-%EC%96%91%EB%B0%A9%ED%96%A5-%EB%A7%A4%ED%95%91%EC%9D%98-%EA%B7%9C%EC%B9%99--%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%EC%9D%98-%EC%A3%BC%EC%9D%B8&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.4.1. 양방향 매핑의 규칙 : 연관관계의 주인&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;연관관계의 주인만이 데이터베이스 연관관계와 매핑되고, 외래키를 관리 (등록, 수정, 삭제) 할 수 있다. &lt;/p&gt;
+&lt;p&gt;아닌 쪽은 읽기만 가능하다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;@Mapped 속성&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;주인은 MappedBy속성을 사용하지 않는다&lt;/li&gt;
+&lt;li&gt;주인이 아니면 속성의 값의 주인을 지정하여 사용해야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;542-연관관계의-주인은-외래키가-있는-곳&quot;&gt;&lt;a href=&quot;#542-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%EC%9D%98-%EC%A3%BC%EC%9D%B8%EC%9D%80-%EC%99%B8%EB%9E%98%ED%82%A4%EA%B0%80-%EC%9E%88%EB%8A%94-%EA%B3%B3&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.4.2. 연관관계의 주인은 외래키가 있는 곳&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/e24d9c2a77d2295487692375b2a1d52f/1f09d/3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 471px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 50.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAIAAAA7N+mxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABeklEQVR42k2S246CQBBE+f+v4Y3E+AAxUUEwRlZFwXjXRfECgnLRxcOw2Ww/jDN2d3VVNVJZlj8iXq9XGIbj8XgymSyXy91ux30+n2+328PhMJ1O2+12r9cbDAaGYRyPRxol2vh5PB5U+L7/JYLO/X6/2WyAu16v3yJGoxF/1gWn0+l8Pkvv9ztJEiqAZAgzL5cLcPf7nXTNK47joihAX6/XaZrSwpMyiUcQBJRCSdO0ZrPpeV4URdQtFovn8wk0J6J4ktV1vdvtMol5UpZldNajIAkly7JQu1qtqIb5bDbjPhwOHcfpdDoMUFWVFHBVs23bGEMdM2EBEAnYFiIo4IRLKoJnnucwrwzjgTa4oQFVQOIWFNBJUfkvaglYhdVc8LjSTB0nZqIESqyk3+/DBVX0RCK4u67LFkmhmc0BIQFPAp8RI8tyq9VqNBq4BQuUQ4HO+itgEYqisGQEAsRef/fMZPzAKtM08QxUVgq3elV/tJF2u91CEbR8AFv4HwckSuKTAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/e24d9c2a77d2295487692375b2a1d52f/1f09d/3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/e24d9c2a77d2295487692375b2a1d52f/12f09/3.png 148w,https://blog.bbubbu.me/static/e24d9c2a77d2295487692375b2a1d52f/e4a3f/3.png 295w,https://blog.bbubbu.me/static/e24d9c2a77d2295487692375b2a1d52f/1f09d/3.png 471w&quot;
+        sizes=&quot;(max-width: 471px) 100vw, 471px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;회원 테이블이 외래 키를 가지고 있으므로 Member.team이 주인&lt;/li&gt;
+&lt;li&gt;주인이 아닌 Team.members에는 mappedBy=“team” 속성을 사용해서 주인이 아님을 설정&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;  &lt;span class=&quot;token annotation punctuation&quot;&gt;@OneToMany&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mappedBy &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;team&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Membmer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; members &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;mappedBy 값으로 사용된 team은 연관관계의 주인인 Member.team&lt;/p&gt;
+&lt;p&gt;데이터베이스 테이블의 다대일, 일대다 관계에서는 항상 다 쪽이 외래키를 가짐.
+다 쪽인 @ManyToOne은 항상 연관관계의 주인이 된다. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;따라서 @ManyToOne에는 mappedBy속성이 없다.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;55-양방향-연관관계-저장&quot;&gt;&lt;a href=&quot;#55-%EC%96%91%EB%B0%A9%ED%96%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EC%A0%80%EC%9E%A5&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5.5 양방향 연관관계 저장&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//무시 : 연관관계의 주인이 아님&lt;/span&gt;
+team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//무시 : 연관관계의 주인이 아님&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//연관관계 설정 : 연관관계의 주인&lt;/span&gt;
+member2&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//연관관계 설정 : 연관관계의 주인&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;56-양방향-연관관계의-주의점&quot;&gt;&lt;a href=&quot;#56-%EC%96%91%EB%B0%A9%ED%96%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%EC%9D%98-%EC%A3%BC%EC%9D%98%EC%A0%90&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5.6 양방향 연관관계의 주의점&lt;/h2&gt;
+&lt;p&gt;양방향 연관관계 설정에서 가장 흔한 실수는 연관관계 주인에게 값을 입력하지 않고, 아닌 곳에만 값을 입력하는 것이다. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//무시 : 연관관계의 주인이 아님&lt;/span&gt;
+team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//무시 : 연관관계의 주인이 아님&lt;/span&gt;
+
+em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;연관관계 주인이 아닌 Team에만 값을 입력했기 때문에 실제 DB에 저장되지 않음.&lt;/p&gt;
+&lt;h3 id=&quot;561-순수한-객체까지-고려한-양방향-연관관계&quot;&gt;&lt;a href=&quot;#561-%EC%88%9C%EC%88%98%ED%95%9C-%EA%B0%9D%EC%B2%B4%EA%B9%8C%EC%A7%80-%EA%B3%A0%EB%A0%A4%ED%95%9C-%EC%96%91%EB%B0%A9%ED%96%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.6.1. 순수한 객체까지 고려한 양방향 연관관계&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;객체 관점에서 양쪽 방향에 모두 값을 입력해주는 것이 가장 안전하다.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; 
+
+em&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;member1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;562-연관관계-편의-메소드&quot;&gt;&lt;a href=&quot;#562-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%ED%8E%B8%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.6.2. 연관관계 편의 메소드&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;team &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; team&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;//연관관계 설정&lt;/span&gt;
+member1&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;team1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;563-연관관계-편의-메소드-작성시-주의사항&quot;&gt;&lt;a href=&quot;#563-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%ED%8E%B8%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C-%EC%9E%91%EC%84%B1%EC%8B%9C-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;5.6.3. 연관관계 편의 메소드 작성시 주의사항&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;사실 버그가 있다. &lt;/p&gt;
+&lt;p&gt;기존 연관관계를 삭제하지 않았다. 따라서 아래의 코드를 추가해주어야 한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Member&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;setTeam&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Team&lt;/span&gt; team&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;//기존 팀과 관계를 제거&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;team &lt;span class=&quot;token operator&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;team &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; team&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+        team&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMembers&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;57-정리&quot;&gt;&lt;a href=&quot;#57-%EC%A0%95%EB%A6%AC&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5.7 정리&lt;/h2&gt;
+&lt;p&gt;양방향의 장점은 반대방향으로 객체 그래프 탐색 기능이 추가된 것 뿐이다. &lt;/p&gt;
+&lt;p&gt;주인의 반대편은 MappedBy로 주인을 지정해야한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;단방향 매핑만으로 테이블과 객체의 연관관계 매핑은 이미 완료되었다.&lt;/li&gt;
+&lt;li&gt;단방향을 양방향으로 만들면 반대방향으로 객체 그래프 탐색 기능이 추가된다.&lt;/li&gt;
+&lt;li&gt;양방향 연관관계를 매핑하려면 객체에서 양쪽 방향을 모두 관리해야 한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;연관관계의 주인은 외래 키의 위치와 관련해서 정해야하지 비즈니스의 중요도로 접근하면 안된다.&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;**양방향 매핑시에는 무한 루프에 조심해야한다.**&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;Member.toString()에서 getTeam()을 호출하고 Team.toString()에서 getMember()을 호출하면 끊임없는 재귀함수가 되어 무한 루프에 빠질 수 있다.&lt;/code&gt; &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;다 쪽이 아닌 단 쪽을 연관관계의 주인으로 할 수도 있긴 하다. 다만 성능이나 관리 측면에서 권장하지 않는다. 6장 참고&lt;/code&gt;&lt;/p&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/jpa5/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[MYSQL 테이블 생성 안되는 에러 : You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near option]]></title><link>https://blog.bbubbu.me/mysql-error/</link><guid isPermaLink="false">https://blog.bbubbu.me/mysql-error/</guid><pubDate>Mon, 11 Jul 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;mysql-테이블-생성-안되는-에러--you-have-an-error-in-your-sql-syntax-check-the-manual-that-corresponds-to-your-mysql-server-version-for-the-right-syntax-to-use-near-option&quot;&gt;&lt;a href=&quot;#mysql-%ED%85%8C%EC%9D%B4%EB%B8%94-%EC%83%9D%EC%84%B1-%EC%95%88%EB%90%98%EB%8A%94-%EC%97%90%EB%9F%AC--you-have-an-error-in-your-sql-syntax-check-the-manual-that-corresponds-to-your-mysql-server-version-for-the-right-syntax-to-use-near-option&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;MYSQL 테이블 생성 안되는 에러 : You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘option&lt;/h2&gt;
+&lt;p&gt;자꾸 JPA로 토이프로젝트 엔티티 만드는데 문제가 없는데도 에러가 나서 삽질을 조금 했다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2022&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;05&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;42000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1064&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; You have an error &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; your &lt;span class=&quot;token constant&quot;&gt;SQL&lt;/span&gt; syntax&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; check the manual that corresponds to your MySQL server version &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; the right syntax to use near &lt;span class=&quot;token string&quot;&gt;&apos;option (id bigint not null auto_increment, is_answer bit, value varchar(255), qu&apos;&lt;/span&gt; at line &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;— | — | —
+ADD | ALL | ALTER
+ANALYZE | AND | AS
+ASC | ASENSITIVE | BEFORE
+BETWEEN | BIGINT | BINARY
+BLOB | BOTH | BY
+CALL | CASCADE | CASE
+CHANGE | CHAR | CHARACTER
+CHECK | COLLATE | COLUMN
+CONDITION | CONSTRAINT | CONTINUE
+CONVERT | CREATE | CROSS
+CURRENT&lt;em&gt;DATE | CURRENT&lt;/em&gt;TIME | CURRENT&lt;em&gt;TIMESTAMP
+CURRENT&lt;/em&gt;USER | CURSOR | DATABASE
+DATABASES | DAY&lt;em&gt;HOUR | DAY&lt;/em&gt;MICROSECOND
+DAY&lt;em&gt;MINUTE | DAY&lt;/em&gt;SECOND | DEC
+DECIMAL | DECLARE | DEFAULT
+DELAYED | DELETE | DESC
+DESCRIBE | DETERMINISTIC | DISTINCT
+DISTINCTROW | DIV | DOUBLE
+DROP | DUAL | EACH
+ELSE | ELSEIF | ENCLOSED
+ESCAPED | EXISTS | EXIT
+EXPLAIN | FALSE | FETCH
+FLOAT | FLOAT4 | FLOAT8
+FOR | FORCE | FOREIGN
+FROM | FULLTEXT | GRANT
+GROUP | HAVING | HIGH&lt;em&gt;PRIORITY
+HOUR&lt;/em&gt;MICROSECOND | HOUR&lt;em&gt;MINUTE | HOUR&lt;/em&gt;SECOND
+IF | IGNORE | IN
+INDEX | INFILE | INNER
+INOUT | INSENSITIVE | INSERT
+INT | INT1 | INT2
+INT3 | INT4 | INT8
+INTEGER | INTERVAL | INTO
+IS | ITERATE | JOIN
+KEY | KEYS | KILL
+LEADING | LEAVE | LEFT
+LIKE | LIMIT | LINES
+LOAD | LOCALTIME | LOCALTIMESTAMP
+LOCK | LONG | LONGBLOB
+LONGTEXT | LOOP | LOW&lt;em&gt;PRIORITY
+MATCH | MEDIUMBLOB | MEDIUMINT
+MEDIUMTEXT | MIDDLEINT | MINUTE&lt;/em&gt;MICROSECOND
+MINUTE&lt;em&gt;SECOND | MOD | MODIFIES
+NATURAL | NOT | NO&lt;/em&gt;WRITE&lt;em&gt;TO&lt;/em&gt;BINLOG
+NULL | NUMERIC | ON
+OPTIMIZE | OPTION | OPTIONALLY
+OR | ORDER | OUT
+OUTER | OUTFILE | PRECISION
+PRIMARY | PROCEDURE | PURGE
+READ | READS | REAL
+REFERENCES | REGEXP | RELEASE
+RENAME | REPEAT | REPLACE
+REQUIRE | RESTRICT | RETURN
+REVOKE | RIGHT | RLIKE
+SCHEMA | SCHEMAS | SECOND&lt;em&gt;MICROSECOND
+SELECT | SENSITIVE | SEPARATOR
+SET | SHOW | SMALLINT
+SONAME | SPATIAL | SPECIFIC
+SQL | SQLEXCEPTION | SQLSTATE
+SQLWARNING | SQL&lt;/em&gt;BIG&lt;em&gt;RESULT | SQL&lt;/em&gt;CALC&lt;em&gt;FOUND&lt;/em&gt;ROWS
+SQL&lt;em&gt;SMALL&lt;/em&gt;RESULT | SSL | STARTING
+STRAIGHT&lt;em&gt;JOIN | TABLE | TERMINATED
+THEN | TINYBLOB | TINYINT
+TINYTEXT | TO | TRAILING
+TRIGGER | TRUE | UNDO
+UNION | UNIQUE | UNLOCK
+UNSIGNED | UPDATE | USAGE
+USE | USING | UTC&lt;/em&gt;DATE
+UTC&lt;em&gt;TIME | UTC&lt;/em&gt;TIMESTAMP | VALUES
+VARBINARY | VARCHAR | VARCHARACTER
+VARYING | WHEN | WHERE
+WHILE | WITH | WRITE
+XOR | YEAR_MONTH | ZEROFILL&lt;/p&gt;
+&lt;p&gt;끝! &lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;Jmeter를 이번 프로젝트에 적용하게끔 도와준 초루님 감사합니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/mysql-error/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[PIT Mutation Testing 적용 ]]></title><link>https://blog.bbubbu.me/mutation-test-pitest/</link><guid isPermaLink="false">https://blog.bbubbu.me/mutation-test-pitest/</guid><pubDate>Mon, 20 Jun 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;pit-mutation-testing-적용&quot;&gt;&lt;a href=&quot;#pit-mutation-testing-%EC%A0%81%EC%9A%A9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;PIT Mutation Testing 적용&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;Toss Slash 21 - 테스트 커버리지 100% 영상에서 나온 pitest를 따로 설정해보았습니다.&lt;/code&gt;&lt;/strong&gt;    &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;아래는 참고한 글!&lt;/strong&gt;&lt;br&gt;
 &lt;a href=&quot;https://pitest.org/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;PitTest 공식 문서&lt;/a&gt;    &lt;/p&gt;
@@ -62,7 +625,7 @@ pitest &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 138.51351351351352%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAYAAABh2p9gAAAACXBIWXMAAAsTAAALEwEAmpwYAAADo0lEQVRIx41V2ZLbRBTVD1EFgZhYmyVL1t6t3UvGQxLGMw6kkhQUk6LykrzyC7wC38AboaiCgq863NuyHMuZeObhVLdat0+f23dpLchXKNdbVAQ7WUIPGhhhq0adxrEaO4x3a/rBGkPZ76BNQ4Egq+HFBSw/hTGNFXhuegmcQKqRMQnE4B+D57obqXXdjaFFSYooyTCdBbCdKR4YJlzPx9n5I5i2gywvMIsSRHGC8qsNJmmOumkRRDFEXiIVEmPaw7aGPYFmTVx4QYwwlWSUIMm60QsidVAqc1h0kGFNoE9odDza6CiYtJf399+MjjCMUbZLtKs1msUKeVkjJLJE5ATZETLBDobtKrJD4h6abtrKKEgE4odfo6wb1O0CtuthTP90UtZvMnYwjzBQyHfW//DDBNn6ArKeo5kvUM9J9XJF9xsqYvMGsmNoum0rF1gRX748v0DeLJTS3tW9whtc/IDQ2BHy5lmUIn90hYJcrtt5F126y8nUHyg8RapxqNmgI0yQU2qwQllUyKtauZzKQpHeRvYBoU/RFucbdYeC8k+WFURRomrman4nwrFpqcj1CiUFhV1OKWX6CPM4iPYpl3VrSMgKc1JYUTXw2l2ie3gA5eF7wiDOUDzeQlSNcpmrxPUDlY+HSg9xrJoU2nt23hw0ZyjmK1WnzWKpKsXxZvRvpuqdbfi7WwtuULgj3CsgNbJeqMiWdauqpiDFJV0BR5zXuDRrSnxe4/wdEHJQBuVDpKJqKboVWqprjjCDyRqqHCbkkQ9yvPf5uXd5zPcw8WA6PtWzRE5BScjdglSKskVBORlSnZvUZSzXJ8wU2J7XeO8hNMO4D8scKTj2AzhxhIxyrpQB2opqO6XNNtU72ZnGaDd2837fIbT74VOM5I8YZT/gi/QV7OwbXD19gatnr/H8uzc4f/ISoXyML8U1RuIV4foktM/OfsW97d/4/PIPfLL5B+Xz3/DyzS9YvP0XVz/9B3n9Dmcvfoax/R2fbv7Cvct3hD8/Cs3LZoiaDCG5NysihGWEy+0K3z8r8e1FivWSot4GCOsMUZ3eCmpfFhzfQywFyocUiIoCQp2mpLSQ1MJSuk8vpgeI7CzXgT11T4IaLBnSWxELSuQnG4rqfJ8qjD7vuIo4mXWrewI+BtWxuew86tZhu0aUCkqTFHEmVLVwG+Oc5G7DD9et3Ua9KTThBB2TWq7bY7AXjOMkvrl9Gdad3oq7dOsB4bHh4fdwfvrA/wFlgP+cctRHjgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 138.51351351351352%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAYAAABh2p9gAAAACXBIWXMAAAsTAAALEwEAmpwYAAADfklEQVR42pVV227bRhDlBxWoUbSpLF5FkeJ9eSdlq5IT15IcOEUQFOhr+5w/yBcU+YyiTR4SFP2k05mlSEu1FasPB9xdcs+enTMzVBwxR7bYIrvcQA9bjL0KqldLjBmzqnt61Q71A6h7Y8X2Bfy0gRuX0JwYqh1CnUbD05iJbj6Noe+/38OY1nooYZxg5oeYuh50a4JzVcfEcbFYXkEzLSRpBtcPEIQR8tWPmEQpyrKSe5I0RxgLuUczLKiGCcWwbExnAdwggusFmPGTPuYxP8NE0EF2t8F2JXiPSnNjMpUY66acMxRW5QYxRNlgvliiauYQWSFPjkkBq9B3BKygg3UAzZzcE451Qy7MwgTR8gZZUaKsW0kyoquca8b9JoL2CPr3DGWkasOiVLpaI8lLUtoiL2tU7ZxC4str7Ss5BqmQT2ZFHOj0akOEFYqqgWk7XfyOqHkMSheTbsKG5NcvpcKybqQyh8zpA38K6SEhKcxIoSgqimWFlNBeLBDEYlB6gsJ7pzhNEiKMyGWR5UhJacomUTxFXhy4epTwXNOHCV85JVNSMiMW2QMjTrryWD8kFFdbGUM2hdf2Y6edkjZM2LvssSkvbhGSOr4ux86augeV8Bj2SYfEZthUz/7Fc1k1TFi3FwiiRB7GKdSDXTcZNH6o0DCGRamEIKqWajiViV1Q+rDbfZLnVS1Lk6uJ3/Vl+cCUe0IDKREmtIkVMgGTzS8Xss57YkYfjoMrnzOJOYVmTan0EqSLawSkLitqcrshwhZeGMOgLmNOZ0TSgee8RzXtAyiq+j10bQSNMLFUOKQsohwUiY+yoI4TB9S6yDj1GTT6Vt2Bx9pu3z6UZ84So/AlRsEW3/lb6N4KN+sttps7/PTqDZY/vIATNvT+Vn7zFJSzxXucbT/jm/Wf+Gr9CdXr33H363s0v/2Nm7f/IPnlL6xev8O3mz/w9fojztYfvgjFFhH8psSszOHkKfxK4PZuhZ9ftbjb5FheusjaCF5dnARFMzVMXBuBoMZwQSlRZMgaSpeWTKkKxHkGJ/DJAJ1MsWA5FswvQOGurJPLHlVFfb2m/OLU4LxrBkRJJv87xsShNLFkdzqGjpCS06FOE8yfIyaHPfrDRZw6RJyVXSIXu/74VG0rY80YmgAnOf9DurExgA9l/DeJH29fqv5kN/lfv4Ce8PDD4/3vKcJ/AUAc/7YSv0rgAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -96,7 +659,7 @@ pitest &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 68.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsSAAALEgHS3X78AAAC6ElEQVQ4y12Ta3eaSACG+f8/o9t+2O0m2WbbJO1JTFITFW/RKN5vCHhD1ABRBPTpgKYnu3MOxxnO8PheZqROp0Ov1yP6bTQaNJtNnopFhsMhb2O/3/Nu8Xv9n/fHIUUftlotdF3HdRxeXmyc9Zr165ogCPH3u3hjKOaBHxAh9kfYe/DbIxnGiOl0xty0mDsLKsUsL6021tKi2VHop9O45hzDGvGsFHDFH78f/1cvWdZMqLIE1GA8jTYLFd4Gz/NwXJv1akXo+6yDLevQZx+GeNstmyDA2x3U++JdtN4fLPu0277Iz+W5bKGqYkMAtr0SqufYrsvyZUW/lEe9uSEwTXSRt5pIMEom2YqYxtUq3e9XuI06Urkc8vAQkM2G5PM7MfdFSSFhGPx2shSQxeUVxoePbERxi14f6/PfLP75wqs5Y5GRmX78hHN7i6QoAbIcUCgEFIsROEBRQlzXY7cLY6A5naBm7ml+O2XTbjFW+/Turhhd/IsrOjDqZVo/zrHyGaTn54DHRz8G5XKHuabt2G4j4CGjyXhEV5FpfT3FqzfQ9AHd5A8m519whjrqoEbj/oLVYxKpWg1Ip/1YYQQslQIsax+X8gacC1tq9iedkz/xanVGAthPXDA9OcHRDfRGmWbiK1YuFWUYxLlFtlOpA1j0wFqcxfAI1KcjajMF5e4br50W2mRIR75hdnbGaqAy0BpUKvdMGk8Hy6mjZVn2Y8vd7g7f90QxB+BsPqNbTtH940OsUJ9oDBOXmAJoa8Ky1qSZu2GVekAqlUJ+JgMymZBUOiQjh3Eptr0VqANwMTdR80nap3/FLY91Ff3iHPPkFGc0xmhX6Z99xrlOILXrr5TzNkrJoSoeteOK/PZsNlt2x2s3no5RpjVKhVvsYQ/VNKioRYzvl9iqRm+pUuxnsQqyODaVLXLao5DzeCp4wr4nbs0uvjG7o+X5bMqwlKF1LTIcDphoIrfsHcZDIlY46tTopq5ZisP/C9q+BIqo3bOiAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 68.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsSAAALEgHS3X78AAAC2UlEQVR42nWTC2+jVhBG/f9/R7srR9qsqs0mSrSO03T9xK/EJMbv2GD8wnbwC7gXfHrB21attiONLiPg8M03Q6rf79Pr9eh0OhiGga7rNJtNPN/jZ3E6nf51/jdSfwF3ux3b7Y7d4YAfBBzV6fk+Igw5RVFSCyn/hv0sE+B8Pme5WLJx3+mMOgxLJY6qfluYdColVi0Dd+/SGrUYvzZBfeT/IoamHGeO664ZDLrIMH74RCgk+8Oe3dZFKkAgBTtlQaTuSaGuj0f2nodUyiMF2araV50kClstSbsd0qhvlH8+szmEocRZOsqCbWLBZNilc3PNrlZj4ziYuRzDr1cclVUb1eHb7S2TTIbTZkMqn5cUCoJaLaJYlFQqkvf3MFEaR6BUrCtVpr98wL29w1VA9z7L9NcP+Gp4K8ti/emSRfqCcDIhVSpJymWpgBJNi4Ehs5lAiCABHo4eVrvJS+YLTv6R1XSK2dRoX11yrDeYTiwG5Sz9zDVyMSMVqysUJNWqJJ8XPD+H7PfyH+DhiNnVeVXA92wGJwbqGr1Pabx6namtgLVHRlefiWybVNxmrDAGlkqC8TjC8yRBcAZ6foDVe6F19xub+wyr2QzzRaN/8RGvWsOemAy0B3oPN2eFudxZYQz9/l0wUkDfFyrPi713d7SdPk/1LIviYwIc9p8YXF5w1CqYtkm3p2FUs4jVIh6KSIaiKWAMj8GuK5Hyh0LPx3wzMD5f4H69YbVcYCkPx+mzwulsQr9VZHx3RWSpoeSSKZ8Vxu3HHlqWUKsjEqAfCOzuK8a3L6we7lkroN0oMf6ogLU685nNWz6DnU6rKSsPG5rLk7ZFr+/Qa656IVDqIuXhGbjf7unNepRf/2DSLLNQxhvrLs3frzkohdbc5tlRHmv3RPHavOiCONuGQG8KOm1JpHYv/LH58X/tjIeMqgU2bR1XLe+yb2DWinijYaJ43mowa2hE6xV/AiSuBwJCw3PQAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -129,7 +692,7 @@ pitest &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 14.864864864864865%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAArUlEQVQI123HzW6CQABFYd7/kcrKRsVUmRolRsXBUZBBwNgBmuLv6Wi6Meni5LvXib4UATP6hUdX9+gk77wtXdyVa38XrxggaoGofKtPdJWk7Eju8b85Wse0KiSffqKGA7ZDDz0esZ8IMmsiPkgnPjoMyOSMfD3noJbWBaW1VAuyaE5hMybFyXXKbZvwozYYKTmGKyoZvbZWNK2hudQ0J0N9tvtcPfu+/Pno1vALeHfbP2vsw48AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 14.864864864864865%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAApElEQVR42lXIWROBUACG4f7/X3InJlvZ17TRqRwZqRgjvA4XhotnvkXzjgFT5hiHFo2oST3Uqdm1Dz3SMaSBVVhYJyU3cSqbGIF4bgnfHj/U1qI45OrbpJMhQbfNpmMQ93vIkUUyMBFmh2hoEq/GJM4M6S5I/RV7b0n6pvpOfdKZkx0FmpQJ963gGmzIXZds7aj0/nk+5SWjvBeUt/zrXBX/HiUvfmLbW98J4tIAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -162,7 +725,7 @@ pitest &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 10.135135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsSAAALEgHS3X78AAAAfElEQVQI1z2L2w6CMBQE+f+/81KTQigUVEpSBO0BIlHH2gcfJjvZ7GbiLe6iMcUOWx052xNNrajNIXlrFdPUIqsjLF1C1h7vDX2luJr4Kff0ceu3jmxrWpbSMBYFXmtuec4YSRm7SeeEwSEfQV7hT3jeCfPA44f45PIOfAGGdZSUk3/86gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 10.135135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsSAAALEgHS3X78AAAAeklEQVR42kWM2Q6CMBRE+f/PwyWyVEoomxaKtKAPmOMlMfpwcmaSyUR9V+KtRhdHijym0ieq8kwpfWfPTZ0Q1lbofp6Xlt5c6GRjrgdqFXO/KSLbGDateeQ5Y5oyJAlOPH6ZsoxJKcJrIrw9Yfvjnw6/DHJumYOVjeMDenqUW3arma8AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -232,7 +795,7 @@ hongjieun@hongjieunkkeo apache&lt;span class=&quot;token operator&quot;&gt;-&lt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 62.16216216216216%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAABeElEQVQoz5VTDW+CMBTk//+0JQsRnCgoyrelhbZgJhrj7bXqQqbOrcmlffT1eu/1cGZzD+/TN6yjJaoiR5ZlYEwgztYWeZZjFc3x4btINyEWcQlWczRNAyEaO+d5QXsLJMkGjpAdKq4wDAOOxyNOpxNqOuD5PrbbLbTWFkopyCvGawsp0Rq0Es7hcMDPobuOyBgla0pUEE17PahQlCUquugWG5IL8SXX+dzvLcn5fLYwo+t7KqsG54LU1lYp5xw1oaoqS2hjqoSx2n6vr7Gzf0JoDrRt+28Q4fAroWn6K4zz/kRoZklQ1Hil5J2qMelDwr7fkSXE5fUo0ZBXZKUkK7FOC1pT3xij/jHb47Hah4S66xGSL4MgQBRFCGYzilco6eWTrLA+NJfc8LJkpTv4/hSe52EymcB1Xbs2irRW38rl40e5f2VjUqMuDENEqxjT+RJhnNJfkiJOMlumaQkniBGMzZ74cGc3jWmbW+Ovs1HJLGFzR2i8+AUCMYw12cJCHgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 62.16216216216216%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAABjElEQVR42pVT7Y6CMBD0/d/Lf3qgqJEgKKAILVBANH5E53YLeLkLRo9k0l0o05nd7cBaTmDMRghcD/tdiO12iziWcHwHm3CDMAjhOkssLINiF7YXQcoUaZq1SOH7AeLIw3A4xEDmFeK0wPV61bjf79hFEazZDEJKlGVFKFEUBZQGxZRzXGiUyPIcx9MJk+kUg9vtir+PUoUm45U3s5Kc4jTL4QcBomiv8yxXzXd6Xx+JcEKE5/NFkzweDw1++FQhhLbDa5wkkBRLOiShXAipbXMudC5QVhW+DIMIL/2ETJbT6Z+A99Z1TQon7wmzLHuLjwjZUkfYKVFKoSC8Umia5gtC6iLXrFPANdzRKLmbECtCnAgk9C6Ok2etD4cDEZLCSw8hd3Bp21gsFrBpnc/nWNGcClK9J5JmDpum8PrLch8h/8gdM1qMxmNYlqUVsWWl/tkUVuA4Drz1Gmu6BbbrwwsisruFR5bZZjNGDbqxMfTY9M0h3Y6UasdNyNrGpG09Ndnz6v1Yr6iGhmHiG+TziM17xJmkAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -264,7 +827,7 @@ hongjieun@hongjieunkkeo apache&lt;span class=&quot;token operator&quot;&gt;-&lt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 51.35135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB/ElEQVQoz2VSbW+iQBjk//+PS+7bfWii6V2tWFQ4i/iKoCiIyusCKrZq08a5Z9fGeyOZ7AMMszOzSPbch7Nh+FpR8KWiQR0t0Rq4BA/t4RVKb46aOsK9YuCupqEiP6P+c4yHVh8/Wj0BWbcx8wJIccJwOpZQtTaqjyqMiYvRbE1YoWf50M0lBraPak3Bt7t71BoquqMpvtebdF9F9UGmWcFjs4N1mEJaBxHK1zPGpglrYuHlcMChLFFy7EsUxVbAMAz4vk/P9sizHLbtwLKn8DwfxXYHxjJa95A2QQh+zeYeut0ugiDAwl1gtVoR2cNuWyAlclvrYmw52JALzw+w2sTYklCeF8jyXKx5UUCK4hjH8xvsmYtmS6XoHSjNNswJdeK4JMBIMIeu62g0ZDjODFnG4K8DpClDkqRI0iviJIEUhpFw6JBDWX4SonLjCYuFi6woMV9GCGMGvdujjVroD4aI4lQIZhSdMSbiXsFIMIqF4Ia67PUHIh4jYvpJ4lEiOjjuvK1qqNcbGI1N2iSlyAX1+zdugtyRpmkUgxO34iV3kKSZ6IjHn1hT6EYfg6EJ/ndwTi76+w0pCK+HMl8s0Xk2yN2WIjH6IBNR+SHw+UKc9/cPmlPs97ub2H8O40+Hh5cjucnxejzfcDy9CfD5crngdDojoM7/FPtX9BfOK9aBfPx8iQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 51.35135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAACAklEQVR42mVSa4+aQBTl//+OftykaRpruutjXREUUFzQCj6QN8hb03V1Wz29oDU2neTkDjPDueecGWaqGzD8DA/fe/hU48GrJjhlfQOvrsHKS7T6EzyyMmqtAb61BTwLUzT5VzR6YzS4MTqShtnKBeN4AQ6HN4gij1qTgzRZQp07UOY25JkFgRoouo16k8XDlzoe2z1Iio6nDo/PX+uoN57x1GbR7A5guiEY07Lx8/0D05kGVZ1gt9thu91iWxSELbIsQ54XGI3GWBtrFLSWJCk0bYGZpsMwTDpTII4TZPn2QlgOw3QwHEoIggCmacLzPNi2jTxLkaYZBEnG5IcGP4xQurKcAAmtl0TRFTE1YmzHxeHjF+YrE2yPR4/ro/PC4lWZQNOXcP2Ifsyp2QitVgszclKSWLZHSokkjqvvmOZRFIOxbKdSaFoOXrosBEEkYg6LxRJZscPKCklVAoUalHuyPMYmikihf1FHJPdg7CuhH2wgSiO4rk/zEAFZi6KLlZDqQByC4/tVU1WdwvM3lG1eZXwPsnxVaFrodrsIw5CCL6rNMpNwk1QZzvQFFCLiByKGI7lqWJ5J0/Qf3C7FtF3wfZFIcgSbuCIKwhheEFNN8PsEnM8guwm9gh3SSlH6v0KHLqUc+/2hCv+N6v79cKt/56fTGcfjkawGd4ouCu8J/wBp9dYigtL9SwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -297,7 +860,7 @@ hongjieun@hongjieunkkeo apache&lt;span class=&quot;token operator&quot;&gt;-&lt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 50.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABLElEQVQoz52S2W6DQAxF5/+/joQghXVCJkCGnYSlb7fX06qtqrRV+nBkywbb1x4VxTGCIMDhECDLMvT9gKZpSPsv1N73kSQpjLngamtMtzvmecGybpiX9Yv99H9D6VOOOE44nUYYhjgej7B17YrX7Hi1lraBtbXz265D1/W0j1Hl1SLTJ5hLCU2b52cUZYUkTXEpSqRpxlwBaZwyJrKk6E+o/GwQRRFKFun63iGd+mFwkzjr4oPz5aemfUxLlEzh+3viw/M8Jlps2wuWj719Z3vAinXbMI4TlMiTCY0xlJlRZuEOMzD5DOM0OSWq4rLDKMZu53HKA3eY8+lQNidt32X8ieyP33eyw4pHObGI1pqXtLjPs5M7P4nIHqfbW8GqqhzSQYJ3vsP/IDt8BZDD8Dqh1525AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 50.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABJklEQVR42p1S2XKDMAz0/38dVybQEsDhMJfBJBx920pukuk1mdKHnZUP2VppRRi9IDgccCBkUmI0Bl3fo+/1vyA830eSpMiLEk3bwpgJ87JiWbcffI/nZfnEhPljfbnOEJk8I45jnJIEx+MRYRiiblpUlbIfWKa1UjUqpdBr/RSipItcYUmJkh4/54WNT7c95qKskGYSSZpSO27Jv0nmB+U5RxRFlFzZy3oYLcbRPHggHog57vXwBPQg9873PARBAMdxoOlg296wPPq2fsFKe9/B91bK4Q8Fy+IKc5L6Gp9QkjwzXewhT/zvmGwxQlHD2Tqu61rrFEVBEql8so4mCXshVN0gyzIaiETXddYGdxl7wJLZcoItUte1Bf9gpsn6aR+ulnlw7z2K8JXx8F/8AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -330,7 +893,7 @@ hongjieun@hongjieunkkeo apache&lt;span class=&quot;token operator&quot;&gt;-&lt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 83.1081081081081%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAACzElEQVQ4y31UiW7aQBTk/z+g7V+0qtS0VdI6xJyJ4xNz2iaAje8Dm0BapZm+3ZAUo6grPbEY7+y8mXk03DCHZk4hGVOYtoc4K7F/+I3tbo/d/heKcgtzNIGiajAMA8ZggNVqhSRNEccJkqRejcfHPyiqHbykxNmVjO9tHS1lhrZq06cF4XqIi94AQt9EpydBVjQs3QBZUaLa3mNTVihZVRXfN3C0HMeBaZowh0NMJlOMxxMMRyP4vo9iU+JGUnDZFGHZC8zvlsjygoC2HKjYVHzfeHp6Aiu2NE1Hu92GTcDT6Qx3iwU2BJRSe1mWEzsFrZYI23b4ha7n0d7Ggt5zvTUsy6oDGgNiRkBpVpBGOeIkQ0Q6rdYRgijFaDyDM7/DYuXDp+85tR1ECUKqOI6xXnungAM4dGNRFAdWdCjP4AcxHUrx7WcLn75eQmhe4aZ7iX6nSSXA0CTokznUqVsHlBWVt8K0iZP0tVZeBM9PIPZuIfZ1mGoP118+QPj4Hu3P7+DIZ5gRkcl8fcrQJNo+2Z/yVp9jkR4iknK9lsslN8s0h5DlW+ikO+tkW5UoN0UdcDK1oFLezOGImM4obx6BPesYEaBl2Vx4pnOn24fY6qB51YJumKTvlNyfn7isG/SCCFFsYU7iM2eTo5YZM03TuPssEb1eFwo5H4Yhj1YURXVA0xzx22POiLWbcQ0ZO+bmYrkiSdZkWIYR5bPf7/MLmIF5nhOBrA7IqFuWw9sMo5gXA/bDBAGV7wfEJuCHVQLqdruQJIkzY88YcA3Q9XzOptruKP1bSv49ZXKDdRDxrDFmjEVGhyXpFoIg4Pz8nMyRDzHL/o3eC+jp2u0fiF3EX2aHXqZGUVWuHxtV13Vff68xfNkfP9vRv05ArZ8Carr+qiFnfQz4FlgN8A2G+gHQti0kNHZsomotn67/ApKGN5KMix8CZXbMZz48zPRfrfboKwGqh1cAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 83.1081081081081%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAAC4UlEQVR42oWTR5PaQBCF+f9nX/wPbF8cbl57YQlLECAEAiQh0CoAyoG04eB97p4luFyUraquUSl88/q9ntLcXqKjTKHoNuZeiP3jC3aHZ6onHJ5e4Hhr9GQFA2UIRVEwm5lIkgRxnIj17yo9Pr8g3z9D1mx8+Smh1jdQl000BnPcdTXctscod6Zo9sZotSXMLQd+mGK3P2Cz3WHLtdsf1x1KOF5FUWAyGUPXdWiaBsMwxL1lWfTxFrbj4ubHLUbqBIsHF74fEHAvoMVm+7ZSlX69vgpgRC1UKhVMpxoWiwXm84VoK6eNsiyHbTuo1mq06YTeWWIj1/VgmjOsfZ/+seA4DkqvR2AYxZAHQwFOswJJmhMwhR/EWPkJKfSg6TO43grOMkJWbJFkGwQheZdmCAIfYRhegEEYQZb7pCZDlqZIqXK6j8noMMownBj49PUG3yv3aNZ+oN24xX31Br32HVRS3ddc6NbqAvT9EJ1Ol0AZpZUSKBVrEMZYksKpYaHckKCoU6i1j6h/e4/q53eY1j/AmcmY2QEpDy7ANZmsUQgp+cXtR1TJEcoesl8ueTQz59ANk0ZoiG6vL7zdU7rbTYE8Ly5ABsk0byN1jAkHYz0IP6OY1WYEXFIAJgFNmskR6o0mavUGOlJPbKDpBpYr/wKMogR31Roa900MKJxT6yE9d1axCGU0GgqoSSp73S7a7RYla1N4kQiEp+IMZM9keSBa5XRP7cbxm5+8u+u6IizXW6Lf75PnHXieJ2ZYhPlny+xbrz8QP/N9SGGIlRSug0RMwXq9Jp9yPJBvrVZLFCvebDZiI7btDOSj5NK53dMZ3u4O5/LDRCTNXrIKVsNAPgTlclmsrJI3Ei0z7AS9dkWi9UTAWAUDLQqsSx6Ox2NxYk7vubuzQl6vVXQenQuQFUqSJDxkX/kZv/sn8PTsGpBnr9m8h6qqZ1+z7O270rU2/wdkhTyHEs2gH4TCXx47DvA3RJvmNqrTEGQAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -365,7 +928,7 @@ hongjieun@hongjieunkkeo apache&lt;span class=&quot;token operator&quot;&gt;-&lt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 72.2972972972973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAACaklEQVQ4y41T204bMRTc3+cr+tp+AS9VVVUqTQIkTQKEwGZvju31XrOb3YAIZDo2ICHaSlganSNfxuM5x95icY0wihHFCUyWY9v1aNqti/3uzsWPoO933L+DF5MoCAKHLM9RbzZomhapyXhJzLnC5fayV9h9dl6nxq3ZPFprhImCZzeUZelQ1zXSNEWSJJjNphiPJ1BpjrXSjBljirysUTdbVJsWZd042FxlNXxhqDARTt1iscB4MiHJGCcnJxiNRphMfuM2iCC1cWRCpjB5ibzaOGIXX3JLnOYVPCu5qiqnLAxDKpuRaILZdIqLi0v4YYI0KyGpVJmckUr137DzoUj5ZL6/rmpH2jYNtNaYz+ckHWM4HGF0PkUkJGJ6FAnlYPNnPOcRYyI1rvwYnhQx1kbRoxSKZIaKtVUbRbhiB8wvF/CDEDFJrZdSpy4mUjnYXDAqzoeJhCdupizCCrtii47m2qcbY1yBclbTXiJ54Nb3sV5LCCFYWYOG3jVpyf0GBV9nu0VpVlnS7E+TYxydfcFxMEJBL+yCtcAS2wteL7F2KKXQlhucrRc4Ov2M2yRAV5VYs8XytIDXbluIvsBNq5DdbfCwf8D+8RH7/R6PjP8Cng7QdY5vy3P4UuL7qsOAn+Nn+BXe/f09dtsOhubWRUnCPT4y7viLNLtAL6/g+1N6fo1V4lNh22IwHGB0doohe6/rOnfgcDj8F3Z0/Gb6fAAz/oVs9QO5uKTnNbwNv9pyuXT+SMrfvyh8e/h1vJ3r+x4yo99sOz8QSNhOxrAP7YKtaMMetIV4S/h+vCfMM1aYnaBZRMPCFUWBP7cKFNiQdxaqAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 72.2972972972973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAACT0lEQVR42pVTTY/TMBDNj+fE/0CcOHJCCC4t3ba7lK7a5rOJHcdO4jRfbVK0YvsYuxJoVyAWR08zcuyZefPGThhG8HwfruchThJ0fY+maX+j/T84nh+AMQ6epqgONfrjCW3XW3s8DZTg+GKYO45UOYQQSE3AqqKqGnQU0CTY7lzkZYWMzqi8hMwLqKJEXmja18hkDqkK63txhns/uQbMC9rMcwvOOTabDZbLJeaLBWIuwNIMaaaQ8AzloUHbn9B0xycwe0o3cHhKFxjDbrfDbDbDdDrFZDLBfD7H6tsaUcxQ6IOt1MD4RVU/ha5RkpVFBaekcruus1QNgiCwwQwWiyW2bmCDSEOZqFr7Byj6t+cSjqKoVXVAqUto6qHWGgmp7boulrd3mNzcYutHSFKFiAnsCdFzJIJak2EbUA9FsAZTMRriX1G1RVleE5AvJfWNpWA8hR9EEJkkKBJDIScxSkXVkQZGNPOPC6owTfa49b7hnvlItYKS0qpe1zWJpKyfZZkVS5DynDNoSlrUGqt4ByEFhr4DTxhKou4Ymm+9z3i9fof3+xsc294OaE8DbnprRuhqr2i7Ft9PI5bCxav5G3gsBJcaISWKZQRnOI+w6/FqflwecaHvX+s8jPSyOBKi/ik8Ykb+JPoA53w+09Pz7Mx9Xa0wDIO9cLlc/gqzTuMIuZhC331BFX6EZmuiXMNpiZ4ZYjOHm+0W4zi+KOBA5zJ/B0lI43tIEdF4UQ9Nr8yzq+kdF/RiHh4efgV8vp4EJCbKiEMTEe4TEkvQZJT4Cf5DEtvbcUrAAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -400,7 +963,7 @@ requestBody데이터가 json타입으로 갈 예정이기 때문에&lt;br&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 46.621621621621614%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA+UlEQVQoz62SyXKDMBBE+f/PCwjbwsFLgFTQarElp85ILGU7UMkhhwdV00P3MFK02x+QJAxxHKOsKhhroZSG0k8ovV4PmoJzDmmaImL0uFyuOBMfdY2269G03Q+6vg+saa5pMXx+IeMZohMZHThHnp9QFCWZCpr0nZINJE3kqYXEW1mhIGohgub7fN3rQirYm8NLnIyGx9c8CB1Nd3NNwM1vStfGgmdHcJpA0scN1R76yKwfBrB0h8gnWWPCHrbQWsFQj0dPO7tHShl2yBgbDecmPS1ZPzEeyH3Aoy6nQ0nWDLdYDDe0MOH8y38x/C1suTb/YbjskO7zNxUzpMBAusl6AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 46.621621621621614%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA+0lEQVR42q1SXW+DMBDL//97HZBQRqGgrYUkJQkt7ZN3F62Cfk2btAcrJ9u5+E4RKl8jSVKsVm9o2xb2cIDWBsbM0Hcw97XWGJyDkgoiSTNU9RY1Yb/vMB5PCOPxAczP2nij+TBiOl9QliXEptoip5RluUHTtOh6jY/PHYylpMbGs6cUzDF60pljX/ddc1LnPNJMQlR1g6J4j+RpmuB9gPM+vupDiGmGwWFdFFAqR0/jjZyKfKyzz1E9TWdICiZ2NKa1Nu6BsdzdEuxhPNP4nqMdZlLODZeXnsO89DDvaSr524av0t40pISSVvKHhPbHB52nb6PU/zW8jvwFYCWlBaEfSCoAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -433,7 +996,7 @@ requestBody데이터가 json타입으로 갈 예정이기 때문에&lt;br&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 72.97297297297297%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC70lEQVQ4y01U2XKiQBTN/3/HPE5NXrKYxBhF3BFlURBRWWVv1GQm83bmdmucUHWrqQZOn+Vebrw4R1tZ4U5eoKls0dU8qKs9pqtYrDMnwdSO8DJc4PbuGff3D+j1B7DsFQzTwufnX5xO7zgejzgejrgBXfbaQ1Maot2fQhrOIE90Ua2egodXGerCheMn6Ews/Lh9wc9HCc2Rjbu2gl8NCY3uDB11DVnbngHTNMVyYSIMfOy2LgLfg7/bIk32yNIENavw5+OElbNB4+UNnW4frhehNxij8fSMZquNhe0gTvMzYLxP0Gq9YTxR6CMHrruBZdlIsxx1fUBVVWB1je12B6nTgdztIggC6LqB8XiMTruDsihwOBzOgJ4fQaJTozhBVR9RVjUqdkBeVFQl/ChDklVYux6mMx1hlCCg0vQFJoqKrjxAn9gWJTsD+kEIVVXBGBNsvoqR1LpmCOOMDmFwNzuMxlPMdROasYRpLjAcDiDLXbo3vzMM8NRoIMsyAqgFEAfnVTMOmCPNK6zWG0iSDGWqClVTWjtkQbP5ijzPBQkBGIQx5pohJKZZgSwvL1WJPQ6Y5QyOuyOZpvDWD2Jomg5FmWAwGGA+n6MgHwXgzvMpBAsfH78F7fpS5UU6Xzlzzw8FyHJpwXFcTChEWZbx+PgI27bx/v5+SZnCGI5GIlnDMEXSjrOmYBjK8gzKAcPozMq2LfFMNwzhIWfIgTnopW1SNF/f0OsN8NaWCHCNhHqKJ1yQZD/KEScFoiSHQz7quk4SNeEhB+I+tlotzGazM2AY7WmchjAXFqbqnPyJRNtwH4WH+1z4GBHo2t2S5CWNHSWtaej3+xRKkxQ5NIKnL8BY0OZecR8Yq69S/7cQwz5J4Xk0Rb5PhxUUkHFNebPZ0nvsK5RATAmXyF/MBbPyKpkz5G2TJJmYkDAMEUWR6EvDXBLrHU3SiRq7/vIwgzo3SOaRQBhyevC9MtrjHqZZee1PzvpwqIVM/qcRPUvB/QNXyDd1MMedzwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 72.97297297297297%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC7klEQVR42lVTaY+iQBT0//+P/bbZKzuZw/sAEfBWRB0PBEShAY84O+NsUvteM06yHyrdhKaoqled600d/Kr2kTeeUWwvYEw8mLYv0ZkFtHpQByv8eKzj7u4eD4952PYM7U4PIk5weXnB8XjC4XCUyB3PLygrBsoNHdVmG4oxgGoOUdf7+J2vyb298jGYufh638CX70+4r/fwqI7w7aGOn3kFRd1GrbtAc7hC7np9x3g0grNaYi2xgLNewvc2CHcBYhHhfDpACIFqQ8NToYzRZI6hNUOhVMZTvgi1ZcDfhXD9PXJvRNjSDVQqVVgTG7PZnCxNsVo7SMlCTLbiJME+FDAMA6VSCdZ4jMViCdNso1arwbIsnM9nhJFA7vXtiobSxNiy6UNSEqdyjUQqD2x3ERwvRLCPYLR7mC9W8LY7PC8daC0ThtlBoVgmARvswpgUEmGr1YLnuUhTIosFIZZI00yZtw0REbludtHpDiSsyZQUmlAUBbquIwgCOaTc9f0v8vkChsMBTqeTJErIIuNGuGGFlFFT06E2NczmC8Iz6vU6isUiRjSDA4kJww/LJllxvS1ZjLEja0zC4Ge27AURtkEolTkbFz5Ztqdzyl5Hp9ORKp31OlP45/WVcjBJUUp94i4dJFjhzTrvwzDCaGyRk5EcHO9rpLBarcrB8LlIJDxlVthBt9ejaU3khHn1t1v5EyEyQs5wQu/6/Z7My3U9ikCDRmDrPIc9/VT2UKVsKpUa6g1VVsj3A2k9EpnltbunwzEWK1dWhG0OhkMoqkp2G7JKrNLfBh9T1tvoD4aEkawPZ8H5MYK9oNrsiVhg6XjkwJZDGBMxK2QilYgTGU+aKdS0FubzOS6Xi8zvll2GbOKs1nE2BAcBxbGmvaKoKJXLkpjPsCs5ZUXVsFw5n1MOP6ecFZt7yO84N9d1qbOeJLQmM4kduRDJEaFIsx72B2O6hwGS9ER2D/+Dbg3fAJ9qc1N7Kz23grvLFyJJE7n+A3K6Necr2xkOAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -466,7 +1029,7 @@ requestBody데이터가 json타입으로 갈 예정이기 때문에&lt;br&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 38.513513513513516%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABRUlEQVQoz52SW0/CMBiG+/9/jneemCYYLiRykEl2hIGJ21hPaycwE17bwhZNvHLJk6fv2n79spWMx2Nk2y24EKCMg/ILjDmzS2YmM0rP2PEfUMpAVnECJSQa3UAba6nQ1BpamWxtkeesjl/Qhxa62f9GWx8gZA3CHu5Q3Q9APQ9yNAL3BqiGA/ChB+HdQDzeQl5fQTx54PNn8GBuuv8w3fzFDiQJA4TLJbZpCk45FMtBixn2fImjCtF+Bmib4Gzpo1XmfZs42t6p8656B6mVgkXWNTgX+O9zOsEUtN9wtUJqurPebDYIwxC+7yMIAsRxhCiKkCSxIenXZVmGbp+ds/sYZ6ZgBbLw3zCdzTGZzvC68PEymbocmwJFUTjKsujHPynLsje9/H1iq9uT1uu168KS5zmklG4Bd1eGO3ewzv18d20ovgHM31TSCrEVoAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 38.513513513513516%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABP0lEQVR42p2S207DMAyG+/5vw+VgBw7iYjDBug7W9dwVMdE0TdK0oyoSP26rIW0MLoj0yZZlx47zG/ezGeIkgVQKXAjkf8F5T56fhBNG5PnQQqLSJUqpUMkCVUG+atEU072lmK4/UNYNyur9kLK1NQ2lYfDLEdhwDD4aQU2nyMcjZLcTiKsLyMkA8mYINTiDvD6HMO8g1iY4fz1JxlMYgevAtW0kYQiRCxQihWAWdsJGoz00NbFze/QKTblG0wRHhJ1l2QuMQmu0qKKAkBKf+N/5pEKW0Q5Dmsz3fQRBgM1mA8dxYVkWbHsF16Hp6QVB4MPz3C6nJYoi7Os8z0Mcx92nsCyD8fRsY24u8PA4h7Vcdr65sOBSYpqmxNuR/QljjHbY/76RkGTabm3X/QTb7RaKZHQgi1Y2v8jlWzZ06RfQqFTUDqarQAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -498,7 +1061,7 @@ requestBody데이터가 json타입으로 갈 예정이기 때문에&lt;br&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 79.05405405405406%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC8ElEQVQ4y2VUaVPiUBDk//+YrdraD1iLKIdyIyDhiOYgBEjISVgLVJTenodasktV10uA9Ex3zyQXbnZw5w4s08A22yDLMvz72e/30HUdzWYDo9EI2+0WaZpgk6Y8TzhdJ8jtng8IwjUMew5NN3kd4f0IHN6OCrzE026P8UTH4F6Dac+QbraIkhRRnCJON0TG+w0Sfp9759Mvr0eMzDl+ldood6codaYoC7o6is0Rig0NtwMTpfYEP/IV5Cs9FGpD/Px9g3y5g2rvERViOHGQw/GoZB15drtdFC4v0eFpz2Z4NAxMJhMYhsluYrhLD/VmB+VqDe1uH+VyGfmLCwyHQyTZFoFtISdExw/SZquNarWK1WpFL7cnbzYZsSFSGKaNzl0f1myOES3o9QZoNFtotToII0qOFydC+bzzvB+OYFozxPRjHYREhIDw/BBLL4S78HBzW0d/MMRUN9hAC41GExU24Thz/Hnan3dYq9Xw8KAjY0dJEhOJSk6CclchO/dQKldJ0sJk+oBS6VrZ5DgOwjAgos8OT4QiQdcfkFBqFEVEjJjeCeHSjzB3V1ShwbId+mspMtM0Yds2PM/DYrH8Jplp35FwufLVOIRRohCEMfx1RMRYLH3+p0+iO+X31dWVIjUYnnSZcJTOPBxqGlx3jvXah+97Cilli3QJJQgCpj6FbVkYjScc9Cbq9TrG47FSdCZZjh6rVyoVjkOFPjVgWbaqKtI/kXKQZVNcypPuZIOkkBQN+fs5IdOr3tSYWk1thkiXpFdMeeau4a1PXcgY2dyYQqEAjarkXor9RygeatqYQ+3QrxUJWTWMlY9CKl7Kg0LgzF20222lRIKRrr8RQhH2+wPKtNRQiwRJWKCqkzT6uP4kFLLr62tF6Pu+mt2zDrt3A9iOq9IVqesg/kpZBtsPImW+vJFM08LFRZ6EVygWiySv08vwvMPd7pmvqhe+LA4nvBzwenhDtn3itgRfc6k6ZOEBN0u2psO9VlvF4n8BqS2V4O9TgcMAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 79.05405405405406%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC1UlEQVR42m1UaW/aQBTk//+Yqh8aKSmEBAjmPsx92DicvtbGhqbhSDx97xE1RSnSCNks82ZmZzel4gNWqyVMY4poGxK2ABL8+zmdTphOp6hWK9B1HbvdTtZFUUTYfoLepQ6nN6hAwXxeoDM0sLZdnN8SHM/vgvN7gpfXI4bjKdqdHibGDCqM4aktXD+EF2zhh5E8q22M1HuSEAFgLG3c5Gp4qA4Ej7WhIFPuIq11UNQN5BtjfLvN40e2ikyph+8/C7h5qMj7QttAq28hlSTJX4udjo50Ok3WqlgsFpjNZphMJjBNE0EQwHZc1Bpt5AsaGk0d+Xwet3e3aDYaiOIY/nJxIbyQAq22jlwuj+VyhTjeYSs5xfQdST4WxVKrt2DO5hiNDVlfqzehlcpw3ICis68J+4MRxhMDIWXhej5BwSM4ro/lxsfG9ujPVSGZTE2UyxVBjpSym3j3ck1Yq9XR63VJXYQwDAghqQuhVIDF2hPLhaciilpJBrPler2O+XxOgz34vrom7Pb66PcHREQ7p5QQKcqOF65tUrl2aM2ALD/DMC00KDvO2LKeqXorcuBcE7b1LhaUX0iZ+YqVUS38QKw7riKFnuTGqqrkJpvNygZyRy3LQkBCrgiHwyEsysJxbNibjYBtMyKxrj4UzTAeT4SsUqlQTD357b+WHx9zAk3TYBimkLF1n+0TWD2fFLbHlkejkeTH63jNFWGPdrnwpKFQLElWik4B27XJrrV0sXF8UcF14mrd39+j2WzKM/f0C2Gn24fe6WK+WGK13hDhZSqDM2SwSiZY0++ssFwui8r9fv+VkC1zRjG1XqzSVJ7MJB4pUx8q+CLggZwfbwwT2rZN2bvXhDopnFIdVBBdSu0HAscLpDaskOvEtwy7uKNj90CEmUwGxWLxkxAfhIfjCa+HI050W5zoFjqezjjTjbP/9Vsqw0pZsVje2HKyGK12RwRw1f4AZP6WF6wfNGwAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -534,7 +1097,7 @@ requestBody데이터가 json타입으로 갈 예정이기 때문에&lt;br&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 43.91891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABaElEQVQoz62R3W6bQBBGef8H6n2bqOmFY1LHdsAYYzCwmL9dwE5trPZ0MEkqVZF6ka50NDsz385oZi3XdZnPF6RpitaGqq6pP4DlOA5KKbQxHI/PdN2B7vDKkcM/6K780Vvfvq9Y+jFLd00UK/ZFjdqXV9KsIFE5yWCz/C/G3KBReXXVDzFrYj9yb8/YJYosL/H8gG24e/PL2rxPpWU9zVUTvOiLUmM9Lhwcx6U2jXQpCMOQRPYZxbE81LSyAtO2NF1H046YwUp8oKxqvPWaYLulkj+wVpuQlbchjBSzp0A+yGEhTfxNRLRLyWSMfV6TJBmp2qNe/J3kUhm5656JZVUDxrRYXhDz8HDD3fQLt5MbJvZnbr9+Yv50hx/YUnjKOpiKtYnC5RgTPH+C799L4RlF7qAbTybcYJW649fPI32vuVwMl97QXxp+nGpOb1Scz5Lv29E/j5xPAxW93KEh19VY8H+dsjnzGymfoq4ieo43AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 43.91891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABWElEQVR42q2SXW/aMBSG8/9/0O7XrlsvmtGoaSCQBPJpyIfjJBQVUvXZgRa2i6qatFl6ZL/Hr46Pj235/hzXfSTPC1pjaLRG/wPWbDZDKYVuDdunHcOwZdieefpLfvutW2fOY5Dh+QFxqlhXGrWpTxTrilyVn3L0nP25rC373sWeOKS5YlPWLMKIZZye9Fp0I5XX+mOatjt5zv6qabFcz2fm+2jTocqKOEnIC0WSZdSNppcWmL6nGwa6/g1znCV+pNEtiyAgWq5Oh1uLKMafh6ziAseLeHCn8kgeQRiTJLn0t5TKtTyaoijWF52mueiN9HxHJntZpjCml4TLHMf5xu3kKzf2Nfb9FTc/vuBOvxOtJoTLn+9MSGPvooPwjjC0JbFDVU6l6rncMMSq2oHX1x2H0fAydoxHXnqe9y174fmd/cEwHoZL/E9GAXoqI9+mbnv+12j6Pb8ABfqivuZj4QEAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -567,7 +1130,7 @@ requestBody데이터가 json타입으로 갈 예정이기 때문에&lt;br&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABvklEQVQoz0WRe2+aUBiH+/2/yfbHknVLbXUXKSpaLopFrE0nCnjlJt5ou2zP3kKTkTw5h0PynN/v5cIPVziTXwwfpszCNfvzK7vjs/Ai+9/EuxOmPWY6D8l2Obt8X5JnO/I0I5ezvZDL2dt68ecvuE8+n25Urpo6V4rOjWpxLVx+12i0B7TtJ3T7gZbaYjieEPVtCkWhaDQ4X9c4aBon2e8/X3KBPEG4xe736WkdZt6UJI6INmuWi5CtrMXpwGji8fFrkw9fflD71qVeb1GrqzRbfTTdpdVxiObmu3AT01RuMQyTKIpJpUqSpqRZtcZxwr37iNIxS3HXHIpIQ9XuMGwHT8bmLTa8vBaV8HwusKTGYrkiTlI225htVLFaRyzWMX4Qoqoq/f4A1x1j6HcM7QG9rsYyDGSWGcfTuRIeDkd+NpuEQcBOPqRpIqRkWSUPVzFzP+BWbWPb94zGj+iGhT10SiJpECUZI7moSlg80+vpBJIikbpvFUuShLWMYyFCbxbgjNwyqTMa0+l0UOTH6LohiV2mU0/E8f+EpjUQQfZeNSmJhKp+ItW3ZV3DMBgM7FJmWVb57vt+OftEAvwDVuI/7AcOprkAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABuklEQVR42j2RXXOaQBSG8///SXsXm3Sm0THG4hcGMIKAMVoURGT5rpram6eLjt2Zd3Yvznn2fc+5CyOBNV+izZYsvJB9diCqlR6IixNbUTGaOLgfHrFISLOCPMspY0EZRVT7mCpJqMRVd8izXIfcPyl8fx7x2B7Q7Om0egaNpkJT0dAcD91a0HnuohpTdvobx06HY6vF4eGRUlGomk3Kb40r0N8mTAyDV3XI2ltRFbl0kSDiiDQR/Dn+5n254ctDh69SjWafxo+f3Es9KQY9bc6L6rILzCtwnxZ0ugrjV41YRknSDJGkpP/vHPd9yYsywl14TEyb/lBFlfXGm8lmuyPcy4/P5yvwLB/GxGQb7i7N9axikSKkon1CsBMEsklReqjqGMdxGQ4HGLrOcDBgs/YoikKqvAJPpxPtdhvP+0VZFmRZKpWR59KhhPtbgR9s6coU06mJO/9A0ydMzRmmZbOPpYEkw3HnN4d/Uccavh/ILeYXZ3XURKouDkLBxg+xZjbe2pe3I+FdOnIx/X4f0zRZrVaXUV0dfn5eimrADXbTLX4kZ2TbNpZlXcADGbUGGXKZQRBcEtX1/wAKkD/9LWsZVAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -600,7 +1163,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABZElEQVQoz31S2W6DQAzk//+srdQSFImWMwmwsAdHw9HHqW0EIlXbh5HXjpmMx/bCMMT5fIZSCn3fo207dF2HtnuMK/p/wb1ekqSotaGkx7x8YZoXwfbmuL3v4/QD40MuhKdTgDy/ICPcihLXWyFI0pTyClEUI79cUJTVgWTESO9xmney4T6uhL5/QppmqBuNhpQWpRLCStWSq7oRYq5ZsoPhCHVjUFZqz63j2MJ7ffPBPg7Dp3jIROypMUbyYRhI4RVBEEhNfCWCjyiB7/vQWkvNuZbqRPj0/IIojsVDS0WGNhbGOnlzZLDarbb1MKxzooxrorCsKmrWe0HVWvwsaJw0y0ndDQV5W1Y15RmuND5bwH3rqO0OVu6F4buMxAo3L45K2MOYLoGtEMU7weodg79tZCoLj++HtybnQlub5iMW2Sb7yz2znNThd+rnTS90Vsauf+5thv4OJ0a3sog1/7t3HfkbvHbss4ppXh0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABaElEQVR42n1SR3LDMAzk/39m52QnKo7Vq0WRVHeOG4CW3CaTww6qgMVSwvU8uK4Lz/OhtYYxxkKv9t03pvsHBsJxHOR5gUa2GMYJy/UH83J9sdYnTPOCcZqfML3E/TBCfDmeZRfFMdIsR5JmKMoKQRhSnFE+QRCEiJMEkpbyUF7MA9ifZhq2xl0/QJyDCIfDEXlR4tJI1JcGGTFmbHFZ1XYRW0WntdqgVYYW17au9JbTEHFWYLfboSxL9H1vtTgTo9PphK7rLDQ1O65nc5uWvOxw/ITv+zedSX/FA73TN/b7D7udxectslVWU/Zbpe5xI+Wae/TItr3nLEM+taoqW1BrMqVz+US2rG28nsu5KEkpX5JElR2o1lMZ7IsoTsG/Dmuh6dytgRlslh8rjOIboyc23PuM+iIhWEzWbaFfZKZXs1heMYwj6TusteujNj/A3+f0SIK3sqiKtFKrsO9gwbVl8Xf9Dqr/AseY68onrb/8AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -632,7 +1195,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 43.91891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABU0lEQVQoz4VS2XKDMAz0/39Zpn1JCyGEhPsIhw0kXI9bSQGmM51MH3bkldeSvLaybRuWZcNxHLRt+z+67j3aDurieSjuJapa4/EcMM0LhnHCOM1/8BxG0bxD/3hCOe4F5/MZYRghihMEFPPiDt8PECcpwiiGHwSUD1HXzV54GMe10bTySYoq73rD8fiFLM9xLyuZNssLKpbsnBtw4YyiNh0a3QqY50W552ptoPwgwuFwQFEU6Pte4AchXNeVdbf6ZtsnyYmPxlABA4v8d04nGOKc0wTleld8fHzSJNy9FSGjbrRwQwU4Mq/oyoaMZ/47x3q9nlNplsl1ObEVTNJM/OTI3vH6ZUOKgKZPshwx7b0atK+zKxR7821ZIt6mY2FZ1RIZ/FAX70a3qNa8FtSN2c+whyVpVds9RMTGy7ehlxPMW1z27zKufNPsX4peeF4WFGWNH+szoBg9wCVwAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 43.91891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABSUlEQVR42nVSSZKDMAzk/y/LYXJIwg4Bwmazk7DMsUcyhkqqJoculduyWmrZMC0LDNd10fc9YdDo32J/nIfhO/je8DwPQlaomxavaca8rJjm5SPu4Pvna/qK8fmCYTsubNtBFMWI4gRx8kBelPCDEI80w534MLwjIb6qm6PwNG/iM4lu52Ur6HoBLpcrilKoTmVVI80LpFkGSQWYK4XUQgJt16NpO9QEzsvLT84Iwgin0wlSSozjSF6MCKijwPcPbzjZoinYns3LTll0My04jo2+6xTXUjRs18fP+aw625V28Pmd4yL/ce9vjCzLaZRCVd+RPNIN5CH7ymBfeew4SYjPyZJCedqxAIu3ukNOut5MtYCGlQmsWhHqplOPOIeXxJ7ufL13pd9w16JqYAzjk8Zl44X+NovGesRJf5dPXoO2yxte118UosIfCLSgKzw1tagAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -665,7 +1228,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 85.8108108108108%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAADAklEQVQ4y11Ui26iUBT0/39ls0mT3Wzrdn3U9wOxCCJFsaL44HFB0G3dVp0996KtlmRyIbmZM3PmHDIs2WG+CjCZOjAnc/gBw35/AH+O+HyeJ1PU6w1Uq1W4rovNdosoihCFJ0QpMvvDEVH8An00w/ffNRTaBqqKhZJsotwdirMoGcg1+8i3dEiPOjqdLuzZAkG8xZaKb9732Ly9CQjCePsPYRRDlru4/5PDn1wBal/HwDCh6QO0pA5schCwCP0BFarU0JC6WPT6SFpNxOUqEllFTBCErjvHzHGgan00yJZpmojjGOv1GvE6RpIkH5YeFQ09tQ/DHGPakpAoPbBKHqvqDVjzBzIHahcLFgjDgC7qqFTr8HwG1wuu4Cw8LF2Gvm6g0WhiOBpjQffi1x1ejztyOcHufYHMZesnExuWNRLKwpARQoEoCrFY+WDhGsaTiWz2HhL10aNCry8vuHwyx+MRh0OaqkLyC4V8SshYSkrnmghnc1coLNZlfPv1QCHp+Jlr4CZbRrbcQaljoK3bKSGHUGjPMLLGQgm3fYn50heEpmVDUQdQdRMlCieXL8AcWVh5PqbO8kyYKuxTsoZhCJu+7xMCBDSXjKUIKZThcARJakPt9dCiUFptSYjwiHDl+l8VTtFut9HtdgmPlLomLjIWpoRUaObMqc8WHDpVTaf7kghpRCoZDfgVoTm0kC8UUXwooUJ2eIGAcbWpZQ7+zXucJBtoNGa1Wo1UDz8cXRGOn220aYiVngZ9YIg15P3jp0NktuPRd0BqAyJNFyF7d0dBFtCjFnhfCblsWZbFAJ9tpmf6zvvJyXny0amfiqIIGIMBptPZNeGTSRd6qlgxl3rnnYaaW+FzuFwFwj4n55skU6/vSOHt7S1seyLacUXozFewyHay+UuJ0rqtU/A9X654isHJMhOWNZoK/vfhQaqqmlo+T/iZ9Px+FGf6zX9nrkj7c4TOCnO5HIWjYTy2xERkcKHwUq1YydM7J+TV+dicCXkPeYvkrkL7/YTpbE5FGf4DgW/jxsIvuA0AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 85.8108108108108%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAABYlAAAWJQFJUiTwAAADA0lEQVR42mVUiW7aQBTk/38lqipVrUgaLhUIYGNOczkQH4CNj/UFpIUA07dLSAM1Gta27PGbmfc2E653sN0AM2OO4XQO12fYvx1wOAJvhxOtJ3E+fTFQqzfQkCT4vo/1ZoM4ignRFTL8hSh5xWg2x5eHKvKNAUrNMQrSEEV5JNbHWh+5ukrXY8htlUib0M0F/GSD7eGANRWw3u2x3u/PhMlmhzBK0W63kcvnUSyVMNE0TKczsXa6Xdi2g4gqGo40VKt11JttOK0O0koFSb6AVGohaSjIcFmObcK0LPT6Kur1OmazGeIkEQRxHCNJUoRhCMZCtDp99AcjaFMdc044GoNJZTjSNzDlOzJHLjl0kSYxEQ6ET34QwvMCuO/w/AAL28PKY1CJrPr0BE2bwgkY0t9/sKPf5nWJ/SlABjjhcry86OfqqKowZKIqjigKYa88sJBLnuDh5yMUqm5FYW632w+KE62ZE/0fj0dxo93uoET+cULGiJDAV05oLV3qBoZ8VcFdtkzhDfH1oYK77wX8KDZEgPJAPxNy8EM3LAFeiUft45MkvnLYjk8VMWofU3ioDjVUqjWUy2UYpknvRJTD4pqwT6GMx2MEAfnmeQJBwEQY50ojkbosS/RsD/WGjAZhPHmG47hwyJabCk1IsoxmU4GitMQHfAokeJfOiZdLG4ZhiDZSB0PxnCTJ0HWD/I6vCUdjDYViiXz8RUnWMF8siSwU0hckeUng13EcIU1TdLs9VEjyZDKB67ri41eEMxovpdUWrTEhGRcP+crJrKUnWoixQATHq8vlHkWQ3ALvllDTnsW0nNsm/JB58ZD7ycl5+iH5yZ/vdDoC3Pv5/CYUPla8uQMWkQT/qrHtlS/g+2c/E5ok7nU2m8X9/T0syxJJXxHalJRpLWkneaUNY03jx7FBFKeUoC8a+SyZCRV9dYAnmhpFUdDvvUu+TMmF9NLxn48D7V+u53+ygYlZl5tN8jAHVVUpZf3/UP6dn/D5/httUbeEIcl7nulU5VD04XxhiwD/AoDc48lf34G1AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -697,7 +1260,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 152.7027027027027%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAfCAYAAADnTu3OAAAACXBIWXMAABYlAAAWJQFJUiTwAAADQElEQVRIx5WWiW7TUBBF+f/f4BsAgQSqKiSgrEqalmb1bjfet3hNLnNf66qoS9wnWfGzlaOZuTP3+VWc1TD8At61j8V8Ds/zMJlMUDcN7q/D4YCn1vCubTu82u/3mOoZZnMNG82AbZnwXBtxGMA0NKRJgsVicffHx8D/AXnTdXvotg/d8rDa6Pjw+Q/env7Cx28XSLICURQ+AN4H/wfkppMoi6pHnNfwkwrvvkzw+s0p3n9dIEoL9F2Lvu+fTP9BhK1E2PV78PmuarCNXISxRKxpsCwLFxcXyPNc/YklejZCdSMwQvv9QYA1YrfAdhtiOp1gtVrBNE116bqOqqrGA/fyIi5qXC63Io6F9XqtIFT++voamkQ8RPo8UGCEcpW7Gmc/f8C2bTiOo37vA8uyPA5k/aqmRyMPkjTD97MzATlIpGUYESFFUSBN0ztxjqqciMJukMGPctiOgelsijAMn23koykrUeoWtm/C3dpSP0OlfHV1hd1u92RzPyMKa1ghD0oEQYTZ7BybzUYJM9SyruuXqZyWNeZzH47tyu9cASkOYbxnLUcCexVhLipP/l5J3xkwDEP1n+u66iJwfNt0e/Uiy3KcnpxIY2+VqnEcy7NMKR4EwTiVe1GZNkaVt2Ei42bi/Pz8gcocu6PmMKTctD0quXZVB91ZQ7PWYl8WfN9XDT2IMa5t+pu2GVTO0lwsK1Y+SIU5zwQz/ebWeEerXOwa6IsIjuXi8vJSRcexe7E5NARKiIm0zWylSboGlsulio5Qqsw2ojijVO5uzaGQuT359OlOZQpDSBRFSuWu644AOcsCS8sGQVzAD2MspXZMl7DBUNkurN8ogyWwFrdJxAuzsoXnW1hu5jIh7l3/DZGNNodh7WRSgsiXIyBUNaQYjJYps3WOp3wLvGlwqlxjK8eq5/nS3FMF5SxzDOng41S+Bd4cARWmC0sdAYTwkKIxMG3uOYajgMMqmw5/TU/cxlaNzaiYNiPlF8WII+AgfUhToBEE8IMQltg/AYTx4j0VZ5Rt244wB9nr2hzm5jdW640yh4VAhoOJjv0Y4Ekgt46twdYmMl6mqhkjY/04HRRltNsMm04+N3Boj35hHftY+gel4Vrv9NnhfgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 152.7027027027027%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAfCAYAAADnTu3OAAAACXBIWXMAABYlAAAWJQFJUiTwAAADUklEQVR42pWW647aVhSF8/5vkWdof0SV2mmktppEVTszBGZsBmx8wWDju42vsLLXYZwmnQvGErIN8sfeZ629jt8leQ1nV2DrB5jPdWw2G9ze3aFpW3x/HI9HvHYMv7Vth3dd3+PWTDGbr2CYFlzHxsZzkUQh1o6FLE2xXC6/PfgS+AcgL5r2AMPeYuVssFia+PWvW/zy5w2uPs8Qpzl8338G/B78A5A3/eGIouoRZTX8eI+f/7jB+58+4sP1HEm+x/FwQC+dvNb+swrb7oCuP0C4KPc1NuEaQeTDNEw4joPZbIaiKNRDB4G/WaG6EBihrHQvwGRTSJshJpM7LBZLWJYF27axWq1Q1/UIYHcCHuSHWFR/mPsijivruVAQKr/dbtX1UOkoIL8u9hX+/vcfuK4jH1e17HmegpqmibIsx7VcNb1AeyRphk/X1/DWHpIkQZZlqqo8z9X9IM6bKney0GzVCzIRI4PjWphMJ4ii6EXPjVKZVRK8r1o4voX11oG1kvN6DV3XUVXVZbY5iSK2KSvkYYndLsJ0OoVhGGrtCKYwTdNcpnJa1JjrgVpDTdcUkLCLRaEgrDATH37R58p7tAn9RyCV5kxTnHEV9qcJSLMcH6+uEAQBUgkGCsNzHMeyDLsLVJY53uwy+GEiVVlq/f6vMsfubDgMLddtj33doaw6rNZLSZ8FbMtRVbH9QYzxKvf899OkZGLuKIrx+PioYDwTzNbbp+AdFQ5UuShr2I8x1q6H2f1MKUu7DOEw+PEssCFQZE6KCtOFpMtTZYvFKSCoMg3OKkep3D2pnBclfr/6Db6ozNllq1SYAlH5ruvOAKmywLKyRZgUCMIYmqZBe9AQhuG3QCWIWTgqYAmsROE4r2RSGni+A32hqWlh2rC6i7eA4eAWwPgP41CtH8W4v79X7VPhs8YegMNmReDOzmV2A7UFUBgGLe3DuR6n8hOQtomk7S+6pLUkNSGOVMhgoDisdvQsD0cha/lgeeJDV94k5ioQCGKlk8lkTNocxYdHsUuONJEACCPY7lqtHz8EEkbLcMM/OykqHOR+ZWhwjBsBGLIxnSoadjoa+q33nGdANuw6SzjmnYyapdaMQLZKT1KU0Wnz300jrxz1q5W8BHoJ+BW++1rn2UhogQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -729,7 +1292,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB70lEQVQoz21SCXKbQBDk/39KKpU4TkW2hA4EAmHu+4blUCSgPaxt5ahsVdewy2xPT88Ka20LTXnAVhRhnVQ4pkn7HWzHge1FiEMPjvEdivYIw7Dgui5sS8fLaQtZkqBJjwgCGz93Z+hOBOFkWng5y4jCAKyq0LUd2pah63oUZY39QYL4/A26riBNM8RxTIgo3yeigMckiRBECaI4gdC0vxAlKaSzhTCr8ecahgGKIsNxPLqUoe8HsLalglSUCn6A8X3Hz4XlYl4wbKQzjqqBnn7M74QN6yDSuRNmcLwAfhgjK0qkeYE0K5AsSPPfoL0wTjN8P+Qt11UJxthdIesGfF0d8LRXIZ90mLYP14/J2xBuEMMLE4RxRsjvEFh/g0sJeZ7dieb5TWPXX3CUFWzWz5Tjk+IW5uK5YcDzffhBiLKqUTcMVd3wKPTDlTwy+fTSNMX1er0Tt6TwoJxhWDZv0yVFqkYWuB6s5RVQTLMceVmRbSXZQS1P04iWFWiaBmVZYhzHvwg1w8FeUri/O8XC01bB81qEdDxBN2yYlkNqI96lTcMT8J/10TKjCZpuDE1dQVIfsNp9gaz+wEH6jO3+Ew1qTWQiKV3zb9ffvBEuBP9iWTV5lpbLkEbMU0+JF2AaeJynC3XTY7x1uL1jvPV4BWOp7BOpZ2WNAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB6UlEQVR42l2R627aQBSE/f6PVKn9kSqKmiaGgB2wsY1v6xv4EjDhYuDLwZQk6kqjWc2uZufMarbvMLQemI4eMEYmsePgOhau/UoQp6g0J48nzOyfWI6JPw+IVYxrjQQmo8Ejyh9huwF/xnM0N87l4pRg7lCVJe1qRbvZsF6v2bxv8cOYgf6Xl8E9SZZSFAV5npOlSY8kURS57EVLsgKtfd/TvG1wg4iJp9juO74vpZSksyVVymq1vj7WtsLvn1i3wu2mP9O645FDd8ILUh5fpqgk4yTa+XzuDd1AYdgBSb7s0xaLkkVZs1hWFDeIdoPWdUdxltF8n6auqKqKrvtKOfMTfj0MMC2PieUQpwVBlBCpjDjJUdmCtChJ8yu03f7Asm4JgvDT6JLulvDSi64/YxgG9dtKUiyxZzOCMCKKFXmx4E2qaOTswtpBEpaSypdPybKMpqk/TS8rkhTGq0WSZv2oMy/A8zzCKMaXEEr0sqop64alsHR4YreTolcNtYitFP5leO7HMSY2Y3OKKV0+jR2eB2Oe9SHWzMOdh4TSbZxIFcLa975uqx/5uiFdNDiey9S6Qzd/oxt3TO179OEPMbyXTxwSxrqYPfWs/d/b9/6uCSv2h8udHefTVqRtz+fzjpPwsdv06P7xB/RO7J97Tm6HAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -762,7 +1325,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 74.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACOUlEQVQ4y41Ua3PaMBD0//9J/dKP6UCAaUICBvx+SH7K2AaMsb09ySSBZpj2Znb2kMTe6k6grdc6ZrMZlm9v8P0AZVlBCPEN+X9C2xkGHNcF4xGSJEWW5Sj2JfYkfIuqPhBqxfXhOELlN58p1/TtDtPpM4IghE+wbQeZKFBWtRKSXOwrbG0fhkP7jgvDNGFaNizKLdvFzrRozcLacKGZtOAFDEleIMmEEouTjFz78KgFjuvBdgOsDA/LjQ3dsKlwoPY8MiDZ9YMrh9IhVTNtxHGMkK7thRHWOwdPkznmL++YvGwwXbxiqRswXQbbY2BRQmcTxTxOCdmVU+nQgzNfQKw2OFIfLl2Htc3x83mLhe5j8nsD3SQnTCCICvhcwAkzuCyH6cXYWCEhwMZm0Im1OEsRJBFVj0mshwyW7hHK6lGEvMoRVwkCwRAVMeJ9iuPphObcUo9LJGmGiM6lNEw5Ay3LBT5iGEZmSQHOOAT1sqUvXtoW7aVFN3QKj0Ia0lIaxEBKfT8olhHEAnVVYTg06OoGQ3mWp2VJQk/nPtAp9KpIj1PTjIKjuy9BltA7LOQjX+LcGLIESXm0/wXgb/apDd4jwYKueLlxRA6Ui9GR5FsMV4fNuXks2JwvSm9cxz8h40T9/uzhrSCnKXfd4+Y/HArdSkvvpjwK+jxHlNcQVYNsf7xDWhy/rUnk5UkZ0fyQqz8Hzjkq+t0eDjV2DsOPXys8vVpYvJvYuhF29E4lZL695negR751OP4Aay10TYqU5x8AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 74.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACU0lEQVR42pVTaXebMBDk//+kfuq3pK5DDsfGxuYWAnEKDD6B6SLHOdqkr9V748HLMjvSrrTFwoCu65jP5+A8Ql1vUZblHyj+gjwvsN022GwsaGv68f0AUSyQZhnyooCsalQk/B7bpiU0ipt2d4F6blXscDopHc1YmZhO78CjCAEL4Xo+Va1QU8VRaORS1jAdBtvncF0Plm3Ddlw4lOu4PtYbG17AcDN9hGZTgHFyV0ikOdkvJUSawaNqY4GRHT+EYQV4Nh2sbRcsDNW7IOTEXOWMO3x4eoa2NC24jo9EJOAUDHiMBX14M9GhPxmYPJn4eT/DnGKWH8FjMSKRUm6qOE4y4gxZUWGxNKFZtgf//h5yucF+v8fpfMbc4vh+t8bDimHyaGLtRGBRiVBIsLiEx3P4UQErEHQUHCubwWEpfugzaGmRgSUCTpCiHwaMiyeSqiaIhUDRFBDbFGEZQcgEaZVhtz/gcDyiouYlWY44jiHrGrPnObSxAdc1KMEBYVJCRJSUFThT987HEzk/oRs6ha+WSNJRUGKU6fvhRRC0rQK7tkHfHNC1Bwz1Eeh6VYwyKe+KTqHrzpfvGLsIXt1dHfKkRl0FNOQznI42xUKKBvT+DcAb971PHFP3H38XxIugJEPdO0f0rLZ6cTTye/T9i8PwS4eSzqxTBf4F43Fdthx97jBK5et5/s+KqZGvgm9dBs1YjqRsUW73yKvdB2Ry90msRb2n+TUcaIxuhkd3UtDMjZe/JSxtjm+3Bm5nDh4MGxs/ecXaFx/+q5gn4NKgT/QlfgGiK3GX3DHY0AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -794,7 +1357,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 78.37837837837837%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAACMUlEQVQ4y5WT63KbMBCFef9X6v9Omk5tx44NBHO/SCDAXAw4MfbpCkNrZ5yk1cw3u9IsR3sRynK5xGw2h6qqiJMEu6JAlmUj+UiG9B9R1usNTMtCGEYQIkWe71Dvmxv2RNt2aNqW6O7Sdt0Qo6ye15CiCYl5vg8/CCnLEmW1R1HVKOs97StsnQBuyOG4HiVgD7heAMtxYdPZi7GF6QZQHNenUgWynErdFchJLBYZQsYR8RhBFBEcG9PHUnewtb2hGnlxMFqJ5wewvZBK1gx4LIbPEvghg+MzaIaNx19zrDY6FisN32cqFpoD3aTs3BAsFojoG8YTcEqGJ+lATCiGbiJ5WqKhG2Qf6qbFSrPw8HOBx5WJbw8bLF8oA5ZBZBW42CGKc7BkBz8SsNyIsg7ooggGWSXNBTRVg2czTCtOC4QRAw9pSGmJqi6ojzmqfT1cKocjbVmWw8uI45hmIChjDkVOSK7zKNb3PZK8grXdQn02oKs2DNWDrTPUxSuOx0vc+Yy7S2moxEvAJeJ0IsGshufMYVs/4DozWPoMXclxaBje3iKKEhQ/kQyA/GPPPxDMa/Ik+UhGpKPNKDYd9tJOyH3fJ/cETxBUstx+xPuSJ5+69ZngeeistNf+pdu3TOey/8r+naA8/CuIP4JfMX2ryPFfr9PpfCuIr9f1C1F29LtV9J46elv98Q2vhwNNubwI/g9DyScomhXiSXehuxxWmBEp1nYysHEEMfmfs6ZYw2X4DdRrwz7u2psxAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 78.37837837837837%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAACL0lEQVR42qVUaY/aMBDN//9J/Vyt1AsWFkgCm9NxnPsgIYEE8joxsEC7VbeqpafnscZvZjyZKLPZHJPpFKqmIQhDpFmGOEl+R/wxKMvlEoZpgfs+ieUoyhL1boe63t1xg7Zt0TSEdn+Hm91ebGU2n0NVNURxDNtx4DKPRCuU2wrFduQaWV7CZj6YH8JxGSzbIV8XrsfJ9mDT2ZiU7Qkolu0iDGOkeSEvZkVJ4ilEECKIYslcRFhuXCwIhnUO6jImBcf9GGQMYDgeFHVjgJEgEyEYF5SJwNpw8H3yDFXfYLFa48uzjrnuQH116BKntx4DRcSRDBpGiUREe0Vf6UhXGmruo6K3irMSkxcdT1+n+PxDxaenJaYaZcDpUlLADzPwIAUndv0IFgtg2BymKyiYDyWMBNTZAr4jMK7j8USXLiX71PE4p0DjW5bYVhXqpkFFjdoRj18EFwE8zuGTP/Oo5Ha/x5GE+tMgBfeHDiJKYZsmtIUB85VhozlwDIF6e8DpBAzDGb8uyoUEqd1yDVfBXgq69hSb9TeYxhTG6gVtmaKpQnR9TF4FuecPAHJ0XXrO8Kx3yzDJt7TLCAIDAsmQHEoeBnHhG0a76/33BdOiuk/6rcT7Uu9Lvu67Hn8TPMnzK+jkje8x+o3c9d3tDd8XHD6Mc4Y9lP3h8NCpsSn/JbileW12NToSHk5H+QPILoL/uvr+SJNicbzoFkwWwhWZnAjNibBmyQ1u8mj/AQZNzU+VUsNemqM1AwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -826,7 +1389,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 50.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfElEQVQoz5VR3VLyMBTs+z+WN14oAkIL9C9N0qT/hbYKFIX1pFS/zxl19MzsbHqabPZsLNtx8DCdwiFWSqGqauRFgeI/5PnPyPIcZVXB831Ytu1g47oQQqIsK+yaBt3T8yfs9wfsD4eRjyPG3vjdn06QMoa1JMHpbEa3FBDUiLjAdteg7Z7QtN3AQqVgUg//GYsQhAyMS4JAGAky5IHHKZYrF1bIOImV5KxFTUKGCxpbKg2dZIiJ/UhiFRA8Bi4VRaMR6+QKWhtnXI2CztqDG9DG2GxIIYjXdPBuMsXCXmHhbHD7QOxyEo4hdTZkbCbKi/IDVV0jCAJYcZJg7geYrSVayqvpnjHfCNxMXEyWPu7nKzihRqRL6KxGnFSQBK4K+FwjGMFkikebHJq8TF3wr1RaDjke+xMOxx593w/8/gBmbR7LRJWkKTLjkhwvzMjVdncVvFwlX15fUdQNLucz/lo+E7DqLwTLbffR+w3O4+VeyL8TbP8k+H7WCL4BFtjzSKDRCYMAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 50.67567567567568%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABlklEQVR42qWR63KbMBCFef+naidJkzq+YS52wIAR97sBQwwxPlkpHTf502mnO/PNIml12D2SVE3DcrWCrm8RRhHKskKW51/J/kySpqjrBvP5ApKm6TBME57vi8tlVaE9dV/o+1dBx/Mr53zb4+uu7zFNV8gbBZKi6ljLG6RpBs/zwZiHiv5WNy2ORN2e4HghLDfAwWWwbBvm3oJ9YIRL6wO2ux28KMP3+0dI/CAvShxJpDzWIqd5AUbiQRhT5wH2joetTZgOmB+SNfGNIIxETZQWuPvxRCPvDCq04LAAPgm4fgTtxcLT8xIbdQtZ3eFhoUM1mOjSCxPyLEOcZEjJPw7/5hPNZjNIYZJAsR0oZiA8ak895BeGh/Uea93GUjFguAlYVFAXJfy4ELhBhv0hEJhOABZm+HZHI/MRP8f1CgRxjqZpMI5vGMaR8ojzMOB8/mAYRnRdL6ziL5yRRUey6/6ROuS+8Zi4EsX4dkFWNh/K/xjPSxlS9Uvw+kkwr9rb3t9wuVxE/Wyx/t3h/whO0yTqf85XeAc8YvHkiECX2wAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -858,7 +1421,7 @@ Response Code에는 필드를 응답코드로 선택하고 패턴에 예상 응�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 116.89189189189189%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFBUlEQVQ4y5WUeVCVVRjGPx0FRGvGf1pGJTENRZRFuegkGiiWCIKBW7igVsoQKpRFKJLgKDZU42h/qE2KlqbI5hiD2chyBUFIFlm67DXs3I0LYsC999e5HwNTNs3omXnmvOc97/uc57zv+T6pvbudkOgQgiKDCI4KZm3YWtYIhB3cQFzsVg7F7SDm0BaOnwynR1XKQ+UNYoQvPj6UY8d2yvaRozuJ/DiQwqJfkGobqpHekJAcBOZKuGxzZu+pMLKSdqE9vp72/S60xXijPeACZ/eiTfClY89seg560BW1iK59C+n5dAmd4Y48zrmM1GvQser9VUgzJewDZnG2+BxlukooTYPkKDjuC6e3QaI/w6e2w5dBcGgZJAXDiQDMR7zoj1+L+aTwF6cLwj4tucW3+ebyKdw2LcBp1xucz7+MTl3H6aQwImJWUlBwiT3hy1F4TcVj1csofF5B4T0Nj6D5ePrZEf1FMO4rppCadg5pyDTAmZsJxJ75jK9+TGTOtlnEXUukeaiDlfv8sXKbyGtr7JDmi5LMGymLXB7X15G2e+MV+y55f9zCO2IFpy8mIXUbutmetJXEC4kkJMdjH2LP0SsnqNHXExi1HmmOhJWLFTZu1nhsUbB4oxvum9xxDFjIopCleO5aju9HPsx+ezqXrp1BqmqpJjU/ha8Fod16e1xDHTmcnEC5tga/yABZzWTFFKwFYXBkMLtjd7P6w9XsPBzKih2eBISvE/6NzPR6lasp34ou//k7yke57DtxgIlLrJm9YSafC8KSnkf4Hlgnv4ApHi/gFDifeevm4RzkjIOfA+6b3XETauf4O+CyWcFUhS3paWeRGlvreTNcQfLP35NfepfN0YF8ci6aij6VIPSXFdoutsXK1WoMkxZNYrLwjROleM93OudDXVjmYUVaumiKxqDmovISc4Mc8Q/zQdVYye3KXLIacvCLChgjtFzZAhs3mzF7gqs1zp5T8X9nGjMWSGRnfodkxEyTrpFlO5bKXdwftwHdYy3V+iZ8ItbIPlt3UUOh6mnYLJ4kum2N5GYrlybv1gWkdnWbeHtO8nN4aemLvBU0g6hjoUTEf8BEJ4lxgnD8PzBu7r/XEywQcePtJJSZ55H0/b1k3MvkQc4NgVQKC25SmSvsrAtU56RQK2yVMl3MqdTmpVJfkIkqP02GvC98qnsZ1P56hX7RD8k4bKSrvZPe3j66utTo9X0MDAzS3a1BpzfI6/qGJnrUWlpbO/jtYTmNjS3U1zeJnH45zmJ3ilzLkIaGhrhz5w7FxUVUVVWRnZ0tEhooKysTn9w92a9U5lNXp6KhoYHMzAyKiu4LFFFRUU5zczOlpSXU1tQwNDiIZDabBUEjKpWKtrY2qqurqaysxGAw0NHRQUlJiUgolWMse+Xl5XJcXV2dvG5paaGpqQmNRjOicHh4WFaTn59PjTjFcrJSqZTVWJCRkUFKSopQUyHH5OXlyQdYYgoLC2Wf5YYWUpnQaDSi02lE3fplDP71REh/Iuqjw6L+eYYlXjKazLR3GWjr1NPZ3Y9aO4BaNyhsA0ajSQ40mUxysGUetUfXo/YoJLPpMWh+AN110P4k7KtitiAdtVpNT0+P5ej/JP4fJEyD0FcgUCygFHiASX8XY+99tFqNeDa6ses8E+Fj4xA3NHUU93VxS9dMxcAIgemp2jwz4bDZyF3x78tSV3C9q4Sq/tYRQuF/HqJR/A2V+jdeLrIOTwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 116.89189189189189%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAABYlAAAWJQFJUiTwAAAE9klEQVR42pWTeVDUZRjHf80Yh1k2Nk3TgaGIJg5yiSuX2aijpWEgKCqhq2OHpOaRYsoonqmlaeOMOeofhSkyQpHigUIcK4QsxLEcHlyyLgt7yLXLuZ/e/TGa+Zf+Zj7zPO/zPPt9n+d935Vq6mpYuHEhUd9EyTY0NpS5grVbFhG/PYatCcuJ2xbN94c30N5QSe71RDbHf8quPcvZuVvJlh1K4kXNuk0RVFQWIWUXZiK5SEjvDeK/wp8vDq0k66CS1h2z0a7xoiluKqb1fnD8cwzx03nwmRv6r73RrZ+ELtYD/UYF2lUeWIuvIjVq6/Ga74XkKuG5xJPE8rNUmiugIAlOr4H98+BoNBwMwyYEOTgfds4cjB0Ih4SZdB9YAD8shMpcJKNZz438y2w/lsDEyHH4fjmRZHUaxgel7NsexbY981BlnUKp9CVw2qsET3+doBmCmS4EhY1lVui7xG0NRRHshCr3IlJnj5H9SVv47uRudpzcyujoURy5fILblvt4RQfySuDLuHw4EmnCf8cijRVM9kBa+gGhexaT2XgR3xgfLqT/hlTbUsvCvZEcSjzM5p834bZkNEcvHqe0VUOIMgTJXeJFryEM83+JgMUKvMMn4hvhw5g541EsDWHqihDmrp7FmBlvci0zBamg6m9Scy+QcCwe1wg3/JSeHEg5yi19KYHLgpHGSwydNBRHXyei46KJ+TaGsLVhrIhXMjUmmPA1nxC1IYpR094g869UpJK7JeRXqohctwCHAEc8FrmzL+UI+bpiApYFIY2TGB4wHM9wTybMm4B3hDfuc9xRLFLI/sg5Y3GL9GPE5KHk5/6JVKjJJyhWQVp2Cum5acxZO4PdSftRmyqYsjRQPjNn0aGTn5Po0lHGSXTrLNZDfByJnefK6WVeKBQO5NkvRWts4scrP+H6kSsrxYO9Xa8hreQal+5kEmQ/Q3lk58diT+IgBKdMe42PZ7+Fm/cLqG+mI/Vjo0pfwfgwDxwmSuw98hXtfRYKmzVMigmQb9fJfxgOosuncRRIPk4CZ4aKOk2BeNiVDRpGRrrIT+Gd4OG8H/42uw6vZtXWaBzEuI5P4PAU9pizmMDRQ2LEKIlqlRi5WTzs85nnUWUkkXMjiZuqPyi4doas309QlHEW9fVzFIu87Iv8P1nJFAsrx0RuMJ9MyZVfsbTcR+rt6cXQbKDb2ovJ1IbF0iP7BoMZi7WHjg4LdXWNmM3tNDQ2UVpWIa/v3auny9KNXm8Q6wYMxofYP6nL0kX65XQKCvIpKirisvDr6mqFf4vs7GxUqjyysjKpra2lpqaalJQLFBcXy/HS0lIhfA+1ukjODfT3I/X19XHnzh0ZnU5HWVkZVVVVdHZ20tTUJG9ij9kFNRoN5eXlaLVaIVAji9XX18u5tra2wQ6tVqv8o5ycHFkoLy9P7K6Si6urq0lOTiY1NVUWtdfYUavVsrXX2m1GRoa8iSzY29uL2WTEKkbvtnbR29NNT4+Vrs4Onvez2Wz2kQfQ6toED9G1dGAwWWk1daPTP8Q2MCAXDghrL35kHzFg+/9aFrT1GbC1ngLTOWzGM2BMBMMv9BvT0LcYxW23Pt79WZAY6IKOm9BZJCiQra0tm772YkzmNtrb259P0Cj+ZsnG2xR1tnLRXMvd7q5BgafO5pkFLf09XDWWc8lQSpK+kLuW5sFzs/U/l9Aj/gUWETdn6eX/mgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -933,7 +1496,7 @@ eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 70.94594594594594%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAACoklEQVQ4y3WSWU8TYRSG55+ocQOMa29cYuK1XBgTlwsv/AUqiQajgSC1LCJBJMYQjVJjLQgawSVRkEJnSkFREUwQsItdpnRvoaxt6et3DrQUEid58p7t284cqazPjBJFwZVuBddMVlyXh1E6NIqG0Ql02V147/HjgxrEJ18I98cmUfplDDeHf+EG8XUMV60juKR8w2VBieU7pLuvXqDGqEdzhwEPjU/Q3K6H/l0bnnW24nlnGwxdL2F4uwrFnr4xQi9iRIuw7xlbUPb4AbSPmqDTN0O6eOEczp4uxvkzp3Cy+AT2arZCc3QH9hRtQ8HOrSjYtU7hboptgeZAEQ7uL2Q9dvgQjh/RsO4r3A6pz2SCqbcXPd3dIFuRZVhkBRbl/1AN1+XZstnMKnm9XjidDrjdLkxP+7C0tJRjcXFxg7+wsMC6vLyc8+fn5xnOibjkcbtht9kQi8UwMzODaDTKRCIRUI40Ho/D5frLdeFQCDGRV1UvbLY/QlVxGTd8QmkPiRaEw2HehAL5ZGN0kNfjgd1uh8PhgEfYPp8q8OUOj4g9SKW5uTm+Muns7Cwv3gzFVdGaqalJvg352YM2IzmdTvweH8fkxAQ/h563+aZZKEfkH0x2Ft4wGo8gFAsgkUhws5PJJJNKpTbYlKOfxIgfsEHXoFdKwWAQXtXD7w+JGwYCAfj9fm46aTAYYJt+BH2ZTEaAVYS/srIiyHCODpded7Sjvq4W1bpK6LQV0N4qR9XtStTVVkNbUY7aah2aGhuY+roa3KnRCapEviqXa2yo57WtRgOknyM/xGD3iMH+KAb7MwYsskCBdcAiBtXM9tCgFYPWVV829zPKmlK9RZHR32cC7SVlx8HlconGJvgJSdGzFJNe72XOzyOdXqtLIS1sGvZ/njyxdEG1dYQAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 70.94594594594594%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAACsElEQVR42m1TWU8TYRSdXyMY1KpEUxNDTIyPRl9INPrgi88mGAOUQmkpWCdiKYgoihpj/BGaCC5sbVE6HdrpvlFKbUsXlhIIHL97KaZpfDi5+7nLNyOZf86ic34Bhul5mH64YF30wPpbw5QWw5dUBl+zBUznivieK+G1FoXVo8GmBPBYYGhZg9HlxcPZJXQ5FXR8/gZp8N0E+ifscLwdh/xChvxShuO9A/ZJO569srO0T44wyB4WGJ0ag+PNKEaEz/JcRscTMwzDA3hg6YZ0/95d3G6/iTu32nH9xjW06pugb2vBWV0zdC1N0J0S8lRTDc0403IC+gvncLFVx/LKZT2utl1ief70SUhOpxOLCwuYm5uF2+WC6lWhKipWVIGVlSNZ03012+v1Qq35VaErigJN0zAzMwMplUwiGo2A5Pr6OnZ2dhjb29vY3NxkSfbW1hYqlQrr1WqV/eVymVEsFrG7u4tYLCYIU0QYRalU4uDGxgYnFPJ5pFIptilGyZFIGLncHxQKBY5FwmFk1tZ4GPIFAgFIVFwPKq4H+agRNSaCaCSC9OoqE9FG1DAvmtP0fp8PEim0GuF4hUZQDpGEQyGk02lenxqRn1AWjWnlkIhL1JGOq2l+HpsIGqc8Psc/goZmFKe7BoNBSKWKWLWSZ8fe3h5jf3+fUW+TpCn+B6o9PDw8epRVsQodm2RSHDcRj4tAlO8Vj8eQTCRYz2azTErFVSKpI6OXPzg4EPkJSJ8+fsCgpR+9PV0wGjph6HoEU68BA+Y+1s0mI57KNsi2QfT39aDP2A2T0cA5VGMbssJqMXHt+NgopGBAw68lt/ionfAqHgTEBxoQ9ySp+X18W8oh2y/sRlCcXjck7kc/hkSG2+2CZ3lZjBwXn0IGa+KTIGRqst5uBPnp5XO5HHyC6y/hjq2131v6RAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -986,7 +1549,7 @@ eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 45.94594594594595%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABWUlEQVQoz5WQWU/CQBSF5/+/qQQJUWMiioKIgGzG5UH9DUKLtNANaKEtrUaF5jh3tAqID07yZe65y+ntsOFwCOKp24Xc6aCvadB0g6OvRRc1Y21OUVUwWZbRaj1CliRuPMB4PIbjOD/Y9pK2uSYW+0iP+FL2aASmKAo63JTEZDKB53kcF57ritiyrKW8qipiOM65vK/f68E0TQx4L/N9H9PpVPA5tIz7ZRzHktSG1G5D409DprShZZmi5nLNKEFv6Dj2WsNVc9M0YBgGfK5pGdp68aNM1zXIsiRWDsMQQRCIOwwDERPxHxCruSDgxDGHvbw+4z16A535fI4oijCbzb5j4j+HVS8qSKe2kUxs8juJ7WQCO+kU9vd2kdjaELXccRZHmQNkDzN/QnWCPdzf4ayQR7NeQ4NTq1ZwddnE7c21uClfKhVQLJ/gvJz/RbGcQ6lyKmYb9So+AJ+XiOieJOGFAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 45.94594594594595%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABVUlEQVR42pWP61KCQBzF9/HNcioz1N6gpgdQ8zZeuvo9GlC5CKiICMiANuOJXYWosQ8x85v/7tmzh7NE13XomgZBFCFGyIoCRVWhKAfS63jPNCXR1IMmyTKIIAjg+XcMozDTNGHbNpbLZYJlWT/2i8WCaWkf1cz5nN0nkiRhPBolF6kxjWHoWEZnq9WKnY/HI8xnM+ZfsVALsizBiF5qGAaI67rwPA900kt/4TgOC/zgeYY2mSTtptMpC6cFCK1JBTq/A+xfc0/cmDahP3AOGiX2kImmQhwKLNT3fazX62TG0PYxac3z9q9LQzzfRfgZYLcDwjDEZrNFEARsTdlut/jPR+7vbpHLnuAsm8HleQ650wwK+QuUuEKi3ZQ5cFweRe7qKKWIcvGaQQaDN9RrVfR7XfS6HXQ7bTw99vH68swm1RrNGuqtChqt6hEqaLYf0I981PsFkyOIsMquTFwAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1022,7 +1585,7 @@ eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 31.08108108108108%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAABAklEQVQY05WQ3W7CMAxG+yZj2lUTB5w0f01LKQMKa3n/1/lmOjZpN5N2cXRiK7EdV6EfMLQBPgS44NF2HWLK2LEV+Om/YctwjUXOCZV1UsQR/E6DtIZSClpMRP/CGAPeEip2Ac2OkJ2Bk+LGbKHq+hdamiilV+vV36if3GMY0jWqdDxjuC0YP+44XGek9wvKNKOflpVymRGHE+L+iDAIYv/kEa9+xllqVW0cUbw84BNKmnDY32HbGVQWmG4ByVmnK1Q4I8i9Ei9ohS5f0Um+xAmeR3j7RcXEaFSAefNoTEYfRvlexIYELng1CRvb42XbgnWSfe+lebfCtayLEpyOqx/xJzulwEdHw6kQAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 31.08108108108108%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAABA0lEQVR42pWQ207DMBBE8yXlBakkjnOxE9d20jhNbxRB//9vDtsgeETwcORdz2hG2sxPM/Po6XceFz3T4YCPA01raMwfEJ+xBttZQghkxlh8q6i1oigK8jxHKUVZlv+iqjRNrckaCXSNIhhNK41axCJ/keAvCil4FD1Qv1AqefMtmUsnpssb8+s70/lGnxbi8cK4XFfifKYf5hW7kn4w3/P4pfn5RBbDgcGdcfbIGK6kdMeMH1T7O9UkyKzjDS0eL0QvJf7CIN5R/h97bxdct4guga2ucUVAP3dyyz1pd2Rb7tjUgY3Z81RHNl2SPdLXA0M3E+y0eq3ydDpglMOWnmpr+QTOB8D4cPYTtwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1053,7 +1616,7 @@ eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 43.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABgElEQVQoz52S20oCURSG9+NkkBl2xAjqJuomgm7q4UIrNagsx0M6B/U9Emwg0dEZRp3Kwwh/e62mNOqqgY+91trrX//ewxYH+3s4Oz3B8dEhdnZXsRYLIRpdRGRpAZFwaMZcvrIcwsZaBOury4htRrG9JXXRMPeIx2IBaqmEWrUCw9Cg6WVoqqT8uarlEqOpKtc4lquh66gYOutq1Sp0TeM9YZrP6HQ6GA6HGI/HzGQy4fxdQjExGAy4Np1OOR+NRuj1ehKXV8qpLlqtFlzXhWPbsAMcx4FlWQzFjmOjXn9Co9FAs/nCvZbVhmma6AR9drfLWuF5r+j3+4HbDKp9QTkNo6FdKaRTkRENoD060BeCmtrtNjzPYzFdjfll4v4wmhlL5urCexvA96f8b3zfZygm/vOJ63QSyasLpJNXuEzEQXkqeYlE/BxK9h6FfA55RfmTnJKVPPxAZO5uUCzkpFBBUYrpKRi6BnpOeSm4zaQ/uQ8I4ptMCtlshg0LOeWbDwc+WQDNUSytAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 43.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABf0lEQVR42p2QW0sCQRzF5wNVIF7Qwozeeigioofog1WmSL3kBQoyxWvpXuwzZK5pSLq6Xta7PpxmxtXSemrhxxz+58ycP0sOD/ZwdnqC46N9uHatcGyvw2Zdh8W0ZvBTz7CaN7DlsGDTbobLaceO0wG7zQQz9Ug6lULm+QkvORmyJEKSBIhCliIYZDmSKM50dubJkoScLNN7Oc7cJ6XSO+r1OobDIUajEWc8HqPf73OYZrN2u80zk8mEzwaDAZqahmaziVarxT02J6pao+EWNGpqWsNAg1qrQVVVrhuNBvL5VxSLCiqVCp9Vq5/4KJfpMirPsQyDdPUub1+l0+ksYBsUFQWKUuCF3wtoPMv8OeStkEedNvR6Pei6vgR7bLVA1ztLZauQXr+L6XS6+DcMphn/+YjP64HX44bPewWP+wI31z6u3ZfnCAX8CAX9CLLzD4KB21+Q6GMYqWQCyUQcaXpKogAhm0E6lUQ8FkU4cmdwv8QDncViEX4vEY8hafAFf8tb0ZyXV2YAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1096,7 +1659,7 @@ eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 59.45945945945946%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAACI0lEQVQoz42Sa2sTQRSG999YojSg1Wgt+SCKpSRNq21EKQiK4AdB/G/aNtmkqUVsSc1VJFHMdVNz2+xldrO5kPB6ZkyaluaDCw/n9s6ZM7Mj3XLfwNs3r/FsaxMvgtvwPljC7ZUFLHlcWHQtwH39Mouua1j2kOamGyv37sC77IH3/l3wPrwm7X76iP29XeyRDYf2EZHDws4nJKwcDgm4dgqPeU1SqlUoioJKuQzLsjAYDNDv9wW9Xu+fP8k5zizmtW63K9ZwHMeh2gBSuVRClZqapglN09DpdKARqqqiVlNErOu62LBULKLVaqHdbqPRqKNQ+E2aGvhQ9XqdtCokjcS6YcCghrypydg5xiTPaIJKpYJcLociNVUnGzabTVi2DZPqU73EqCHH5NCE59AikZvY5tkZFJqyRZNxvU4NDdIZNK1BUxs85g21eBydk2PoiQSs01OwdBqMfJb4BvY9S7k4WDIJO5lAN5uBnU7BShHkW9zP58FoI0b/gZ9QKtE9/Mz9wB9K2JSwaBfBBZ8Rpn5h+osn4tczPTZvaDkMvaGD0Wgs/t5gOLzCaDzG/37Sl6MjRGUZh7EoYgdRfD6MQab3dBCNCKIRGSfHX5HNZJCh65iRmov04f07bD9ZR/BpAK9e7mDneRBbm36KNxDwPcaGfxXrZP1rjwS+tYeCgG91LlK5XJq9P60jHqmmd1CpF1Bu/EKxnr8Ez6l6CzbpbPsqfwFNICUOEs4a2AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 59.45945945945946%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAACO0lEQVR42o2Ta08TURCG9wepJRaJFO8mRjQKFCsaNNGI0e/GxN+kIrUQkZjYG7SAXNoQCRIq7HbbbnfbsrdubzQvcw67oYl8cJMn75yZOWdm5+wKA/4+vH39Cs+eThCPcftOAIGbFzA45EO/7zz6+/7l2tBlBAb8uHE1gFvXr3AGL12E33cOQjwWBSMW/YnFZBLL6TTSqSUiRXaKq0fvmtksd2X5BC8mSKIISZLAVNd1NBoNOI7DqdfrXD2fZVnc9tamacIwDL7PiwmieIA8HciCh7UaatUqaqTVSgUFWebKNkiSiNzeHlRVhaapXNm6WChAlvNQSiVUaa9wSBUYOoNV7MHzWbYNiTb93t5GLpeDRkWqVLSslmFSzKDueD4VFiwKWnSySRiadgp1YLg+k3Iq1Elh/y8q1AnL1Smu87wyDEWhPMpnB1ZWV6AuLaK2tgbz1yrMbBbmOtkb665NSjErm0F9cwN2ZpP8GVhbW7BY7M8ODJq/QePhHR6I+9jd3UGpWIRN7bPh2oTVa7vDZx1wmM18zGavS5fHlfyC7dDttB0cHXXRarU4TVdb7TaazSa63S7+9xF+LHzHl+nPiHwNY242gm9zs5j+9BGR8AwRxgzFFubn6RtNIBGPIRmPc5idiEddPUX48P4d/SEh/pe8mXqBqZfPMTnxCJNPQhgP3kdo/AGCY/cwOnIXY6PDJzoyjFDw4ZkICt0Qmx37iBnsVR2nDk1XoBpFKHreReZaNmTYDROdTudMjgE0OCjGDG8X1AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1128,7 +1691,7 @@ eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 39.86486486486486%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABGklEQVQoz5WQ626CQBBGef/3wqDxB0jVBCrhDnK/SiKXr8y022iTpnaTk52dXQ4zI+FrLcuC/jYgzUsUVY0oviK6JrgmKYIoQriewyiGH0Z83/Y3NF3PtA9Iu90OiqJA13Vst1tomgbtcIBhmFDXWJZllGXJP73f7xjHEfM8P7BgWvdp+kQyTRPn83kVGDge32BZFi6Xd7iuC8/zsNls0LYtC6dpeoLkxNqfaBRS0zTIsgxpmqKua1RVhTzPead83/ccF0XBeXoXhiHHcRwjCAKWi7FJlCB83+eKHMdhSE4yqm4YBo67ruNYfPw4f4FEraqqitPphP1+D9u2vytJkoQrEx0QJP0peRLSYMUsROl/rd9kLPzP41f4ANK2ZTPQjF9iAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 39.86486486486486%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABGklEQVR42o1Q2Y6DMAzM/38UDwj1qUDFC6gSohUsAcp9LbTALHYXVK32sjTKxInHYwt8xrIs6Pp3pHmBoqwQJTfIKEaSZghlBBnHCNf7WyiRr+9t16NpOzQdod8hDocDVFWFYRjQNA26bjB3HAen0wmKoiBNU246TRPmeebmTzzNUG6DuF6vcF0XnufhfD7D931QLggCSCmhH48oy5LF7vc7xnFkbHwYBhbfQlRVhVt6Q5IkXFgUBTsiTme3jlTXNefzPOdcGIbMY1rDyh+Px742QU7IFeFyubBTAhW0bctiJEq8aRr0fY+vsWDZ1yBoXMuyYNs2TNPkccldlmXsZnNGdwKJb26+g9h7vOzhr/hJjAVfhX77+F98AOWCZWpDcyC6AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1156,7 +1719,7 @@ eureka&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 116.89189189189189%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFBUlEQVQ4y5WUeVCVVRjGPx0FRGvGf1pGJTENRZRFuegkGiiWCIKBW7igVsoQKpRFKJLgKDZU42h/qE2KlqbI5hiD2chyBUFIFlm67DXs3I0LYsC999e5HwNTNs3omXnmvOc97/uc57zv+T6pvbudkOgQgiKDCI4KZm3YWtYIhB3cQFzsVg7F7SDm0BaOnwynR1XKQ+UNYoQvPj6UY8d2yvaRozuJ/DiQwqJfkGobqpHekJAcBOZKuGxzZu+pMLKSdqE9vp72/S60xXijPeACZ/eiTfClY89seg560BW1iK59C+n5dAmd4Y48zrmM1GvQser9VUgzJewDZnG2+BxlukooTYPkKDjuC6e3QaI/w6e2w5dBcGgZJAXDiQDMR7zoj1+L+aTwF6cLwj4tucW3+ebyKdw2LcBp1xucz7+MTl3H6aQwImJWUlBwiT3hy1F4TcVj1csofF5B4T0Nj6D5ePrZEf1FMO4rppCadg5pyDTAmZsJxJ75jK9+TGTOtlnEXUukeaiDlfv8sXKbyGtr7JDmi5LMGymLXB7X15G2e+MV+y55f9zCO2IFpy8mIXUbutmetJXEC4kkJMdjH2LP0SsnqNHXExi1HmmOhJWLFTZu1nhsUbB4oxvum9xxDFjIopCleO5aju9HPsx+ezqXrp1BqmqpJjU/ha8Fod16e1xDHTmcnEC5tga/yABZzWTFFKwFYXBkMLtjd7P6w9XsPBzKih2eBISvE/6NzPR6lasp34ou//k7yke57DtxgIlLrJm9YSafC8KSnkf4Hlgnv4ApHi/gFDifeevm4RzkjIOfA+6b3XETauf4O+CyWcFUhS3paWeRGlvreTNcQfLP35NfepfN0YF8ci6aij6VIPSXFdoutsXK1WoMkxZNYrLwjROleM93OudDXVjmYUVaumiKxqDmovISc4Mc8Q/zQdVYye3KXLIacvCLChgjtFzZAhs3mzF7gqs1zp5T8X9nGjMWSGRnfodkxEyTrpFlO5bKXdwftwHdYy3V+iZ8ItbIPlt3UUOh6mnYLJ4kum2N5GYrlybv1gWkdnWbeHtO8nN4aemLvBU0g6hjoUTEf8BEJ4lxgnD8PzBu7r/XEywQcePtJJSZ55H0/b1k3MvkQc4NgVQKC25SmSvsrAtU56RQK2yVMl3MqdTmpVJfkIkqP02GvC98qnsZ1P56hX7RD8k4bKSrvZPe3j66utTo9X0MDAzS3a1BpzfI6/qGJnrUWlpbO/jtYTmNjS3U1zeJnH45zmJ3ilzLkIaGhrhz5w7FxUVUVVWRnZ0tEhooKysTn9w92a9U5lNXp6KhoYHMzAyKiu4LFFFRUU5zczOlpSXU1tQwNDiIZDabBUEjKpWKtrY2qqurqaysxGAw0NHRQUlJiUgolWMse+Xl5XJcXV2dvG5paaGpqQmNRjOicHh4WFaTn59PjTjFcrJSqZTVWJCRkUFKSopQUyHH5OXlyQdYYgoLC2Wf5YYWUpnQaDSi02lE3fplDP71REh/Iuqjw6L+eYYlXjKazLR3GWjr1NPZ3Y9aO4BaNyhsA0ajSQ40mUxysGUetUfXo/YoJLPpMWh+AN110P4k7KtitiAdtVpNT0+P5ej/JP4fJEyD0FcgUCygFHiASX8XY+99tFqNeDa6ses8E+Fj4xA3NHUU93VxS9dMxcAIgemp2jwz4bDZyF3x78tSV3C9q4Sq/tYRQuF/HqJR/A2V+jdeLrIOTwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 116.89189189189189%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAXCAYAAAALHW+jAAAACXBIWXMAABYlAAAWJQFJUiTwAAAE9klEQVR42pWTeVDUZRjHf80Yh1k2Nk3TgaGIJg5yiSuX2aijpWEgKCqhq2OHpOaRYsoonqmlaeOMOeofhSkyQpHigUIcK4QsxLEcHlyyLgt7yLXLuZ/e/TGa+Zf+Zj7zPO/zPPt9n+d935Vq6mpYuHEhUd9EyTY0NpS5grVbFhG/PYatCcuJ2xbN94c30N5QSe71RDbHf8quPcvZuVvJlh1K4kXNuk0RVFQWIWUXZiK5SEjvDeK/wp8vDq0k66CS1h2z0a7xoiluKqb1fnD8cwzx03nwmRv6r73RrZ+ELtYD/UYF2lUeWIuvIjVq6/Ga74XkKuG5xJPE8rNUmiugIAlOr4H98+BoNBwMwyYEOTgfds4cjB0Ih4SZdB9YAD8shMpcJKNZz438y2w/lsDEyHH4fjmRZHUaxgel7NsexbY981BlnUKp9CVw2qsET3+doBmCmS4EhY1lVui7xG0NRRHshCr3IlJnj5H9SVv47uRudpzcyujoURy5fILblvt4RQfySuDLuHw4EmnCf8cijRVM9kBa+gGhexaT2XgR3xgfLqT/hlTbUsvCvZEcSjzM5p834bZkNEcvHqe0VUOIMgTJXeJFryEM83+JgMUKvMMn4hvhw5g541EsDWHqihDmrp7FmBlvci0zBamg6m9Scy+QcCwe1wg3/JSeHEg5yi19KYHLgpHGSwydNBRHXyei46KJ+TaGsLVhrIhXMjUmmPA1nxC1IYpR094g869UpJK7JeRXqohctwCHAEc8FrmzL+UI+bpiApYFIY2TGB4wHM9wTybMm4B3hDfuc9xRLFLI/sg5Y3GL9GPE5KHk5/6JVKjJJyhWQVp2Cum5acxZO4PdSftRmyqYsjRQPjNn0aGTn5Po0lHGSXTrLNZDfByJnefK6WVeKBQO5NkvRWts4scrP+H6kSsrxYO9Xa8hreQal+5kEmQ/Q3lk58diT+IgBKdMe42PZ7+Fm/cLqG+mI/Vjo0pfwfgwDxwmSuw98hXtfRYKmzVMigmQb9fJfxgOosuncRRIPk4CZ4aKOk2BeNiVDRpGRrrIT+Gd4OG8H/42uw6vZtXWaBzEuI5P4PAU9pizmMDRQ2LEKIlqlRi5WTzs85nnUWUkkXMjiZuqPyi4doas309QlHEW9fVzFIu87Iv8P1nJFAsrx0RuMJ9MyZVfsbTcR+rt6cXQbKDb2ovJ1IbF0iP7BoMZi7WHjg4LdXWNmM3tNDQ2UVpWIa/v3auny9KNXm8Q6wYMxofYP6nL0kX65XQKCvIpKirisvDr6mqFf4vs7GxUqjyysjKpra2lpqaalJQLFBcXy/HS0lIhfA+1ukjODfT3I/X19XHnzh0ZnU5HWVkZVVVVdHZ20tTUJG9ij9kFNRoN5eXlaLVaIVAji9XX18u5tra2wQ6tVqv8o5ycHFkoLy9P7K6Si6urq0lOTiY1NVUWtdfYUavVsrXX2m1GRoa8iSzY29uL2WTEKkbvtnbR29NNT4+Vrs4Onvez2Wz2kQfQ6toED9G1dGAwWWk1daPTP8Q2MCAXDghrL35kHzFg+/9aFrT1GbC1ngLTOWzGM2BMBMMv9BvT0LcYxW23Pt79WZAY6IKOm9BZJCiQra0tm772YkzmNtrb259P0Cj+ZsnG2xR1tnLRXMvd7q5BgafO5pkFLf09XDWWc8lQSpK+kLuW5sFzs/U/l9Aj/gUWETdn6eX/mgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1285,7 +1848,7 @@ Microservices : 어플리케이션에 필요한 서비스를 각각 모듈로 �
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 92.56756756756756%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEiUlEQVQ4y32U+2tbZRjH8z/5i8h+E/xFwSEDf1BURISpMBgTVCaobLpNpptzc7PbnL2tTddL0mS9JE1zaXPS3K/n5JzcmjRpt9ktSZN2bWn78ckRwf1i4OF98/K+z3m+l+expFIpNE1DVVVzrVQqqLJms1l0XadYLJr7XC5HPp/n4OCA//tZ2ltb9KLT6bC5+ZRyqYQuD2vVGo16g0ajQa3W29fNaDabtFstc21J/Pu/t2+321j+m31rq4MvoDB0f4xEKkcwFMXjW0YJJ8gXVjGKVbJaiVSugGZU0PQKunlWNKNcWcPS6W6TkUs9KM1mi7mgxrlbNnyxAgthA5svzeV7Du7ZgnhiVUZmw/xudeMM5LB5M/Tb/Fz+w8HgTIRIroalVn/Et5fvsr7xyCx90h3h/M0HBOJFM+G0PLwz5sI6I5WmKgw7/Pw56cHhS+GPaiwqCabnA4w7PaS1MpbG+gZLSpSnT4W/1Rrj8yGsswqeUBZvtMisYjAXKkjFBhm9ysdnb3D8o7Oc/KYPvVARzst4/UEmphwYBUlYrjYYsblMUvuGbFy87eTiHSfeiI59MS4QIwzPRBmdCbIczfLqO19y7K1POfHZBdK5vHCdxe7P8Pu4j5gqkFdrdeyzXjrtJlf7rFzoc3B9xI1fKnowt8KQc4VbY16B7SaeKfLVzyN8+PlPnLs5RTSZFYsVBFGI68MzhFIlLBuPnxATRdutJoFQksHpZbkQ/Cfh7DITC3EG7H5GHT5Wkganv7/Hu6d+4MzFAaKJDD6BO+5J88uwm1i+gSWRyTMyNUfeKLG7s819R5DvfpvAF9UJRZNMOeYJCMfprMZKQuW198/yypsnefvUj2KdMgXhLRhTcfsjaEWxzbqIks6o4sG26cP7joDYwMZSXJfzHGNTM8wtKiwuRfCFc6Yob3zwBWcuDaCJN0vFsunThy6viCSiNNsdQrEc3e1t6tIZHiXNXauTSNpAK20w6kpy4fYkV/udzAR1U5wbgzYm3HGS2QKlcpVBp8L5WxOsZCpiG2ktNa+bLfTsWVMglKRnpbpUmkQiRSAYISNqanoJVS+bHaMK1F7XGHI3lVYZnV3hinwwkl3F8qzZJhhNc3h0JAlbGEZRBkWehWCaX/vtTM4r3LbOsxjOY1uI4FJUlpNlhqaXCKeFw+Iq1rkw1wZnCWcE8mNRuUf4phi7UV8nlcoQDsdw+LN8fc2KM2hwRS5bXQmzBe9MBrD5VfGrHdeKQVVsl8yIYNEEpV4vb25uYsiY2tnZMXu5B7lSLrMUzTEp/pxfSjDm9DLlUugff4hV9ja3wsCDh7iX4iJKiUw6iyaoehq8MG26Mihqaw3GHR7GphfMmPMorK3V5fI6GxuPqTc2yAtMvVST3i1QKNf468mmOfra7S0sR8JdLw4Pj+SgRUJIPnbiNC8fP8VLr3/Ce6cvkUomhYaIVF6RIfIE+4J0kG0BmydGVK2+OGB7g7UlU+bw8NA86InT2urSs1Oz1RE77bC/v29Ssre3J2PukN3dPXaeP+dAitjd2zff91zS7Xb5G2ybCYxpDIA9AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 92.56756756756756%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEgElEQVR42n2U228bVRDG/Q/xhniqxCM8gSgIXuEFKCIIiQIPSFQIqqotgpYW6C2UNCTk5tztON44tmPHjtexHV9212t7bSexmzRt4tybxEl+jLe0Ei+sdDSzZ8/5duabmc+RzWbRdR1N0yiVShQKRVp7rXfLsmyraTrpTIaNjQ3+7zk+Psaxvb3N7u4uLVur1TEEvFIui1/jYf0hy0tL1Ot16vL+eG2Nrc1NGgLcaDRe2M1//b29PRzP0ZvNJmaxzF9/D+ALhEku5PAFZ/HPRElrRfLFRYxClVTWRMuX0c2y7FVt2/qumxXW1xs4dDm0urbO6XGTbGGZnzsVOsciqLlFRmdy/DkS4uof43jVMq6wzq0ehQFvXHyDvkmV6w9c/N7nZyJq8viJAN5oH2DCF6F5sE86X+XSnUF6PXPMZaqMy6WWf7fPQzhZxBVMcd+p0OOOEJgvEIxlUEJxnONT+MIJGptbOObiKUpWRXjYwBtK0DsRZcw/z2zKsv+qxEp4xBYqda51uHnn3He8/v63eEILVKSImZyBc2iMcERla2sbx8jkDMmMgabn+frKA65Jyh0jYQEs2nZwOs3tfj8J4e78pXbOnG3jlTfb6J+YRc/lCCUK3BsMMRLIsL4hESqBCPmCRSqd4/Pv22mXj70elWDcoN0ZFJ4SXGkfRU0Z3B8K8dE3Nzl34TYTMykbsHXu1+4J+r3qM8CURFddqlGTFukamRGAKC45rEQydI+HGZpOcqfXYwP+1u3lg/M/8l7bZVyBBJFwmKmoxs2eaYYD2WeAznEf/rDK3u42GSnKhZsDdLmiZPMWo26FqcAs8WSGSmWRr67c58xbbbz8xqcM+1Qs4TCbrzAlhZlLGmw0BFAzTJaWaxw3j4gtmFxtH5aUo5ilCm6vnyHXNEpQJZrI8ZMU5eyHF3j7k4soEplVssgZRdxKkNlYks1WlefTeWora3aVFzSLrmGF8ekYVvUh04kyv3R5uHx3kD7vvPSext0eFx3DAbsYZQGcEfvDLSfd7phEKFU28ibLMlatsVmsLmOaRbSczkJqgWgsQUzaqmhV7UgK1qI9GWZp0d4zZMan53Jc73TjVOafAcZSGitrT+zBbvFk6AbJrLRCv8KDIZ8UKkC/NLdvTmdgMkZcW7bteDCNVVkmNG9wQ7IYUOKsP+ewurgkStLAED+uxokmTS7dG+PP0SidbpU7AwE6ZBwv3xvGHS0IwCT3RyKYVo2icN3KIqubIhSbOCyrxKPVVY6OjiTCJSotyTItxqZmmZxRGZ2KMjQ5S5/LT9egR/hV6R1VcLqDNg2mUJZJZymXq3ZQL9Tm8PDQ1jt/OE5nvzTqmI8eKZCeL4l01VlZeWSvVpqGcKgJl1mjxMrqmqjMuh3d/v4+jpOTE05PT0UT99hYf8yXF2/z0msf8+q7X8iIfYbLG2Q+rooI51ldWSWekZEc9DI0NcdkRGNn//C/ArspgtmK7vlzcHDI9s4e27v77Mg6Ep08ODiwV+tCs3nM06cHNMU/sQPZFVHYYmdnxz7zD+n0CfV8ADYhAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1341,7 +1904,7 @@ Fault Tolerance  &lt;/li&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 54.72972972972974%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB00lEQVQoz42TSZLbMAxFdfGcIKfpTapS2eQKXalU0nanNdiSrZmDRFLy8INPtZMss0CJIMDHTwBKVF9jrN7QDQPywxF120YrZH2sTlBaQxvz35Y09RnVIcMwjugFSgCNa+5Zo2GtEbOw02ZG1tpu34fR34Bth19vGep+lMAEI5tMmKZJDs9QCzCIjfMKNTkM1sH5gHVdsSzLH6M/zTOSUSl0XS90i/FdXVlWKMozuvQZ4+eP6J8+QH3/AuMXWBfgwwb41y6XC2bnkFCN0gaTOEZU0Xp5qrYzvKrhd19hv32CO/0QkI9Pn0WJ8z4CvHx9CHFfCydhIMiG9yEGQjQqELtcsdyBAMCvtxhj/gMSlr9KeYZlikBaKR21UkMGedM8O4xUqhUWUdZKrQlijLmncx3zqZa1Iyw25aGqLEtpwoTb7QYnT7ler/EZVME1L2KsaVrsdnv8fHkRcIVhkOnoB7lcxamIQN5MIEE8pKUxBBhpFC9jwekTzHEqigPyvBBQH89SJV9EQe/AgP3+NSZyBFoZbCYTTCBBhN7vdyilsZPcNE2jwjTLkBcFsixH3TRISGWn458h40K/7TpwPjlS9J3bOspa83nMPRyPccRYP+bwS85vxhBHul0OlycAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 54.72972972972974%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAAByElEQVR42n1Ty5LTMBD0V/MLfA03qrhz5URxYNchG+fhbPySbEuWH7HTTE9wgILaQ5elmVFP90iObJnBnDYoK4PkcMQly5Hlha6PaQpb12jaFvUfaN5AlOcZzqc9jK0fhwlTc9/AuRbeOXhPeP062bf/QSOIirLC9mWHS2mluwSbO+F6qO5nVP0C4wdYF1C1AV0/Ypqmf9B1HaJaVNAuD9umUbI0PeOQXlAm32A/vYf58A7N149wQuTDgH4g4d+k1+sVXQiIVIWo8rJpxRJBu64LGFyFPvkC//wZIdug73tt7EVJkDUJGCOc8jSImBjHUYPDMDzA2DhdMSzAeAPCOGucdSHcSVhDZVTINRspIZMnsdnKDFlA2+zOS6oF0zigLEtVxRxrz68XqW/1oqjuoVCVCTvnxuCyLKIgYJ5n2XtVxTUb3W43FEWBON7g+9OTEKfa0Bgrl9mogGi1mkqSt0RCJmmDDXrJrbZIbK3F8XjCQd5pWVV65v6cvM436n/NLN78wG6XKEFRlMjlcZOYDZflt0LGnuMY2+2LukqSvZLv9wdk8lNEjjMQpGfO5VVtVsagkJlxJlTJea43a0Qhawm+2TXHL3l+AskNR+BPSlt4AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1374,7 +1937,7 @@ Fault Tolerance  &lt;/li&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 43.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABQElEQVQoz42S6XKDMAyE/f5P2dCEMRBjA76vrezSJun0RzTzjfEl7VqwyzDg83qF3DWc9/An7ds597L2vPcydx7jekDsBmyeFxhjEGJCKaWTiVorWrSxEH0899tW6fNv2vndehgXwMR8Q/CGTjgkd6CGg7JEWOuwyg3WR+SUEImUc09orEGOHsgBlUBNWKYRSgpSOH5AqxmH5BB8gFWcEitoY3EXgpLKjlhXqG2HdwZyumDiN6h1psQWhQhOI+wczDmLFAOpiFQpo5aEfCopp+2XKBlu49CbIO5I/qCEmkRSYreCLatCKuhvkXLptPeSUmG4jrAh9gLNbiLbIbbCdAG5CwAJqCdtnUml0NjIjiGb9WzATxPwNH80CA/+GGCt5VobRKpc/7P4RjTl7X4TwH5/lSdb75N795e7AJ/mLuwLfle/qfESZdUAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 43.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABOUlEQVR42pWSjW7DIAyE8/5P2arZ2rQNNIRfY7gZ0m5dp0kb0qeAIbbvYNjt9jiMI26rQ4zxG+Fl/Rs+BIxqhTIOw/V6RZRAzoxaK0opYOFzSKw+0fZrD8v8TjtvfIT1QRJOb6DkgOxBfkFNq5wmrNZi1jf4mJCJkBJJ0QzmDGtXMAXUHFE5AiVhOo5YtJKEpz3ccoZRR6jpgLBMyMHAOg+lNJQk1UKbL6tF9CJt2mM6vUuCCwr5DkXZM2cMIXhwJhSpLKVQC3cJP6Q/HGDqRZ2ZhSs4rtKgBciJSC0d6gUspjAXZOZO82eeZ4zvJ0RqMrc4ieQk8tFdLBuVexPt2+wY9E3kaJFjDLyYirvhD9rPtb6CL566b4WHKKY77/tiS/D/0bom2i5teJZD942/kxGT3PD50mkv4wOndL+F/lho+QAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1409,7 +1972,7 @@ Fault Tolerance  &lt;/li&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 48.64864864864865%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABrUlEQVQoz22S6XLcIBCE9f4vGMc/suV4s6sLcQ436gwosV2pqOqTBBRNTw/Tc9lxe7vj0BYUMyhE+FRxMw2vOzEOr5vD99XiRRS8HA3fBK/bE++eoU/uPJ6E1BDSwFJgsXTBwrMrWHzFyixUxnemhpk3PXnzGk7s8R8SC677gf1Q7Kp8iJEP2NYVWilYo+GshZIS5Cw8k7xD4EpCasB5gl8fTPMm8Fi2Ieb+EGLC47ng7f2ObRc4lMYvHltH0JYQc0VtjTnRWPD8wrQJiS7qR35Xyf1/5kO6iLEOMV6HkPe8VkEZ/326x6mX23PsIm4IZgTSmO83PH7+QHQHzmTR/hINalCMRmHGNzo0nkNNmBZ21x06nz4dmg3rumCeZ87QQGuNddughLhy5Uw9EYgcvCeYUJGCA5+A6VAGyrgvJWcOXcPKFXJ/IvN/jRbBSWTqzgxvJHbtcOYu4tkZExXOEjFJ7p6PEaVUlNoGjQOXh8DCDrWS3GUzMNxxYxRjBr3rJUfUknC2Mjo+Cc6wl91zDOlymVm8Xx1l+LroC6nNoM8d2kNTGlfHD9JlhAV/A/joA5F8oA8/AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 48.64864864864865%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABYlAAAWJQFJUiTwAAABnUlEQVR42l2SjZKjIBCEff8X3Ltc1dVlTfxDERAQROgdJkll96z6ClRoeqZp/l5b9NMMu0dmDxGjL7jIgIuwuMwWv6cNv+aAD5nxsZy4rBktrWndmyshY0EzLSv05lnMseCBxScMLkHsJyb/YCQGEqmMPmMO5Q0JCRptIsFuFA8xEmKH8cAqJeQ8QysFt21Q64rNaDi7YXcW0Tv4cOI8M4Dyg+bz1pNDR+5I0AcWlKvCtb3h3g1YtUE3TFiVhqF19dAqdOaCTJTyk+beTzDW04kvh4k2G7T3HotU8HtAiJHHijuAVI3997C/KjgKyc7ct1DU1KL99wdq7pHj9g2Dc9dMeo1hYwr9r6LNrRs5lLdggBI3dH3PvXTUMyEE5LJAERv11Dv3xD72UT9L0NUimpnKchzKK+WIoEdI0cHpGeVwCHZFdArJa3q3TI6WaneEJywLcsmKmp7S+YCbnbFTisPQs6uart0MOdM8N4zhbzHsONOBfFJjS36UPIoFM91F90w4UCjxSNDGQpmNqSFVdJ1rC2n2d0h+5/X5mfoXTegEgTaZU60AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1442,7 +2005,7 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 20.945945945945947%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAvklEQVQY03XMYU/CMBDGcb7/lyMOI0YDxoQNdSgeba/ttvbvbRDjG5v8crmn7bM6i6PZ7nl8fqXZ3CMi5JxJMd4kVHXJou1RLUvp937OSpm4nsoqjZWTn/gKExIi4iNOE5eZ7ZclU7wVz/Pswu2d8j1zig4TeaoMxQplgOZz5KH3bD6CsfnuuTsKTZ9Ynyrrviy2Ai8KuwD7P3YenlylVSuM1tyFwtFluksyedFKpPMjrS8c3NWbfejT/2So/AAJnjKoO5oaywAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 20.945945945945947%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAwElEQVR42l3MgU7CMBSF4b3/wylBouIiiECAwdza23Zru/W3g2iUJl+ae8/NKS5fLS/lmvJ9w+vyja7riDESQvjlffi3u89TStxeojD9wLH1nJWnblqUWIzrEDuxiDFoEZxzOTM0StDGorS5zq0WQhwYxsSYi4vaw6KOPFfC4mR4Ognzg2a2b5hXPY/nxEM1Xi0VfDhYWVj/sTJQSuLS50IdEhsZ2UtgpzO52Wqf/4HPnE22Jt/YxLFLHO787Kaub2GMMrfEuM8VAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1473,7 +2036,7 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 22.972972972972975%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAz0lEQVQY052OXUvEMBBF8/9/lrKiiF/70BW7jSDY1jbfbdNtk+01GcUX8cUJhzMzDOGytqnRdx+omwZ+9vhvbfltG1hRdTi+KZTlK+r3Fn6cMboJgxvh7Eg22tE+99YMtJ8GT6abRPqPivVhhIwTzDl5NRBLRkOcNGQm9f1J0dxnZkX+mb8xcYCODuzBF7iVe9yIJ1y197juHrFTJS4lx4WskivcTRzPkaMIHIfw5V+sHPvlBUyElGjVlIqSZK+W6JZEsggW+myh4t/kdDL5E1zyfMwCVP/OAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 22.972972972972975%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAvUlEQVR42p3O2wrCMAwG4L7/YwmiIHhAmKBsF2NOtF27NvPUbf1t69ydXtjykTQJoawocghxwbEsYYjw73HhOgeWZByHXCFNc5TFCVe6gXQDMleYmnxsUCvzrvs81IKGhr6fNZrgOhcXM942EJ7qCZWtwZ8qEpGMkT/ku/4Y8vEtR7LVkJ0GW993WIgN5nyN2XnlLTGt9phUmZdGC8qwazMkv9gUW3sAC1vDz6LnwGoIa0ZVa1D3Bqr77tN/ASMZfL0usaYYAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1505,7 +2068,7 @@ Custom domain에 가까 등록한 도메인을 입력하고 save 버튼을 눌�
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAABj0lEQVQoz42Q204aURSG5/lML1rfoH0CH6AJN16Q3oGHGk0aSLgoib1oUlTSqq2HdIhFoOPZGRgj2gERBmaKMwzwuWbaJr2wh5V8ex32Wnv92crT5RzPl1M8WksxtVVgtXjMrPqF+UKR5LbKy70SS6UDkjsqi/sar7Rjnq1tMvEmx+TKJo/frfMktxExubKBMr27x4vPBWKqypwM7NfqbFVNPulV1k/O+HhusG1esFMzKVx9o2g1eX1qMF85YunwlEVh4esRC5InZbGSP9N5X7vkg3HBW+2QcqPJ+fU1Fd2gYhgcmCYn9TqNfp/m3V3k255HR2hLbvs+VreL1elQbbVQvNGIABiMxwx+em80jmq+xH6Uj3DkAVeGXX+AI/53wpo7+IESyNG6ucG2bbpdm/btLd9dl4Zl4ToOTq+HJ0r+15SOSE2l02QyGfL5PGmJNU0jFouRzWZJzsyQSCSIx+OUyuVoaCiKx6L8IZSwoS//EhIEAT1RNBwOI8W/CJfquh7FoYWDf1T4t8uH7F/998W7RcxkyuXVAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAABgklEQVR42pWPzUsiARjG598LutS1a//Dhre9BaF5iIZ2PXRICoJ2JSYj0GizLJRmUizb/Ch0tFxbP8pxdNJf78wliAp64cfzzvC8zzyjzG5uM7e1ysTuGnOHaSLpHMFkiqWTNIuHSZZTBupZhuDRKSt6FtXIMaPFmPwVZXpnnynZp7W4aFye4yjf/5wwn0jw7TjBTzEbxQqxQon4dZG9izwx0YPyLfuiRxWTZO2OH5lLFtLnBMW/KPjPsgSE+dQ5yvblX6LlCtGrElvZHJlGg6tqFf26gFEoki3fkK+aNPo295bl8WDb/Bce+n1agwFmq0VdyDf+ofQcB+t5RM95FhVEvX3kvnM8noZD2hLUlZBHCejabxi8ojhifnrsYsvX+nJk9XoM3MNOh6EYXL4ySq1WIxQKsb6xgaZphMNhDMPA5/PxOxLB7/ejqiqBQIBiqeQdjaT9eDx+F8U1tOT/O9LIkobNZpOhtDZN09vr9bqHruu0220v0D38sCFfnM/C3HkBGpFEIu+/qakAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1572,7 +2135,7 @@ path에는 커스텀 깃 설정 파일이름을 적어줍니다.(만들 예정) 
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 47.972972972972975%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABY0lEQVQoz52R207CQBCG+5omvo13euOTmHiliUGh9NxKIaAW8AQBSkDQttADbPu72yIWbTBxkulmNjNf/9mfa2tX0OpVPNRM9DodxHGMNSEg9PQ8D47jgJAYCYAkYV/A930EQYCvYDOr1SpNzlIuoTUo0KxvgUiydJwPzOZzNrIZ/QayzAOjKEIYhuAMSUPbbOC+VkuBLAZuBC8k24ERrd/9NVWdbFViozhfs+AkXoZ8c42mrqPf7YLQhiNzgUNhCXEcpU2nrSUO+CXO+1lNkmIwS06TVCiVMkxZThWytrMXH8fNBe5mGeCiH+CkSX9gZ+8W/1C1o1ARFKg8T6EVPFsWXNfFZGxjPBpi9jZNjbGHA7w8PcKmd8ww5Az6BZQlHbpQRcu4RY+uzBqZW+yBmdOs9qmjk+k0vc+vVwhURZXCDFjU5deNKX9Fsm9lXdZgiMKOy3kV+7IQyJcliKVSIfA/8QkJRfo4NKSkdwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 47.972972972972975%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABZ0lEQVR42p2SC07CQBCGe0Q9lSdQT+AdDMZHK6x9UECUUhCBEAsSS0VK34/f3dbWhkBMnGSb/u3Mt//OLPciXkJs36Lf7mCi64jjGGEUI04SbDYbWJaFiOoUQJqyJ+C6LhzHQREJzQ2CIFucLl5BfWyUQPaTprByOFsbn+v1j/4N3/fheV6p2UZhGOZAuSGhr7ahtVoZkMXI8jG3Q4S5IUzWPmZfAbwo36gKKlwXwZF7CeTmGl1ZwXQ4ZFk46bo4vnNQM4Is6bTv4ojqi3Gukx1QAWaLk4kMib9DixCMmcM0QW3m4Kxn49n0MkeC4eJc24LMnYPOSodigwIFnkIFvGpaNghzuYC5MLAyP2DbNpZzA9PREO/GGx1YVEL3Ah9IE816HT1VxXQwyBLZpAPa5KKIva/YtOn3Px1K9MhPigK90ymHUo3dwkOgEigTBbIgZA4ZsNrgoviQ3n9k2kOR58trUy36T3wDJr76ADzh3mQAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1632,7 +2195,7 @@ core&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;precomposeunic
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAABVElEQVQoz32Qy0rDQBSG8yJFNz6CWxFfwK2P4FatuBYXijtfR6gI3VS80FKwLTSBNmkube5pJplMkt+ZwUqRtge+OTNzbv+McnRv4fTJweGticbVDPvXvzRn2GsaO9DRaJo4uBzi7K6Fk8c5jh8sKB/fU3wNpnjrTzC2CFQ74xBoTo6Jy3ZiBDUGEx+tl1f0Rga6QwNKThLEoQfftRG4DkgSIAoWSPjdbqvlSkmE7nub1zvwFjYUVdMwHI0QhhFYWcHzfYRRhKqqsUwJXNdDkixR8hhjpfRFwUCLApQWyHOKJOb5vL9ACcMQaZoip5Qnlzwh5wWFnC7OYi+81FTXG1mPKYwxaOoYZBkhimP4XCHlzauq2siq+P+AlSm97iduLs7R77RgmhY0TYWu6xDKBUEQyCFiv1K+TalUOHdsdNrP8J2Z/BvxZKEwyzIJIeSPdWXb7AeEEExgSGXw6gAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 39.189189189189186%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsTAAALEwEAmpwYAAABSklEQVR42nWRS07DMBCGfRoWlDuwZgELVlylFCEhIbGjiC0H4BYcgG6A0kIflCQqSdMkThyat9Mf2zRSG8pIn2b8z2QyHpPj2xmObiw0zkyBhb0VjZaJ3dOvf2m0pthpznB4/oCT9gAHbQf7VybI20hHb/gJ3XThshRzP1b4ixxhUoLFf6l0UYJO5xEv3VcMJ1NMLRck8CmYwLEthAFF4HugroM8S7BpyzUvKdVp0HuCPhmBei4WIQPp9/vQNA1LUROG3/A8iizLwMtSxZRS5HkBzkulFZwjLwqh5crHcYxCePUr0YT8JrgqlrFMyoSkFJpExtUHdSq9qiPj8QjaxwBJHMG2bbAgUE25mKROvXE9lkYuL5q4v7vG3DSg6QYMw4DjOGCMqetWRFG0udEt06oJ33vPMPWheIQM2erKaZpuIPdUTbhtBev2A9MmUCEd0CQ4AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1711,7 +2274,7 @@ Enter passphrase (empty for no passphrase):&lt;br&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 10.135135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAi0lEQVQI1yWMywqCQAAA/f9PsojIQx46CD20Wtw10wTzUZtbPmKyGpjLHMYKwxApJWmSUBQltzIn9R2UNyXezLmKJV0e0F9WaDGj3k+oAxt9sKEMuOuGuq4wxvDFiqIIpRTJONSPMfaa6rhACp+t53I+Kd6V4Kkc5Ppv7LuYbAdNRtcPtO2LYRh+ww8vDpMtMmsKsgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 10.135135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAiElEQVR42hWI0QqCQADA+v8/iiRB6CWjDAs6lYzUzlJPUS/pFJYOxmCrOI5ZzPMcVTd0Tclb7Hj4Ds+rQ3k/YKqI8eXSBhtqYaGETRtuoTjT9RqlFFprFlZZlpEkCVJKev2dl6EVa1LfIjzZZJHHWFz4SY80OJLc9sjQZfgEMFSM04Qxhmnuwh9L95OHGHk6XQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1758,7 +2321,7 @@ vi로 config파일을 작성합니다.&lt;/p&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABe0lEQVQoz4WSy07DMBRE8/+/wQcg1izZg2DBoq2EKvUBSe0kfsTvDNdOmqIWgdVpk7aZezzj6v3tGZ9fNfaHI1JK+LnGcfxT5+WNQ9cLSKVRccbAOIcxtvwpm7ZtBykl/lstX+Hh9Q6r7RNALD4EVIIetM4tUyMZ9kKg73somiilgtYaKkvNomutByhR48BW9N1xGVL1hFro6CbTjWnE4AzkoGiQhbGmfFpr4b1HIMUYEYimbNrT+/QqQFVdN8g6EyaS96EYdrMEKefjPBmlKbtzgmOYIM6ZV0JIQlbIGac0ZTgMhqgNkWZawLlAlAHK0m8uLYWEFNE7iiy6i2Eu4HRi0xbmDPM9p6JGeiDFQEMiXaeZK+9iOg3MdLhfP2LTbi+GjLdUgixbnShTKYH1CnVL4rJIaHtzlK6PWClFig5Gk2FwhSQTdl2HPMhSlli4bte1eSHkH8/Yr18wNBtAHwslYxy73b6U1TSnknE+Y855KsZT444iir8afgPzWgvkiXnFzAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABcklEQVR42oVSy07DMBDM//8GX9Az6pUbh0pFSDwqiqBt2rwcP2PHGXYdkkKRykoTeyNrZmd3s4fVPfL8iI/PHfq+x88YhuEqwKAItkMtWrRSIaurCmVZwVo3P6ybBoIe/Bey2WCxusF6swTiAB8CMmZ17kwWY4SUkggFlNJ0V+lUmqAUpJpyAy0LHOsN5ftZJBNtC21MSphsICXrHaQhoc7BOptOFvXeIwSfWhP6gGTY0zci3bmg7FQUOOT5SMYVDmPpymg0RMpoDVem4TwTjX0bppI4j8Pc84wtMUa7o2VjbIIldeOBjoicJ5EuQnejcOKKPWrXwgR3JmwagdOpSHamHpZpUCXZ7xHJWiSL/P/bWHLBIZzE4mWJx/L1TFhVNRoawGyZqjTU01IoajihkglC2r9rc7FiaSg8NU0TY8LJMguUJOS6cHVtLslHy09L7Ne3MNs7oH5Oprjqt+07dvtDArdgXBudNoJ7bp37RTrdvwCwHwsTvj/43QAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1792,7 +2355,7 @@ New SSH Key를 눌러주시고&lt;/p&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABJklEQVQoz51Ru07DQBD0/38CPQUtdKmREBIVDRSRoLAdx4/Y8ftu7zzsnk/JgZASWGm0D8tzs7NR2hC2OSEuesRxjCTdgYggsSzLnyAR1U2LYdLQZKG0hlIaxlhYa2ECWLv+ZD1+1idCzWqUJkjWZBykDzErcg9cCiGN8qpBN2oMs/mGfiL0M/meznOu5dvgs2BU1il1CrOqwy6vsC9rlwVZcXC9PJbuSyRZyfMDisMRTTeibge0/eTziOPAW5AnnJSBNcS+GRheWw4itfNQZox1RrzS72srJjsRjtrI9iz5skfh5REcYtYBIUIensk17XI9JMTDWa9E0XPyjoftEzYfLyjZj1Et6GbL5l+PdmJbjFe4+XzEzesdbt/u0aruLPUfIRZ8AZ0eDnp4p9zvAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 49.32432432432432%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABFUlEQVR42p1Sy07DQAzM/5/4AC6cOfEBHDhxQwIOXBBIKGmTNs07+/A+hvU2jVKpQIulkde2PDteb5I1Fh9bg6wckKYp8ryAMQZs3vuLwJZUTYdeEKS2kEpBSgVrHZzzAceem9wJHBESGRARKKgiYyN0yC2hNEXSv4xJk7JqMSoLwQq1i55xyIkpxzVJU32u7c+cnxWuyw6rYoe8bLDe1sj4HDzHRQDHjNWmwiZcXncCVTug7SV20Yd4IBg7EfItxlBEHJ10XIq1dpHb46exRVA4E7LcMH183HPs1GZHvSD07veGc74KE9KB8Ln4xMPXCx7TN9RCh2V49MphuADNaGHdRHj3fo+rpxtcv96i18Os8j/Gfd/dJw6aI2eutgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1823,7 +2386,7 @@ New SSH Key를 눌러주시고&lt;/p&gt;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 12.162162162162163%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAVklEQVQI1z2MOwoAIAxDvf8lBRer1fpZHSIp6BBempKEnDNaaxCRT6rW6iqlOPlba2GMgTmn83nmZIwRIaUEjrJIvTFV9RGWWKDMDL33n5G8994457i/fO2Wo674rtUAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 12.162162162162163%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAW0lEQVR42k2NSwoAIQxDvf81dSFq/etKiKTgMIvwUhoSE0JAKQUxxo8pJeScISLqKf7WWhhjYM6pfJ6qtcI5B2OthfceLKboXwlDDLOI7L2jtab833tvnHN09ALvsJgCVAav3AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
@@ -1867,7 +2430,7 @@ Hi jieunhong&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; You&apos
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 33.108108108108105%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsTAAALEwEAmpwYAAABTUlEQVQoz2VRW07DMBDM/T+5A0fgAvDHRyWKioQEBUrSpnbejt+Oh91QIQSRRuv17nh3JsWrcHipNXaVwcNBY/tp8HS0OAiFYVIwPsISjAtr/H3+HbX1mI1DIZuOiDPafsSoDATlsh0wzWaNo9I4ieanR3bfd9zHPeLCTxHIhMLrGcZYKmo4T5O0gbEW1jk45xFjorNHiBE+hBWRzpMinnVQxNPEfx8qbMUzigygG0Z0NJ2Jihq1MURQWJYFOWcCLjEjpoSwAP1IlowTxQlDP+Fmf4urzTVt6D2OVYn6LFGTNJb01yv2ZwXljagxvN0jOYV/X1xQxJRxGhzOQqJpu1VSos14O5bT0gCWzXlKCynpUe7uUH7sydsWQjY4yxZ9+QhdbejBJUOqsPrBPrEkBj86kflsBz8UCVyfyeNh9usP6anGXvoQEZREmI74AhOoGge1TMJmAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 33.108108108108105%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsTAAALEwEAmpwYAAABUElEQVR42mVRy07DMBDM//8Dn8CFL+CCxAVVApWeWqm0SfOyEztZO34kw9rlUAlLo1nvy7vj4tQuONaEQ2XweSHsS8O2RdlPUNMM4wIswyw+86P9yLN1mIxF0fcSo54hRwU9EdpOQAyKmxl0YuQYoWo6vhM6OaKXd1/LdXo2aDg/xbYIIACFNwbEnaeZsDjPtoG1S4bzHjFGOPYHZu8DQoiMAKUnGM5Jdan+0J/wUe9RxHXLrw6jzgma1yQymJjXdWVs2LYtc7p7buZ4Gsn5KXdQOte+HF/x9PWMwlrWq7yiqjvceLXUfHnQKoFYH8Mg69E3JdTpHdER/h2evnBxw005CCEhhzGvFP8myxOwtjGuebrEQghcvt9wvZyztnXboWEMPztQtWMNU0NJEHLIGoaY1or3Yn6gE0O2k8+xhkkvbfhXyWYdkzwpFkggzC1+ARoVGedEY1+UAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
