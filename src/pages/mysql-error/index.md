@@ -1,5 +1,5 @@
 ---
-title: 'MYSQL 테이블 생성 안되는 에러 : You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'option'
+title: 'MYSQL 테이블 생성 안되는 에러 : You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near option'
 date: '2022-07-11 12:00'
 spoiler: ''
 cta: 'SQL'
