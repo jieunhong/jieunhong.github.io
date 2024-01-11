@@ -1,4 +1,497 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 08 Jan 2024 11:41:10 GMT</lastBuildDate><item><title><![CDATA[JPA 프로그래밍 - 5장 연관관계 매핑 기초]]></title><link>https://blog.bbubbu.me/jpa5/</link><guid isPermaLink="false">https://blog.bbubbu.me/jpa5/</guid><pubDate>Thu, 11 Aug 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;5장-연관관계-매핑-기초&quot;&gt;&lt;a href=&quot;#5%EC%9E%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EB%A7%A4%ED%95%91-%EA%B8%B0%EC%B4%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5장 연관관계 매핑 기초&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 11 Jan 2024 09:26:26 GMT</lastBuildDate><item><title><![CDATA[Spring JpaItemPagingReader row update시 reader 누락 문제]]></title><link>https://blog.bbubbu.me/spring-batch-jpa-paging-item-reader/</link><guid isPermaLink="false">https://blog.bbubbu.me/spring-batch-jpa-paging-item-reader/</guid><pubDate>Thu, 01 Jun 2023 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;문제상황&quot;&gt;&lt;a href=&quot;#%EB%AC%B8%EC%A0%9C%EC%83%81%ED%99%A9&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;문제상황&lt;/h2&gt;
+&lt;p&gt;예시) 온보딩 챌린지 발행을 위한 대상 유저 Reader&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;JpaPagingItemReader에서 chuck 갯수로 잘라서 Sql문 실행 결과 Process&lt;/li&gt;
+&lt;li&gt;Write 대상 테이블에 Insert&lt;/li&gt;
+&lt;li&gt;동일한 sql문 실행시 이전 청크 write insert로 인해 작업 완료된 row는 검색되지 않음.&lt;/li&gt;
+&lt;li&gt;JpaPagingItemReader는 offset과 page를 갖고있음.&lt;/li&gt;
+&lt;li&gt;따라서 실행된 row 수 만큼 누락 문제 발생.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;대표적인-itemreader&quot;&gt;&lt;a href=&quot;#%EB%8C%80%ED%91%9C%EC%A0%81%EC%9D%B8-itemreader&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;대표적인 ItemReader&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1. ItemReader&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;: 처리하는 데이터를 모두 메모리에 불러와 저장하고,  chuck 단위로 process를 진행.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Database Reader&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Cursor 기반 ItemReader 구현체&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;: Database에서 데이터를 Streaming ( ex. literator, next() )&lt;/p&gt;
+&lt;p&gt;(JpaCursorItemReader의 경우 데이터를 DB에서 모두 읽고 서비스 인스턴스에서 직접 Iterator로 cursor로 동작하는 것처럼 흉내 내는 방식)&lt;/p&gt;
+&lt;p&gt;(할거면 JdbcCursorItemReader 혹은 HibernateCursorItemReader를 사용 다만&lt;/p&gt;
+&lt;p&gt;“ Cursor는 하나의 Connection으로 Batch가 끝날때까지 사용되기 때문에 Batch가 끝나기전에 Database와 어플리케이션의 Connection이 먼저 끊어질수 있습니다. “)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Paging 기반 ItemReader 구현체&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;: 페이지 단위로 한번에 데이터를 조회 (page, offset ..)&lt;/p&gt;
+&lt;p&gt;(Chuck마다 새로 select)&lt;/p&gt;
+&lt;h2 id=&quot;해결방법&quot;&gt;&lt;a href=&quot;#%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;해결방법&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1. Cursor Item Reader 사용&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;: 데이터를 모두 읽은 상태에서 차례대로 가져오기 때문에 데이터의 변경사항이 적용되지 않음.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. JpaPagingItemReader에서 page를 무조건 0으로 override&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;: 변경사항이 반영된 row는 빠지고 신규 row들만 select&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. ZeroOffsetItemReader 기반&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;: pk id로 order by를 한 뒤 offset은 항상 0, 읽었던 마지막 id값을 기억해 그 이후부터 실행.&lt;/p&gt;
+&lt;p&gt;: MySql에서 예를들어 offset이 10000, limit가 50인 경우. 실제로는 10050row를 select 한 뒤 10000 row를 버리는 방식이라 성능에 문제가 있음. 이것을 개선하기 위해 만들어진 reader&lt;/p&gt;
+&lt;h2 id=&quot;관련-문서&quot;&gt;&lt;a href=&quot;#%EA%B4%80%EB%A0%A8-%EB%AC%B8%EC%84%9C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;관련 문서&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://jojoldu.tistory.com/336&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://jojoldu.tistory.com/336&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://jojoldu.tistory.com/337&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://jojoldu.tistory.com/337&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://tech.kakaopay.com/post/ifkakao2022-batch-performance-read/#zerooffsetitemreader&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://tech.kakaopay.com/post/ifkakao2022-batch-performance-read/#zerooffsetitemreader&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://jojoldu.tistory.com/528&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://jojoldu.tistory.com/528&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.eversql.com/faster-pagination-in-mysql-why-order-by-with-limit-and-offset-is-slow/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://www.eversql.com/faster-pagination-in-mysql-why-order-by-with-limit-and-offset-is-slow/&lt;/a&gt;&lt;/p&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/spring-batch-jpa-paging-item-reader/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[Spring Cloud Stream + RabbitMQ 사용해보기]]></title><link>https://blog.bbubbu.me/spring-cloud-stream-rabbit-mq/</link><guid isPermaLink="false">https://blog.bbubbu.me/spring-cloud-stream-rabbit-mq/</guid><pubDate>Thu, 18 Aug 2022 03:00:00 GMT</pubDate><content:encoded>&lt;p&gt;RabbitMQ의 메세지를 받기 위한 AMQP 프로토콜을 구현한 프레임워크인 Spring Cloud Stream을 이용하여 Consumer를 만들기 위함.&lt;/p&gt;
+&lt;h2 id=&quot;spring-cloud-stream&quot;&gt;&lt;a href=&quot;#spring-cloud-stream&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Spring Cloud Stream&lt;/h2&gt;
+&lt;h3 id=&quot;1-spring-cloud-stream&quot;&gt;&lt;a href=&quot;#1-spring-cloud-stream&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. Spring Cloud Stream&lt;/h3&gt;
+&lt;p&gt;Spring Cloud 진영에서 메세지 통신을 위해 구축된 프레임워크.&lt;/p&gt;
+&lt;p&gt;이벤트 기반(event-driven) 마이크로 서비스를 구축하기 위해 탄생되었음.&lt;/p&gt;
+&lt;p&gt;Spring Cloud Stream은 &lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-kafka&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Kafka&lt;/a&gt; 및 &lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-rabbit&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Rabbit MQ&lt;/a&gt; 용 바인더 구현을 제공한다.&lt;/p&gt;
+&lt;p&gt;다만 세세한 MQ 설정은 Spring Cloud Stream이 아닌 개별 AMPQ을 구현하는 것이 좋다. (세부 설정 힘듬)&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/76b2e79933af208b089ef1bf050cb9b1/67a5d/0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 373px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 83.1081081081081%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAIAAABSJhvpAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB2klEQVR42oWTR28iQRCF5//DgQMcQAhztcRP4MCBnHNYgsk55+TBH13rMUas9knTqq6q1/W6ukYrl8uFQqFYLJZKpWq1WqvVKpUKxh8FtuI0DKIkQ4GorddrXddvt9t8PsdFuNls1uv1drtNmDyMigIhtqTdFDabjbZcLmVzOBzk+A+FVqvFKWy73S5nQcZJwm63k3yqaqvVSjbUl1N1hU8F/RvYhEg+nU4/lR/Js9kM45EjNDH+Q55Op6InEomkUqlYLJbJZFCbSCQmkwmhxWLxT7LRDC5GC47HIyuVL5eLyKZBL8gSy+VyyWSSsiJBpGYUwuFwMBjsdDqQxf9M9nq9DofDYrGgs9/v0/DBYGCz2ex2u9lsNplMPJ5x6J3Mt9/vs9ks7xEIBDwej8vl4pEIn89n1ncFp9PJEVRuNBr5fJ7322639yG5Xq/0mVS/3+92u61WK7MFjauyvikgh+JoIbPX68H6kS1K4HDnaDSKZhpLneFwGI/H6TyNCIVCFJQL/h2S0WhEDzmC9bFPVKBPDCwNN5w8B28GjeTxeHwfz8cZoCAeScJAm3gABjSZmefxFIgqyD6fj+dJp9Os0IzJ+9Vt48d4gv4bTyGRqdFxufNLoO2lX270BUoBpetgKO+LAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/76b2e79933af208b089ef1bf050cb9b1/67a5d/0.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/76b2e79933af208b089ef1bf050cb9b1/12f09/0.png 148w,https://blog.bbubbu.me/static/76b2e79933af208b089ef1bf050cb9b1/e4a3f/0.png 295w,https://blog.bbubbu.me/static/76b2e79933af208b089ef1bf050cb9b1/67a5d/0.png 373w&quot;
+        sizes=&quot;(max-width: 373px) 100vw, 373px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Spring Cloud Stream 애플리케이션은 미들웨어 중립적 코어로 구성된다.&lt;/p&gt;
+&lt;p&gt;애플리케이션은 브로커에 의해 노출된 대상과 바인딩 을 설정하여 통신한다.&lt;/p&gt;
+&lt;p&gt;바인딩을 설정하는 데 필요한 브로커별 세부 정보는 미들웨어별 바인더 구현에서 처리한다.&lt;/p&gt;
+&lt;p&gt;Binder가 MQ 브로커를 의미하는데 Spring Cloud Stream은 다양한 MQ를 지원한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-rabbit&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;RabbitMQ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-kafka&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Apache Kafka&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-kafka/tree/master/spring-cloud-stream-binder-kafka-streams&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Kafka Streams&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Amazon Kinesis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-gcp/tree/master/spring-cloud-gcp-pubsub-stream-binder&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Google PubSub (partner maintained)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/SolaceProducts/spring-cloud-stream-binder-solace&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Solace PubSub+ (partner maintained)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/spring/spring-cloud-azure-stream-binder-eventhubs&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Azure Event Hubs (partner maintained)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/Azure/azure-sdk-for-java/tree/main/sdk/spring/spring-cloud-azure-stream-binder-servicebus&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Azure Service Bus (partner maintained)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/idealo/spring-cloud-stream-binder-sqs&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;AWS SQS (partner maintained)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/idealo/spring-cloud-stream-binder-sns&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;AWS SNS (partner maintained)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/alibaba/spring-cloud-alibaba/wiki/RocketMQ-en&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Apache RocketMQ (partner maintained)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;2-사용방법&quot;&gt;&lt;a href=&quot;#2-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. 사용방법&lt;/h3&gt;
+&lt;p&gt;사용방법은 크게 2가지가 있다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Annotation Based Programming Model&lt;/li&gt;
+&lt;li&gt;Funtional Programming Model&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;이 중 1번째인 Annotation기반은 spring-cloud-stream 모듈과 spring-cloud-stream-reactive 모듈이 합쳐짐으로 인해 더 이상 사용하지 않고, functional을 권장하고 있다.&lt;/p&gt;
+&lt;p&gt;따라서 이 문서에서는 1번 방법을 따로 서술하지 않습니다.&lt;/p&gt;
+&lt;h3 id=&quot;주목할만한-지원-중단&quot;&gt;&lt;a href=&quot;#%EC%A3%BC%EB%AA%A9%ED%95%A0%EB%A7%8C%ED%95%9C-%EC%A7%80%EC%9B%90-%EC%A4%91%EB%8B%A8&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;a href=&quot;https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring-cloud-stream-preface-notable-deprecations&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;주목할만한 지원 중단&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Annotation 기반 프로그래밍 모델. 기본적으로 @EnableBInding, @StreamListener 및 모든 관련 Annotation은 이제 Funtional 프로그래밍 모델을 위해 @deprecated 되어있습니다. 자세한 내용은 &lt;a href=&quot;https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring_cloud_function&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;Spring Cloud Function 지원&lt;/a&gt; 을 참조하세요.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;반응 모듈&lt;/em&gt; ( spring-cloud-stream-reactive)은 중단되었으며 spring-cloud-function을 통한 기본 지원을 위해 더 이상 배포되지 않습니다. 이전 버전과의 호환성을 위해 여전히 spring-cloud-stream-reactive이전 버전에서 가져올 수 있습니다.&lt;/li&gt;
+&lt;li&gt;spring-cloud-stream-test-support새 테스트 바인더를 위해 MessageCollector로 &lt;em&gt;지원 바인더 를 테스트합니다.&lt;/em&gt; 자세한 내용은 &lt;a href=&quot;https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#_testing&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;테스트&lt;/a&gt; 를 참조하세요.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;@StreamMessageConverter&lt;/em&gt; - 더 이상 필요하지 않으므로 더 이상 사용되지 않습니다.&lt;/li&gt;
+&lt;li&gt;헤더 참조 는 original-content-typev2.0에서 더 이상 사용되지 않는 후 제거되었습니다.&lt;/li&gt;
+&lt;li&gt;속성 을 제공하는 경우 더 BinderAwareChannelResolver이상 사용되지 않습니다 . spring.cloud.stream.sendto.destination이것은 주로 함수 기반 프로그래밍 모델을 위한 것입니다. StreamListener의 경우 여전히 필요하므로 StreamListener 및 주석 기반 프로그래밍 모델을 더 이상 사용하지 않고 중단할 때까지 유지됩니다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;크게 메세지를 보내는 Producer와 받는 Consumer 2개의 프로젝트가 필요합니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;producer&quot;&gt;&lt;a href=&quot;#producer&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;Producer&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;build.gradle&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;dependencies &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    implementation &lt;span class=&quot;token string&quot;&gt;&apos;org.springframework.boot:spring-boot-starter&apos;&lt;/span&gt;
+    implementation &lt;span class=&quot;token string&quot;&gt;&apos;org.springframework.boot:spring-boot-starter-web&apos;&lt;/span&gt;
+    testImplementation &lt;span class=&quot;token string&quot;&gt;&apos;org.springframework.boot:spring-boot-starter-test&apos;&lt;/span&gt;
+
+    annotationProcessor &lt;span class=&quot;token string&quot;&gt;&apos;org.projectlombok:lombok&apos;&lt;/span&gt;
+    compileOnly &lt;span class=&quot;token string&quot;&gt;&apos;org.projectlombok:lombok&apos;&lt;/span&gt;
+
+    implementation &lt;span class=&quot;token string&quot;&gt;&apos;org.springframework.cloud:spring-cloud-starter-stream-rabbit:3.2.4&apos;&lt;/span&gt;
+    implementation &lt;span class=&quot;token string&quot;&gt;&apos;com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Rest API로 Producer를 실행시키기 위해 spring-boot-starter-web,&lt;/p&gt;
+&lt;p&gt;Spring Cloud Stream RabbitMQ를 위해 spring-cloud-starter-stream-rabbit 이 필요하다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;application.yml&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;nasm&quot;&gt;&lt;pre class=&quot;language-nasm&quot;&gt;&lt;code class=&quot;language-nasm&quot;&gt;&lt;span class=&quot;token label function&quot;&gt;spring:&lt;/span&gt;
+  &lt;span class=&quot;token label function&quot;&gt;cloud:&lt;/span&gt;
+    &lt;span class=&quot;token label function&quot;&gt;function:&lt;/span&gt;
+      &lt;span class=&quot;token label function&quot;&gt;definition:&lt;/span&gt; direct
+    &lt;span class=&quot;token label function&quot;&gt;stream:&lt;/span&gt;
+      &lt;span class=&quot;token label function&quot;&gt;bindings:&lt;/span&gt;
+        direct&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;out&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;:
+          &lt;span class=&quot;token label function&quot;&gt;binder:&lt;/span&gt; rabbit
+          &lt;span class=&quot;token label function&quot;&gt;destination:&lt;/span&gt; test
+      &lt;span class=&quot;token label function&quot;&gt;binders:&lt;/span&gt;
+        &lt;span class=&quot;token label function&quot;&gt;rabbit:&lt;/span&gt;
+          &lt;span class=&quot;token label function&quot;&gt;type:&lt;/span&gt; rabbit
+          &lt;span class=&quot;token label function&quot;&gt;environment:&lt;/span&gt;
+            &lt;span class=&quot;token label function&quot;&gt;spring:&lt;/span&gt;
+              &lt;span class=&quot;token label function&quot;&gt;rabbitmq:&lt;/span&gt;
+                &lt;span class=&quot;token label function&quot;&gt;host:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;127.0&lt;/span&gt;.&lt;span class=&quot;token number&quot;&gt;0.1&lt;/span&gt;
+                &lt;span class=&quot;token label function&quot;&gt;port:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;55001&lt;/span&gt;
+                &lt;span class=&quot;token label function&quot;&gt;username:&lt;/span&gt; guest
+                &lt;span class=&quot;token label function&quot;&gt;password:&lt;/span&gt; guest
+
+  &lt;span class=&quot;token label function&quot;&gt;rabbitmq:&lt;/span&gt;
+    &lt;span class=&quot;token label function&quot;&gt;host:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;127.0&lt;/span&gt;.&lt;span class=&quot;token number&quot;&gt;0.1&lt;/span&gt;
+    &lt;span class=&quot;token label function&quot;&gt;port:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;55001&lt;/span&gt;
+    &lt;span class=&quot;token label function&quot;&gt;username:&lt;/span&gt; guest
+    &lt;span class=&quot;token label function&quot;&gt;password:&lt;/span&gt; guest
+&lt;span class=&quot;token label function&quot;&gt;server:&lt;/span&gt;
+  &lt;span class=&quot;token label function&quot;&gt;port:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8080&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Spring Cloud Stream의 바인딩 네이밍 규칙은  아래와 같다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Producer인 경우  [bindingName]-out-[숫자 (0부터 시작) ]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Consumer인 경우 [bindingName]-in-[숫자 (0부터 시작) ]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Spring Cloud Stream 에서는 함수를 Bean에 등록시켜주면 bindingName과 일치하는 빈을 찾아서 연결해준다.&lt;/p&gt;
+&lt;p&gt;숫자의 경우 MultiBinder 지원을 위해 존재한다.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;카프카와 RabbitMQ를 동시에 쓸 경우, 아래와 같이 명명한다.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;direct-out-0 | direct-out-1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;binder에는 사용할 Binder의 종류와 설정 정보를 명시해주면 된다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;현재 RabbitMQ를 바인더로 쓸 예정이기 때문에 관련 정보를 넣어두었다.&lt;/p&gt;
+&lt;p&gt;참고로 &lt;strong&gt;destination&lt;/strong&gt;은 RabbitMQ에서 &lt;strong&gt;exchange&lt;/strong&gt;와 동일한 의미를 지닌다.&lt;/p&gt;
+&lt;p&gt;실제로 코드를 실행시키면 RabbitMQ 대시보드에서 확인할 수 있다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/49caca8eea4b0a9995ff7815e3fe582b/874d1/1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 102.7027027027027%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAIAAADJt1n/AAAACXBIWXMAAAsTAAALEwEAmpwYAAACqUlEQVR42nVU23LiMAzNz++P7Bsf0Zn2oVPoLB1KaLYJkABJyNWO7RgCzW1PbJbS6fQ8tBpZ0pGOFIzen/Xj331g9t6kjhxCi+Px+PHxwRgTQpxOp/P5fFBo27b/CqOTpI3slic9ixpJq9O5qWvk5HmO/KIosizzfZ8QguSu65BzNYy6aRPQMQ5HmpP9fi+lBBsMlBiNRr8U7u7uUChN06ZpwjCsqgr5Bmcsz7KBg9JKNYzMWpHDRiHOOfrHLPDDiScYeIJhxHH89vY2N83n52ewwYWuUP76t1No/6O5gYFoFD5IqVVBydvnWqH5AQZjHJIczwOhjuu+An49SPcNRqk4t6TGeELh2p6OQBqUh7//BkMrdOtCGoRB2vlUoW9IheonBT2aXj5g2Lb98PDgKZQl+pCYYj6fM0qtteeF0dK2zcUCilrWX8uyBnXn89VqhWAjCIKnp6fZbLYPw+EmKMXyhqtI4hUVTkorWYINL7gTqWaEgf0NbSNuMpmgGJ6ZAqV0s92SJHFytsxoiYLqqbgBaIfk3Xb7+Pg4Ho9JTlAVwiButV5nceQS7mb0WAquhNTXog20cGHGeby8vMCIogi00Hbtusk+XCTUigmnhNAB5PJ/MLT4l+TpnynEcF2XK/hBUOS5mRZWWkhxYdTf2Rfm3W53f3+/XC6xT7SNYfDsbTY0S9d5sU6JxLRKi6sonzPjE5lOpxBssVi8v7+bprnZbOAs8kwJVkhW/JiMVl9fX8Gm1jQMDAOzcEJcItycVQK9lLIc7q8UaGwQ8CAPQzJ4ILWvgPPQJVzPg9p2Suw4Y1gDIfiSkyQhCiC47Bkzo2fHcdA2ktHPIJgfsDx3iFhm7CA47k5X1/f/KRhKIge/DHrJWm2Q4FYSJpKCC84gN9gQpgMwtk7+B/vrlQdHWwcrAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/49caca8eea4b0a9995ff7815e3fe582b/fcda8/1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/49caca8eea4b0a9995ff7815e3fe582b/12f09/1.png 148w,https://blog.bbubbu.me/static/49caca8eea4b0a9995ff7815e3fe582b/e4a3f/1.png 295w,https://blog.bbubbu.me/static/49caca8eea4b0a9995ff7815e3fe582b/fcda8/1.png 590w,https://blog.bbubbu.me/static/49caca8eea4b0a9995ff7815e3fe582b/efc66/1.png 885w,https://blog.bbubbu.me/static/49caca8eea4b0a9995ff7815e3fe582b/c83ae/1.png 1180w,https://blog.bbubbu.me/static/49caca8eea4b0a9995ff7815e3fe582b/874d1/1.png 1310w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SampleMessage.java&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class SampleMessage implements Serializable {
+    private String message;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;간단한 문자열 변수가 담긴 객체를 생성한다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ProducerConfig.java&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;@Configuration
+@Slf4j
+public class ProducerConfig {
+
+    @Bean
+    public Sinks.Many&amp;lt;Message&amp;lt;SampleMessage&amp;gt;&amp;gt; many() {
+        return Sinks.many().unicast().onBackpressureBuffer();
+    }
+
+    @Bean
+    public Supplier&amp;lt;Flux&amp;lt;Message&amp;lt;SampleMessage&amp;gt;&amp;gt;&amp;gt; direct(Sinks.Many&amp;lt;Message&amp;lt;SampleMessage&amp;gt;&amp;gt; many) {
+        return () -&amp;gt; many.asFlux()
+                .doOnNext(m -&amp;gt; log.info(&amp;quot;Manually sending message {}&amp;quot;, m))
+                .doOnError(t -&amp;gt; log.error(&amp;quot;Error encountered&amp;quot;, t));
+    }
+
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Producer 관련 설정을 정의한다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;아까 BindingName을 direct 라고 정의해줬기 때문에  Supplier함수명을 direct로 맞춰주었다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bean Name 에 direct라고 명시해도 된다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MessageController.java&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@RestController&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Slf4j&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MessageController&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Autowired&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Sinks&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Many&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;SampleMessage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; many&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@GetMapping&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/direct/{message}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;directMessage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@PathVariable&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; message&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;IOException&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;just&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;message&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;doOnNext&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;m &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;token class-name&quot;&gt;SampleMessage&lt;/span&gt; myMessage &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;SampleMessage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;m&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                    many&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;emitNext&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+                            &lt;span class=&quot;token class-name&quot;&gt;MessageBuilder&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;withPayload&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;myMessage&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                                    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setHeader&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;MessageHeaders&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;CONTENT_TYPE&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MimeTypeUtils&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;APPLICATION_JSON&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                                    &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                            &lt;span class=&quot;token class-name&quot;&gt;Sinks&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;EmitFailureHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;FAIL_FAST
+                    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;doOnNext&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;m &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;send {}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; m&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;실제로  API가 호출되는 시점에 메세지를 보내는 로직이다.&lt;/p&gt;
+&lt;p&gt;현업 프로젝트에서 Header에 데이터가 담길 수도 있을 것 같아 Message객체 안에 SampleMassage를 넣어서 보내주고 있다.&lt;/p&gt;
+&lt;p&gt;이렇게 간단하게 끝이다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;consumer&quot;&gt;&lt;a href=&quot;#consumer&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Consumer&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;build.gradle&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;dependencies &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// spring cloud stream&lt;/span&gt;
+    implementation &lt;span class=&quot;token string&quot;&gt;&apos;org.springframework.cloud:spring-cloud-starter-stream-rabbit:3.2.4&apos;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// RabbitMQ serialization&lt;/span&gt;
+    implementation &lt;span class=&quot;token string&quot;&gt;&apos;com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3&apos;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Spring Batch가 구현되어있는 Repository에 이식할 예정이라 기존 gradle에 2가지만 추가했다.&lt;/p&gt;
+&lt;p&gt;application.yml&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;cloud&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;definition&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; direct
+    &lt;span class=&quot;token key atrule&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token key atrule&quot;&gt;bindings&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;direct-in-0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;binder&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; rabbit
+          &lt;span class=&quot;token key atrule&quot;&gt;destination&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; test
+      &lt;span class=&quot;token key atrule&quot;&gt;binders&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;token key atrule&quot;&gt;rabbit&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;token key atrule&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; rabbit
+          &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;token key atrule&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;token key atrule&quot;&gt;rabbitmq&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;token key atrule&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 127.0.0.1
+                &lt;span class=&quot;token key atrule&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;55001&lt;/span&gt;
+                &lt;span class=&quot;token key atrule&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; guest
+                &lt;span class=&quot;token key atrule&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; guest
+
+  &lt;span class=&quot;token comment&quot;&gt;# RabbitMQ config&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;rabbitmq&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 127.0.0.1
+    &lt;span class=&quot;token key atrule&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;55001&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; guest
+    &lt;span class=&quot;token key atrule&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; guest
+
+&lt;span class=&quot;token key atrule&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;8081&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Producer 설정과 동일하다. 다만 BindingName 중간 in이 out으로 변환되었다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SpringBatchExampleApplication.java&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@Slf4j&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@SpringBootApplication&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;SpringBatchExampleApplication&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token class-name&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;SpringBatchExampleApplication&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Autowired&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;JobLauncher&lt;/span&gt; jobLauncher&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Autowired&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Job&lt;/span&gt; extractionPersonNameJob&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Flux&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;SampleMessage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Mono&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Void&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;receive&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; sampleMessageFlux &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; sampleMessageFlux&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;doOnNext&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;sampleMessage&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                            log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;##### message for direct : {}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; sampleMessage&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                            &lt;span class=&quot;token keyword&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                                jobLauncher&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;extractionPersonNameJob&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;JobParametersBuilder&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                                        &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;addString&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;message&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; sampleMessage&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                                        &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;toJobParameters&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Exception&lt;/span&gt; e&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                                log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;e&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getMessage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+                            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Producer와 똑같이 direct라는 바인딩명과 일치하는 함수를 실행시킨다.&lt;/p&gt;
+&lt;p&gt;Spring Batch Job을 실행시키기 위해 jobLancher를 이용했다.&lt;/p&gt;
+&lt;p&gt;반응형으로 구현하기 위해 Consumer&amp;#x3C;Flux&lt;?&gt;&gt;대신 스트림의 마지막 연산자로 Function&lt;Flux&lt;?&gt;, Mono&lt;Void&gt;&gt; 로 변경했다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Error Handling&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;더 조사해야함 ..&lt;/p&gt;
+&lt;h2 id=&quot;관련-문서&quot;&gt;&lt;a href=&quot;#%EA%B4%80%EB%A0%A8-%EB%AC%B8%EC%84%9C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;관련 문서&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/index.html&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/index.html&lt;/a&gt; - Spring Cloud Stream 레퍼런스 Doc&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://spring.io/projects/spring-cloud-stream&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://spring.io/projects/spring-cloud-stream&lt;/a&gt; - Spring Cloud Stream Doc&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://docs.microsoft.com/ko-kr/azure/developer/java/spring-framework/configure-spring-cloud-stream-binder-java-app-azure-event-hub&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://docs.microsoft.com/ko-kr/azure/developer/java/spring-framework/configure-spring-cloud-stream-binder-java-app-azure-event-hub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://brunch.co.kr/@springboot/51&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://brunch.co.kr/@springboot/51&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://medium.com/@odysseymoon/spring-cloud-stream-with-rabbitmq-c273ed9a79b&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://medium.com/@odysseymoon/spring-cloud-stream-with-rabbitmq-c273ed9a79b&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/spring-cloud-stream-rabbit-mq/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[RabbitMQ 짧은 정리]]></title><link>https://blog.bbubbu.me/rabbit-mq/</link><guid isPermaLink="false">https://blog.bbubbu.me/rabbit-mq/</guid><pubDate>Tue, 16 Aug 2022 03:00:00 GMT</pubDate><content:encoded>&lt;p&gt;RabbitMQ의 메세지를 받기 위한 AMQP 프로토콜을 구현한 프레임워크인 Spring Cloud Stream을 이용하여 Consumer를 만들기 위함.&lt;/p&gt;
+&lt;h2 id=&quot;rabbitmq&quot;&gt;&lt;a href=&quot;#rabbitmq&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;RabbitMQ&lt;/h2&gt;
+&lt;h3 id=&quot;1-rabbitmq&quot;&gt;&lt;a href=&quot;#1-rabbitmq&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1. RabbitMQ&lt;/h3&gt;
+&lt;p&gt;메세지 지향 미들웨어를 구현한 메세지 큐잉 시스템 소프트웨어이다.&lt;/p&gt;
+&lt;p&gt;메세지 브로커라고도 한다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/2f9237f0f1b178ad71289c04f2f2efef/6ee58/0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 47.2972972972973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAIAAAC9o5sfAAAACXBIWXMAAAsTAAALEwEAmpwYAAABhElEQVR42pVQy07DMBDMZ/IFSBzgN/gHDghx4ITEAYGAIqQikKioSumDxEmbpE3zfjZO0tixHeyCeuDGeCWP1rvrnZF8PzCMhReEAICqqtr/QHJd10tzM4aKqiGEeIpS2jJWber1GgZ+WBQlTzJKEcIQlhxN0/w2x1GsAkWRv1RVpYQ0hKQ5TIpqYcwUBUxlzfHDDJZZUaMq34jekhDC+HjGpO1XDOHfYQhjdenqqwSMem/8jDXZsKe6Y83HTbZi2xqMCCWCSmQTxMajp9zU8TQNF1nkzOzo+Kl/L1ufU22k2w+qc6dYS1NzTNlbGUExfx5dvoPbvPalwuvrnQOjs+8NT5J5J7c/ZCvaux+cD+cz0+0B6+r96XrQmSzieNnPVsOudnH2cnjaPQLeq0RZm6wryw7E3msTl0mQQicIvShxo5SHbOiTmeZHCZfKS0jDCBbBNxeaMUZlAYWapqKlsBfmAtxV7jw3pmXtDxFcgG2jlXaJ9udmFGO8qesaod3LH+ymfAP7jvRymMKdiAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/2f9237f0f1b178ad71289c04f2f2efef/fcda8/0.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/2f9237f0f1b178ad71289c04f2f2efef/12f09/0.png 148w,https://blog.bbubbu.me/static/2f9237f0f1b178ad71289c04f2f2efef/e4a3f/0.png 295w,https://blog.bbubbu.me/static/2f9237f0f1b178ad71289c04f2f2efef/fcda8/0.png 590w,https://blog.bbubbu.me/static/2f9237f0f1b178ad71289c04f2f2efef/efc66/0.png 885w,https://blog.bbubbu.me/static/2f9237f0f1b178ad71289c04f2f2efef/c83ae/0.png 1180w,https://blog.bbubbu.me/static/2f9237f0f1b178ad71289c04f2f2efef/6ee58/0.png 1640w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MQ를 이용한 프로세스 흐름&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Producer : 메세지를 보내는 사용자&lt;/p&gt;
+&lt;p&gt;Exchange : 생산자로부터 메시지를 받아서 교환 규칙에 따라 큐에 적재(Route)&lt;/p&gt;
+&lt;p&gt;Queue : 교환작업이 끝난 후 선별된 메세지를 담은 저장소. 컨슈머에게 전달된다.&lt;/p&gt;
+&lt;p&gt;Consumer : 메세지를 최종적으로 받는 사용자&lt;/p&gt;
+&lt;h3 id=&quot;2-exchange&quot;&gt;&lt;a href=&quot;#2-exchange&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2. Exchange&lt;/h3&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/c28e35932998a13c92d10085d68aae84/69902/1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 520px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 109.45945945945948%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAWCAIAAABPIytRAAAACXBIWXMAAAsTAAALEwEAmpwYAAADWUlEQVR42n1U2W4rRRDN7/DEX/AE/8AvIN37AbzADyChi4TuC0ICdB8gzk1AIY5vFttxvGA78exrL9Oz99gztmczPeMtQkCrXG7V1KnqOlXdJ5v/XevlIlsGq5iWZbm1ZFl22J+wH0JoOBxyHDeZTBRF2QPLYrNRO9+KP37MXXyRZTkz5Xne6XQwxtXnsqzAabqmlM6jiNKQqaLIa8mKcmNrXdD9yhVPGbgsGTaDADCfY2aArFa7f/c4uu0OxrzyJBvPslmLMdNswfCfVbK3mLyOJoIGMNmBJc28aHVv+tOb3liAnu7GAvRFFAgoUKwQmECGDtuLe5moRDbQDqwCLBMKsCVI8hPHK5qe5sUqZSctFnFyO5OIFxRFucrydV25Sxcq2IMVE3GmnSQJKyaKoiSOKz5qTr4Z8J9eTV/fTBdJwgwshCjwrEwD2/vMNfjQHkYjc6qJTD//vffRD1efNB40x9tams0mJ8jQcl+CnX90eNvKWw2+up/9/KywpHXcykgXCWPsAMYzw/bny60E8cqlMXZ84tOQzj3iBH7I9tj1vSi2iK0jRwPWDszCPGlEsqhMIqZ56I9l2OqNW92RqJki8iQd3j2Om53hkNffn1/c9ycGdo7H5oHLOJhJCmtblKzDxVLFtoLI5JkLopiXFNGACrItjwY0Mol/PLZiIBF6NAwRhI5ThZQs5xcZXVv+qUYmBmyI4E8cNIB3rcJNlobz+GXNR8KKmpMZst+TeLTcNL1VTzHPFNSfr2/o+lIy/zhrPAsSJC/ZNkhFcNWkilUOkTfvvj5vvH777suBojUE4wq6Z4bdlAzq2MQNdGgdJ4zDUVqU1eyXJRuvYB6PZXnMz5j25wvN8TnksOMAP2T+djBn+fY1a0bn8qfr7uDyvn/eanenourEurMwsGe4sWxR1Y50Z85EIZGIw6lmKwcwtqxe67f24+DuYfih3RtMOUFHkolVE8qmxamAU+FBJNNi1w6R/XgW1TiWh9mqbm2ael7I8zLTeZatV6t0vd4Ka8oySbaPycnWezz+q9/vs/ek3W6HYVWYODx7+PCrNDrfTWrtzTwbjQYA4PiSsL/lkoWrVhzHRZ4zR7X3nXL6GR59n5eHSa88CSFJfcN2mf91sXtVHkD/sf4GN2y208sIVOcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/c28e35932998a13c92d10085d68aae84/69902/1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/c28e35932998a13c92d10085d68aae84/12f09/1.png 148w,https://blog.bbubbu.me/static/c28e35932998a13c92d10085d68aae84/e4a3f/1.png 295w,https://blog.bbubbu.me/static/c28e35932998a13c92d10085d68aae84/69902/1.png 520w&quot;
+        sizes=&quot;(max-width: 520px) 100vw, 520px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/ac7477c70a245994fbf6b2ba1dc3bd32/5c744/2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.810810810810814%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAAsTAAALEwEAmpwYAAACGklEQVR42m1S2W7UMBTN5/IHfAAvvCEkxAuVqNgkChKohS7qOlB1RkNn66SzZI9jO3ZsJ046mSSz4ilPqD06tux7fHXPta62foDFYgEAgBBiTHDzBW48X67Wj0JbLJfVbK5YVmVRltOimEyLWCaJVCsjo59k8G1aVErKi3Jyz3/P5vO5hinbv7g6uWx2x77uhpbP/UB6UN564SDglpgZrLoFrG8jB1CMGITR0A17FgJhpFGRBISHERcyq2arGtY/jE937Xq+WKco8A6/uvuf4wAok/uAPuuYr4aA5YXMKz9kWhRLHImQUh4nZTk7tBovr3e+jM/L5Yo6pvnptb3zRqBAJW/b8Mmv9tO2wfMiyyugklXl5sCt98Y3Nm4ZwDJJh3uQ39lQdHST611pDn3I26E8DNOraFKj2XmYujgBRFUW0scRQITLO55kl0N7S2/U/aBu+Ad/Onq/1++22vpw1wz2vPDtrbvn4PdDz48kpFzZTiORCCHU7ylvZ4b3rjW6cNDZ2N3ujE5dfGL6NRcfj5w2wD9089qDRwPLYqlqVsMY1o6/nzV6B7V61wwsxB3IDECtgKmDExAHhAaITMhGILI20mbXPeIhqhVFQSNGmKBMMOUilixJkyxXjLNJEHIfMdXRJr5RU3ZPdZ3kU+3h3Mxns1RKEcd3WeKNGlb/93q1fHzCVv9DhZQXQghCSIiE6h+jmy01nqvH8BcJNofZ7rUOHQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/ac7477c70a245994fbf6b2ba1dc3bd32/fcda8/2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/ac7477c70a245994fbf6b2ba1dc3bd32/12f09/2.png 148w,https://blog.bbubbu.me/static/ac7477c70a245994fbf6b2ba1dc3bd32/e4a3f/2.png 295w,https://blog.bbubbu.me/static/ac7477c70a245994fbf6b2ba1dc3bd32/fcda8/2.png 590w,https://blog.bbubbu.me/static/ac7477c70a245994fbf6b2ba1dc3bd32/efc66/2.png 885w,https://blog.bbubbu.me/static/ac7477c70a245994fbf6b2ba1dc3bd32/c83ae/2.png 1180w,https://blog.bbubbu.me/static/ac7477c70a245994fbf6b2ba1dc3bd32/5c744/2.png 1206w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;프로듀서가 보낸 메세지를 각각의 올바른 목적지에 도달할 수 있도록 교환규칙에 따라 선별 후 큐에 푸시하는 역할을 한다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;교환 규칙의 종류&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Direct : 바인딩 키와 라우팅 키가 일치해야함&lt;/p&gt;
+&lt;p&gt;Topic : 바인딩 키와 라운딩 키의 패턴에 속해야함.&lt;/p&gt;
+&lt;p&gt;Fanout : 규칙 없이 모두 적재&lt;/p&gt;
+&lt;h3 id=&quot;3-실행&quot;&gt;&lt;a href=&quot;#3-%EC%8B%A4%ED%96%89&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;3. 실행&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/26f6ee7a282099d951cc1acb18419210/d9ed5/3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 68.91891891891892%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAIAAACgpqunAAAACXBIWXMAAAsTAAALEwEAmpwYAAABjElEQVR42o1Sa2+jMBDk//+v+xo1CqFwEqFAOWLzdvDb0I4hV0WKdLnRyizIuzszS2BIOV7ey/h0/UjbPGuKS1tk/WfelR8vI6BZXBx/qXkSUrF5vnEhpHQbvl4hKKs/p+hdaW2M0TuU8qG1s/bfESgp2TiwcdRSLs4h1nVdFrf8BwIphOIIrgRCaIlD9G2DFq9pK6WGiQ3jJMEXzI2BWgjYi39aPCY/eWCNBXOtNBKvxDnOeT90zlm40HYt/MO9rututxuSEZim3c4AbdwDoGSe54YQyIZvlFI2+RpKm74bcLltW0oI+PpiQkiSJEVelEWZ5zkSciXjMKLLI1u3GYnEWK/tPrkoisPhkPxOojhCnONzmqXVteKSa6slDDR+bdpasynCTGstWqM+ALFzeM4+s2iIUpbGQ3yZLlEbRU0U0tCfTViTOqNd3k9vx2N4OjHGMNavCq5UVbW/r3crn86/eBTiaYNRXdco3pk8Y3H37+sTAggQG6TE/yKwDyTQJqTgM55cbsAKnuu/AdMCJD8Yd4XmAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/26f6ee7a282099d951cc1acb18419210/fcda8/3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/26f6ee7a282099d951cc1acb18419210/12f09/3.png 148w,https://blog.bbubbu.me/static/26f6ee7a282099d951cc1acb18419210/e4a3f/3.png 295w,https://blog.bbubbu.me/static/26f6ee7a282099d951cc1acb18419210/fcda8/3.png 590w,https://blog.bbubbu.me/static/26f6ee7a282099d951cc1acb18419210/efc66/3.png 885w,https://blog.bbubbu.me/static/26f6ee7a282099d951cc1acb18419210/c83ae/3.png 1180w,https://blog.bbubbu.me/static/26f6ee7a282099d951cc1acb18419210/d9ed5/3.png 2880w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.rabbitmq.com/getstarted.html&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://www.rabbitmq.com/getstarted.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;도커로 이미지 띄우는게 아주 편함.&lt;/p&gt;
+&lt;p&gt;실행하면 대시보드에 접속이 가능하다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;따로 계정 설정을 하지 않았다면 계정 ID와 PWD는 guest/guest 이다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;관련-문서&quot;&gt;&lt;a href=&quot;#%EA%B4%80%EB%A0%A8-%EB%AC%B8%EC%84%9C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;관련 문서&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.rabbitmq.com/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://www.rabbitmq.com/&lt;/a&gt; - RabbitMQ 공식 사이트&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.cloudamqp.com/blog/part1-rabbitmq-for-beginners-what-is-rabbitmq.html&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://www.cloudamqp.com/blog/part1-rabbitmq-for-beginners-what-is-rabbitmq.html&lt;/a&gt; - RabbitMQ 가이드 문서&lt;/li&gt;
+&lt;/ul&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/rabbit-mq/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[JPA 프로그래밍 - 5장 연관관계 매핑 기초]]></title><link>https://blog.bbubbu.me/jpa5/</link><guid isPermaLink="false">https://blog.bbubbu.me/jpa5/</guid><pubDate>Thu, 11 Aug 2022 03:00:00 GMT</pubDate><content:encoded>&lt;h1 id=&quot;5장-연관관계-매핑-기초&quot;&gt;&lt;a href=&quot;#5%EC%9E%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EB%A7%A4%ED%95%91-%EA%B8%B0%EC%B4%88&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;5장 연관관계 매핑 기초&lt;/h1&gt;
 &lt;p&gt;객체의 참조와 테이블의 외래 키를 매핑하는 것이 이 장의 목표다.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;방향(Direction)&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
