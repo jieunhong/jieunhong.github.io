@@ -1,4 +1,223 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 16 Jan 2024 10:54:21 GMT</lastBuildDate><item><title><![CDATA[도메인 주도 개발 시작하기 1장]]></title><link>https://blog.bbubbu.me/start-domain-driven-development-1/</link><guid isPermaLink="false">https://blog.bbubbu.me/start-domain-driven-development-1/</guid><pubDate>Tue, 09 Jan 2024 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;11-도메인이란&quot;&gt;&lt;a href=&quot;#11-%EB%8F%84%EB%A9%94%EC%9D%B8%EC%9D%B4%EB%9E%80&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1.1 도메인이란?&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Fri, 19 Jan 2024 10:36:35 GMT</lastBuildDate><item><title><![CDATA[도메인 주도 개발 시작하기 2장 - 아키텍쳐 개요]]></title><link>https://blog.bbubbu.me/start-domain-driven-development-2/</link><guid isPermaLink="false">https://blog.bbubbu.me/start-domain-driven-development-2/</guid><pubDate>Thu, 18 Jan 2024 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;21-네-개의-영역&quot;&gt;&lt;a href=&quot;#21-%EB%84%A4-%EA%B0%9C%EC%9D%98-%EC%98%81%EC%97%AD&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2.1 네 개의 영역&lt;/h2&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/60a978cb862604dbaf36e09b2677c115/08a84/0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 460px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 36.486486486486484%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAIAAACHqfpvAAAACXBIWXMAAAsTAAALEwEAmpwYAAABLklEQVR42m1Qa4uDMBD0//+sfigU+6BHuaLUGI2J0ZiXsZrWR2+vlvt0w0KWyewyO8HrPwzDME0jxsi5tu/7eZ5XHvrn8xHH0f3eee+DZVnmN+CF77UHkbWec6NUr5RtmkaIhjFmjH3zVmvv3D3QeqhrDyVE37aOc55lGeiiiO928X6fIESUktfrlRDCWJmmhrEHIb2UNshzBYrDIY3iehwnMDJNk3MOoWa7/T6fM87V6wX0Ar6MaTE2xyNCyCjdBkWhwzA5nXAUVd4/YHIcRzgpScRm8wU853Icn7AXYK3Lst/h201q7T62hfBl6aSUlNI4jququlzI4YDC8JamlDGKMSYkr2uR545SsD1IadbApr/A1swgMM41IU1RSKXMsnxsd11XlopSxZiCE34APVqFpKrzucIAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/60a978cb862604dbaf36e09b2677c115/08a84/0.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/60a978cb862604dbaf36e09b2677c115/12f09/0.png 148w,https://blog.bbubbu.me/static/60a978cb862604dbaf36e09b2677c115/e4a3f/0.png 295w,https://blog.bbubbu.me/static/60a978cb862604dbaf36e09b2677c115/08a84/0.png 460w&quot;
+        sizes=&quot;(max-width: 460px) 100vw, 460px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;표현&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;HTTP 요청을 응용 영역이 필요로 하는 형식으로 변환해서 응용 영역에 전달하고, 응용 영역의 HTTP 응답으로 변환하여 전송한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;응용&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;시스템이 사용자에게 제공해야 할 기능을 구현, 기능 구현을 위해 도메인 영역의 도메인 모델을 사용한다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;로직을 직접 수행하기 보다는 도메인 모델에 로직 수행을 위임한다.&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;도메인&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;도메인 모델을 구현한다. 핵심 로직을 구현하게 된다. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;인프라스트럭처&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;구현 기술에 대한 것을 다룬다. RDBMS, 외부 API 등&lt;/p&gt;
+&lt;h2 id=&quot;22-계층-구조-아키텍쳐&quot;&gt;&lt;a href=&quot;#22-%EA%B3%84%EC%B8%B5-%EA%B5%AC%EC%A1%B0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2.2 계층 구조 아키텍쳐&lt;/h2&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/e17bc3609336a8d04e265d7d317e242e/d8f62/1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 43.24324324324324%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAIAAAC9o5sfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAgUlEQVR42pWQywqAIBRE+/8PFNy6EB+4yFepSQ1KEBShZzFcBw56Xc4Xtdaj8RzOL5Z3FULYGkqpPqAZlfdGSklrvd+Myt77tUEI6QOaUTnGaK11znHOkZjRTMg5ZzyVMYYspczJADsbY5D9OCFjSSklpVQIga+ekyHgq2Eif26+AP63EY3yZS50AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/e17bc3609336a8d04e265d7d317e242e/fcda8/1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/e17bc3609336a8d04e265d7d317e242e/12f09/1.png 148w,https://blog.bbubbu.me/static/e17bc3609336a8d04e265d7d317e242e/e4a3f/1.png 295w,https://blog.bbubbu.me/static/e17bc3609336a8d04e265d7d317e242e/fcda8/1.png 590w,https://blog.bbubbu.me/static/e17bc3609336a8d04e265d7d317e242e/d8f62/1.png 601w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;주로 표현과 응용 영역이 도메인 영역을 사용하고, 도메인 영역은 인프라스트럭처 영역을 사용한다. &lt;/p&gt;
+&lt;p&gt;다만 계층구조의 특성상 상위 계층에서 하위 계층으로의 의존만 존재하고, 하위 계층은 상위 계층에 의존하지 않는다.&lt;/p&gt;
+&lt;p&gt;상황에 따라서 계층 구조를 유연하게 적용하기도 한다. 그렇게 된다면 응용 영역에서 인프라스트럭쳐를 의존하기도 한다. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;문제점&lt;/strong&gt; &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;표현, 응용, 도메인 계층이 상세한 구현 기술을 다루는 인프라스트럭처 계층에 종속된다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;응용, 도메인 영역에 인프라스트럭처 영역의 구현이 담기게 된다면, 각 서비스를 테스트 하는 곳에 인프라스트럭처에 필요한 초기설정 그리고 관련한 코드가 직접적으로 사용 된다. 이러한 구조는 테스트의 복잡성을 높게 한다. 또한 리팩토링과 기능 확장에 있어서 학습 러닝커브와 유지보수의 어려움을 야기한다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;‘테스트의 어려움’과 ‘기능 확장의 어려움’의 문제를 마주하게 된다.&lt;/strong&gt; &lt;/p&gt;
+&lt;h2 id=&quot;23-dip&quot;&gt;&lt;a href=&quot;#23-dip&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2.3 DIP&lt;/h2&gt;
+&lt;p&gt;Dependency Inversion Principle&lt;/p&gt;
+&lt;p&gt;고수준(고객의 정보를 구한다.)  → 저수준 (RDBMS JPA를 이용, Drools로 룰 적용) &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;고수준 모듈 : 의미 있는 단일 기능을 제공하는 모듈이다.&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;저수준 모듈 : 하위 기능을 실제로 구현한 것&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;고수준 모듈이 동작하기 위해서는 저수준 모듈을 사용해야 한다. 하지만 고수준 모듈이 저수준 모듈을 사용하게 되면 계층 아키텍쳐의 문제였던 테스트와 구현 변경의 어려움을 마주하게 된다. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DIP는 저수준 모듈이 고수준 모듈에 의존하도록 한다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;DIP를 구현하는 방법은 추상화한 인터페이스에 있다. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;RuleDiscounter&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token class-name&quot;&gt;Money&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;applyRules&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Customer&lt;/span&gt; customer&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;OrderLine&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; orderLines&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;CalculateService&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;token keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;RuleDiscounter&lt;/span&gt; ruleDiscounter&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token comment&quot;&gt;//생성자 코드 생략&lt;/span&gt;
+
+	&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Money&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;calculateDiscount&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;token generics&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;OrderLine&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; orderLines&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; customerId&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;token class-name&quot;&gt;Customer&lt;/span&gt; customer &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;findCustomer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;customerId&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; ruleDiscounter&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;applyRules&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;customer&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; orderLines&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;CalculateService는 기존의 Drools에 의존하는 코드가 없다. 또한 코드를 직접적으로 참조하는 것이 아니라 인터페이스의 정의된 메서드만 사용하고 있기 때문에 RuleDiscounter를 상속받아 구현하는 쪽에서의 코드를 알지 못한다. (구현체는 생성자에서 넣어준다.)&lt;/p&gt;
+&lt;aside&gt;
+💡 저수준 모듈이 고수준 모듈에 의존하게 된다.
+&lt;/aside&gt;
+&lt;p&gt;&lt;strong&gt;기존의 계층구조 아키텍쳐는 고수준 모듈이 저수준 모듈을 의존하였는데 관계를 역전시켰기 때문에 DIP 의존 역전 원칙이라고 부른다.&lt;/strong&gt; &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;//사용할 저수준 객체 생성&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;RuleDiscounter&lt;/span&gt; ruleDiscounter1 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DroolDiscounter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;RuleDiscounter&lt;/span&gt; ruleDiscounter2 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;AnotherDiscounter&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;//생성자 방식으로 주입&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;CalculateService&lt;/span&gt; disService &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;CalculateService&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ruleDiscounter1&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token class-name&quot;&gt;CalculateService&lt;/span&gt; disService &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;CalculateService&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ruleDiscounter2&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이와 같이 추상 인터페이스를 사용하게 되면 테스트시, 저수준 객체를 Mock(가짜 대체)하여 실제 service에서 구현된 비즈니스 코드만 검증할 수 있다. &lt;/p&gt;
+&lt;p&gt;DIP를 적용할 때 하위 기능을 추상화한 인터페이스는 고수준 모듈 관점에서 도출한다. &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;DIP를 항상 적용할 필요는 없다. 구현 기술에 의존적인 코드를 도메인에 일부 포함하는 것이 효과적일 때도 있다. 또한 추상화 대상이 잘 떠오르지 않을 때에는 시도보다는 이점을 얻는 수준에서의 적용범위를 검토하자&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;오브젝트 내에서 DIP를 구현한 내용을 예시자료로 첨부한다.  (오브젝트 15장 발췌)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;상위정책은 상대적으로 변경에 안정적이지만 세부사항은 자주 변경된다. &lt;/p&gt;
+&lt;p&gt;따라서 상위 정책이 자주 변하는 세부 사항에 의존한다면 변경에 대한 파급효과로 인해 상위 정책이 불안정해질 것이다.&lt;/p&gt;
+&lt;p&gt;이를 위한 가장 좋은 방법은 상위 정책과 세부 사항 모두 추상화에 의존하게 만드는 것이다. &lt;/p&gt;
+&lt;p&gt;변하는 것과 변하지 않는 것을 서로 분리하여 별도의 패키지로 분리한다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/ca5ca328614117e45c63a119ec2155b0/47218/3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 107.43243243243244%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAACXBIWXMAABYlAAAWJQFJUiTwAAADV0lEQVR42nVVa2/bMAz0//9dwzoUW9Htw5qmzaN5+RW/bVmW7XB3VJIVGFaAlW1J5PF4ZALb91KXuZRFLqZrpTedGJjtjQyDVRvHUVfTXb9bKz1WY4w4N/hz+GZtL4EbBmnrSiZcOqeJROFJpmmSqiqkbSrdy86JhKejzPgeR6G8vy3VYY29JDohUCNdUwJYAYeIUOYZDkaSxBGc1Iq0AuJpHGR0FhdLybMzLJPtZi1vy1eca6SuSmngZJ6czDjLLNWhRYQWG7QOh1o4sKaVCw5eplH45waDwGcps1RSoKpAU4MsLqPD7kUQ3SNk/vSOm4JQ3i6zGvmiZUCXwRG5HcmZNdIhizLP5ZzEoCSVhllgVYeTo1PAxmHaRGQIUCJiHMfK2Xq1khQc11UlBQKQIn7/2G5xJgLiUlF7h0B4mZGa2uSfZUbFW/CWKn8FeCa35JhowvAop8NedtuNdG3rVYLzWuUeBweUnIcpIabJy6zeZfYVZ3VHZDEMPQD4DJgVizICEGkbvGwsoBbSoGqb9UpeFy/Sth4Jq26hr3OaSgSHlJNqFByyEKyuaRt1zhowWMBolE14PMj+Y6splEWmxqoxrSgMpcB7gbSYOi/OoIXIqFX6IG0MFFDhDQTaIRLFSn1R8d7s/Zl7PTqjR2fdOoj7FYpE2gaYc04CtlqJTqigsQrRW+jQaSsZXdWc1RYjIj4TocPzBAcF7hEQua/BdcCo1A+jLF5+y9P3R5ULC3OrPjm6G965R04P+z1sJ5vNCnyHkiYRU+4lOh5lv9tpS7EoaZLAYm27GR1Avm5Gp2zL3e5D77DH2ZIJdMlZoClnFGxdy/PTD3n4+kUSOGOVVQ7zvw65R653KOJysVA1UCkcIgHha4URjcp/Xy6xcVaU038c8jJT3iNdpkyKWH0GCijgFBGow18/n+Xx24PKo0H1tCU5SWh0eB0WpKKD6KlBy6boOxkMV+NTJsID9LZBv9I8wlgdcprcneqYcsorZH0dJuO9bamMoMcU5rRoEY1VJo9MgbPu7vBz2pP7W6hPgYjctx7+5ZgoRyJcr3WAsmocCOxPHuT0uRv1R5v9+3x9Z2DWI+gg2EOVSwQeY4x/phpjgFJXRE7rOv8789luvym33yCunJF/AHlWS9ac5dkhAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/ca5ca328614117e45c63a119ec2155b0/fcda8/3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/ca5ca328614117e45c63a119ec2155b0/12f09/3.png 148w,https://blog.bbubbu.me/static/ca5ca328614117e45c63a119ec2155b0/e4a3f/3.png 295w,https://blog.bbubbu.me/static/ca5ca328614117e45c63a119ec2155b0/fcda8/3.png 590w,https://blog.bbubbu.me/static/ca5ca328614117e45c63a119ec2155b0/efc66/3.png 885w,https://blog.bbubbu.me/static/ca5ca328614117e45c63a119ec2155b0/c83ae/3.png 1180w,https://blog.bbubbu.me/static/ca5ca328614117e45c63a119ec2155b0/47218/3.png 1344w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h2 id=&quot;24-도메인-영역의-주요-구성요소&quot;&gt;&lt;a href=&quot;#24-%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%98%81%EC%97%AD%EC%9D%98-%EC%A3%BC%EC%9A%94-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2.4 도메인 영역의 주요 구성요소&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ENTITY&lt;/th&gt;
+&lt;th&gt;고유의 식별자를 가자는 객체, 도메인의 고유한 개념을 표현한다. 데이터와 관련된 기능과 데이터를 포함한다.&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;VALUE&lt;/td&gt;
+&lt;td&gt;식별자를 갖지 않는 객체, 개념적으로 하나인 값을 표현, 엔티티의 속성으로 사용되며, 다른 밸류타입의 하위 속성으로도 사용한다.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;AGGREGATE&lt;/td&gt;
+&lt;td&gt;연관된 엔티티와 벨류 객체를 하나로 묶는 것이다. 엔티티 + 밸류&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;REPOSITORY&lt;/td&gt;
+&lt;td&gt;도메인 모델의 영속성을 처리한다.  RDBMS 테이블의 엔티티 객체를 로딩하거나 저장&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DOMAIN SERVICE&lt;/td&gt;
+&lt;td&gt;특정 엔티티에 속하지 않은 도메인 로직을 제공한다. 여러 엔티티와 밸류가 필요한 로직들을 구현하는 공간이다.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;실제 도메인인 모델의 엔티티와 DB 관계형 모델의 엔티티는 같은 것이 아니다.&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;도메인 모델의 엔티티 - 데이터와 함께 도메인 기능을 함께 제공한다. &lt;/p&gt;
+&lt;p&gt;단순히 데이터를 담고있는 구조라기보다는 데이터와 함께 기능을 제공하는 객체이다. &lt;/p&gt;
+&lt;p&gt;도메인 관점에서 기능을 구현하고, 기능 구현을 캡슐화해서 데이터가 임의로 변경되는 것을 막는다.&lt;/p&gt;
+&lt;p&gt;도메인 모델의 엔티티는 두 개 이상의 데이터가 개념적으로 하나인 경우 밸류타입을 이용해 표현이 가능하다. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;애그리거트&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;도메인이 커질수록 개발한 도메인 모델이 커지며 많은 엔티티와 밸류가 출현하게 된다.&lt;/li&gt;
+&lt;li&gt;애그리거트는 관련 객체를 하나로 묶은 군집이다.&lt;/li&gt;
+&lt;li&gt;예를들어 주문은 배송지 정보, 주문 정보, 결제 금액 등의 하위 모델을 포함한다.&lt;/li&gt;
+&lt;li&gt;애그리거트를 사용하면 객체 군집단위로 모델을 바라볼 수 있게 된다.&lt;/li&gt;
+&lt;li&gt;애그리거트는 루트 엔티티를 갖는다&lt;/li&gt;
+&lt;li&gt;루트엔티티란 애그리거트에 속해앴는 엔티티와 밸류 객체를 이용해 애그리거트가 구현해야 할 기능을 제공한다.&lt;/li&gt;
+&lt;li&gt;내부구현을 숨겨 애그리거트 단위로 구현을 캡슐화 할 수 있도록 돕는다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;리포지터리는 도메인 모델 관점에서 도메인 객체를 영속화 하는 데 필요하므로 고수준 모듈에 속한다. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;응용서비스는 필요한 도메인 객체를 구하거나 저장할 때 리포지터리를 사용한다.&lt;/li&gt;
+&lt;li&gt;응용서비스는 트랜잭션을 관리하는데, 처리는 리포지터리 구현 기술의 영향을 받는다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;25-요청-처리-흐름&quot;&gt;&lt;a href=&quot;#25-%EC%9A%94%EC%B2%AD-%EC%B2%98%EB%A6%AC-%ED%9D%90%EB%A6%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2.5 요청 처리 흐름&lt;/h2&gt;
+&lt;p&gt;예매하기나 예매 취소와 같은 기능을 제공하는 응용 서비스는 도메인의 상태를 변경하므로 변경 상태가 물리 저장소에 올바르게 반영되도록 트랜잭션을 관리해야한다. Spring은 @Transactional을 이용한다.&lt;/p&gt;
+&lt;h2 id=&quot;26-인프라스트럭처-개요&quot;&gt;&lt;a href=&quot;#26-%EC%9D%B8%ED%94%84%EB%9D%BC%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98-%EA%B0%9C%EC%9A%94&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2.6 인프라스트럭처 개요&lt;/h2&gt;
+&lt;p&gt;구현의 편리하는 DIP가 주는 다른 장점만큼 중요하기 깨문에 DIP의 장점을 해치지 않는 범위에서 응용 영역과 도메인 영역에서 구현 기술에 대한 의존을 가져가는 것이 나쁘지 않다. 케이스에 따라 다르다&lt;/p&gt;
+&lt;h2 id=&quot;27-모듈-구성&quot;&gt;&lt;a href=&quot;#27-%EB%AA%A8%EB%93%88-%EA%B5%AC%EC%84%B1&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;2.7 모듈 구성&lt;/h2&gt;
+&lt;p&gt;모듈 구조에 대한 규칙은 없다. 한 패키지에 가능하면 10- 15개의 타입 개수를 유지하려고 한다.&lt;/p&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/start-domain-driven-development-2/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[도메인 주도 개발 시작하기 1장 - 도메인 모델 시작하기]]></title><link>https://blog.bbubbu.me/start-domain-driven-development-1/</link><guid isPermaLink="false">https://blog.bbubbu.me/start-domain-driven-development-1/</guid><pubDate>Tue, 09 Jan 2024 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;11-도메인이란&quot;&gt;&lt;a href=&quot;#11-%EB%8F%84%EB%A9%94%EC%9D%B8%EC%9D%B4%EB%9E%80&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;1.1 도메인이란?&lt;/h2&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
