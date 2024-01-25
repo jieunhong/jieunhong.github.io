@@ -45,14 +45,14 @@ category: '개발'
 
 **요금제에 부가 정책을 추가해보자!**
 
-![Untitled](./Untitled.png)
+![Untitled](./0.png)
 
 - 기본 정책의 계산 결과에 적용된다.
 - 선택적으로 적용할 수 있다.
 - 조합이 가능하다.
 - 부가 정책은 임의의 순서로 적용 가능하다.
 
-![Untitled](./Untitled%201.png)
+![Untitled](./1.png)
 
 - 상속을 이용하여 기본 정책 구현하기
 
@@ -78,15 +78,15 @@ TaxableRegularPhone ← RegularPhone  상속
 
 유연성은 유지하면서도 중복코드를 제거하기 위해서는 기본 구현을 함께 제공한다. 361p
 
-![Untitled](./Untitled%202.png)
+![Untitled](./2.png)
 
 **기본 정책에 기본 요금 할인 정책 조합하기**
 
-![Untitled](./Untitled%203.png)
+![Untitled](./3.png)
 
-![Untitled](./Untitled%204.png)
+![Untitled](./4.png)
 
-![Untitled](./Untitled%205.png)
+![Untitled](./5.png)
 
 기본 정책이 새로 추가 되면 하위 자식 클래스의 수 만큼 중복코드를 생성해야 한다.
 
@@ -114,13 +114,13 @@ TaxableRegularPhone ← RegularPhone  상속
 
 설계는 트레이드 오프다. 
 
-![Untitled](./Untitled%206.png)
+![Untitled](./6.png)
 
-![Untitled](./Untitled%207.png)
+![Untitled](./7.png)
 
-![Untitled](./Untitled%208.png)
+![Untitled](./8.png)
 
-![Untitled](./Untitled%209.png)
+![Untitled](./9.png)
 
 요구사항을 변경할 때 오직 하나의 클래스만 수정해도 된다. 
 
@@ -178,7 +178,7 @@ BasicRatePolicy 클래스이든, BasicRatePolicy를 상속한 자식 클래스�
 
 믹스인은 믹스인을 구현하는 클래스 위에 놓는다. super class 의 옆이 아니라 위쪽을 쌓아올리기 때문에 여러 클래스를 믹스인을 하여도 모호성이 없다. 하지만 동일한 객체를 믹스인하여도 믹스인 순서에 따라 다른 결과가 나올수 있다.
 
-![Untitled](./Untitled%2010.png)
+![Untitled](./10.png)
 
 믹스인
 
