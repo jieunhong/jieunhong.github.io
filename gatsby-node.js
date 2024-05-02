@@ -42,6 +42,11 @@ exports.createPages = ({ graphql, actions }) => {
         },
       });
     });
+    createPage({
+      path: '/profile',
+      component: path.resolve('./src/templates/blog-profile.js'),
+      context: {},
+    });
 
     resolve(
       graphql(

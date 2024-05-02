@@ -11,21 +11,23 @@ class Bio extends React.Component {
           marginBottom: rhythm(1),
         }}
       >
-        <img
-          src={profilePic}
-          alt={`jieunhong`}
-          style={{
-            marginRight: rhythm(1 / 2),
-            marginBottom: 0,
-            width: rhythm(2),
-            height: rhythm(2),
-            borderRadius: '50%',
-          }}
-        />
+        <a href="/profile" className="profile">
+          <img
+            src={profilePic}
+            alt={`jieunhong`}
+            style={{
+              marginRight: rhythm(1 / 2),
+              marginBottom: 0,
+              width: rhythm(2),
+              height: rhythm(2),
+              borderRadius: '50%',
+            }}
+          />
+        </a>
         <p style={{ maxWidth: 310 }}>
           Personal blog by Jieun Hong.
           {/* <a href="http://bbubbu.me">홍지은</a>.  */}
-          I&nbsp;explain with words and code.
+          <br></br>&nbsp;Hello JIEUN World !
         </p>
       </div>
     );

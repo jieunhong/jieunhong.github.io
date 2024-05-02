@@ -5,3 +5,8 @@
 .none {
   display: none;
 }
+.profile {
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 0px 0 0 currentColor;
+}
