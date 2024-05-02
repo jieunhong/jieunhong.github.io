@@ -2,3 +2,6 @@
   color: white;
   background-color: var(--textLink);
 }
+.none {
+  display: none;
+}

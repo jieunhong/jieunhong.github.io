@@ -22,9 +22,13 @@ class BlogIndexTemplate extends React.Component {
   toggleClass(e) {
     document.getElementsByClassName('clicked')[0].classList.remove('clicked');
     e.target.className = 'clicked';
-    // const currentState = this.state.active;
-    // this.setState({ active: !currentState });
-    // console.log( get(this, 'props.data.allMarkdownRemark.edges') );
+    const targetCategory = e.target.text;
+    document
+      .querySelectorAll('.article')
+      .forEach(item => item.classList.add('none'));
+    document
+      .querySelectorAll('.' + targetCategory)
+      .forEach(item => item.classList.remove('none'));
   }
   changeCategory() {
     document.getElementsByClassName('clicked')[0].classList.remove('clicked');
@@ -32,8 +36,11 @@ class BlogIndexTemplate extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title');
     const langKey = this.props.pageContext.langKey;
-    const categorys = ['전체', '개발', '일상'];
     const posts = get(this, 'props.data.allMarkdownRemark.edges');
+    var categorys = ['전체'];
+
+    posts.map(node => categorys.push(get(node, 'node.frontmatter.category')));
+    categorys = Array.from(new Set(categorys));
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -55,7 +62,6 @@ class BlogIndexTemplate extends React.Component {
               .
             </Panel>
           )}
-          <span>카테고리 언젠가는 완성할 예정</span>
           <div
             style={{
               marginBottom: '-1rem',
@@ -85,8 +91,10 @@ class BlogIndexTemplate extends React.Component {
           </div>
           {posts.map(({ node }) => {
             const title = get(node, 'frontmatter.title') || node.fields.slug;
+            const category =
+              get(node, 'frontmatter.category') || node.fields.slug;
             return (
-              <article key={node.fields.slug}>
+              <article key={node.fields.slug} class={category + ' article'}>
                 <header>
                   <h3
                     style={{
@@ -147,6 +155,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             spoiler
+            category
           }
         }
       }
