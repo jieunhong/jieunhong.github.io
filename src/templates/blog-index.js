@@ -23,12 +23,19 @@ class BlogIndexTemplate extends React.Component {
     document.getElementsByClassName('clicked')[0].classList.remove('clicked');
     e.target.className = 'clicked';
     const targetCategory = e.target.text;
-    document
-      .querySelectorAll('.article')
-      .forEach(item => item.classList.add('none'));
-    document
-      .querySelectorAll('.' + targetCategory)
-      .forEach(item => item.classList.remove('none'));
+
+    if (targetCategory != '전체') {
+      document
+        .querySelectorAll('.article')
+        .forEach(item => item.classList.add('none'));
+      document
+        .querySelectorAll('.' + targetCategory)
+        .forEach(item => item.classList.remove('none'));
+    } else {
+      document
+        .querySelectorAll('.article')
+        .forEach(item => item.classList.remove('none'));
+    }
   }
   changeCategory() {
     document.getElementsByClassName('clicked')[0].classList.remove('clicked');
