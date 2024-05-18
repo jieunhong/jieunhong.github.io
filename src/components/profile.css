@@ -3,7 +3,9 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
-
+.dark .main.style1 {
+  background-color: var(--bg);
+}
 .main-profile {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -91,6 +93,10 @@ textarea {
   color: #555;
   font-weight: 400;
 }
+body.dark .main-profile strong,
+body.dark .main-profile b {
+  color: #ffffff;
+}
 
 .main-profile em,
 .main-profile i {
@@ -111,7 +117,14 @@ textarea {
   line-height: 1em;
   margin: 0 0 1em 0;
 }
-
+body.dark .main-profile h1,
+body.dark .main-profile h3,
+body.dark .main-profile h4,
+body.dark .main-profile h5,
+body.dark .main-profile h2,
+body.dark .main-profile h6 {
+  color: #ffffff !important;
+}
 .main-profile h1 {
   font-size: 2.25em;
   line-height: 1.35em;
@@ -2625,6 +2638,7 @@ button:disabled,
   border-radius: 10px;
   padding: 1em 1em 1em 1em !important;
   margin: 0.5em;
+  background: rgba(255, 255, 255, 0.2);
 }
 /* Main */
 
