@@ -1,4 +1,365 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Sat, 18 May 2024 04:45:24 GMT</lastBuildDate><item><title><![CDATA[도메인 주도 개발 시작하기 4장 - 리포지터리와 모델구현]]></title><link>https://blog.bbubbu.me/start-domain-driven-development-4/</link><guid isPermaLink="false">https://blog.bbubbu.me/start-domain-driven-development-4/</guid><pubDate>Wed, 14 Feb 2024 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;41-jpa를-이용한-리포지터리-구현&quot;&gt;&lt;a href=&quot;#41-jpa%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A6%AC%ED%8F%AC%EC%A7%80%ED%84%B0%EB%A6%AC-%EA%B5%AC%ED%98%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4.1 JPA를 이용한 리포지터리 구현&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 27 Jun 2024 12:06:56 GMT</lastBuildDate><item><title><![CDATA[Feign에서 PATCH method 에러 이유 (Invalid HTTP method: PATCH)]]></title><link>https://blog.bbubbu.me/invalid-http-method-patch/</link><guid isPermaLink="false">https://blog.bbubbu.me/invalid-http-method-patch/</guid><pubDate>Thu, 27 Jun 2024 03:00:00 GMT</pubDate><content:encoded>&lt;h3 id=&quot;feign에서-patch-method-에러-이유-invalid-http-method-patch&quot;&gt;&lt;a href=&quot;#feign%EC%97%90%EC%84%9C-patch-method-%EC%97%90%EB%9F%AC-%EC%9D%B4%EC%9C%A0-invalid-http-method-patch&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Feign에서 PATCH method 에러 이유 (Invalid HTTP method: PATCH)&lt;/h3&gt;
+&lt;p&gt;우리 회사에서는 외부 REST API 호출시 대부분 Feign을 이용하고있다.&lt;/p&gt;
+&lt;p&gt;어느 날, PATCH method API를 호출하니 다음과 같은 에러가 발생하였다. &lt;/p&gt;
+&lt;h3 id=&quot;문제-발생&quot;&gt;&lt;a href=&quot;#%EB%AC%B8%EC%A0%9C-%EB%B0%9C%EC%83%9D&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;문제 발생&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;net&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;ProtocolException&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Invalid&lt;/span&gt; HTTP method&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; PATCH
+    at java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;base&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;net&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;HttpURLConnection&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setRequestMethod&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;HttpURLConnection&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;java&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;489&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    at java&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;base&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;sun&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;net&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;www&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;protocol&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;http&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;HttpURLConnection&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setRequestMethod&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;HttpURLConnection&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;java&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;598&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    at &lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;feign&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;Client&lt;/span&gt;$&lt;span class=&quot;token class-name&quot;&gt;Default&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;convertAndSend&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;java&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;163&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    at &lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;feign&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;Client&lt;/span&gt;$&lt;span class=&quot;token class-name&quot;&gt;Default&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;execute&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;java&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;103&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    at &lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;feign&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;SynchronousMethodHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;executeAndDecode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;SynchronousMethodHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;java&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;119&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    at &lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;feign&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;SynchronousMethodHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;SynchronousMethodHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;java&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;89&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    at &lt;span class=&quot;token class-name&quot;&gt;&lt;span class=&quot;token namespace&quot;&gt;feign&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;/span&gt;ReflectiveFeign&lt;/span&gt;$&lt;span class=&quot;token class-name&quot;&gt;FeignInvocationHandler&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;ReflectiveFeign&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;java&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;오잉?  PATCH 메서드가 유효하지 않은 HTTP method라고?&lt;/p&gt;
+&lt;p&gt;해당 증상을 인터넷에 검색해보니 &lt;code class=&quot;language-text&quot;&gt;Apache HttpClient&lt;/code&gt;나 &lt;code class=&quot;language-text&quot;&gt;OkHttp&lt;/code&gt; 의존성을 추가하고 해당 &lt;code class=&quot;language-text&quot;&gt;HttpClient&lt;/code&gt;로 빈을 정의해주면 된다고 한다. &lt;/p&gt;
+&lt;h3 id=&quot;해결방법&quot;&gt;&lt;a href=&quot;#%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;해결방법&lt;/h3&gt;
+&lt;p&gt;build.gradle&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;implementation &lt;span class=&quot;token string&quot;&gt;&apos;io.github.openfeign:feign-httpclient&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;OpenFeignConfig&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Client&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ApacheHttpClient&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;증상은 해결되었지만, 원인이 궁금하여 이것저것 찾아보았다. &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;왜 PATCH 메서드가 지원이 되지 않을까?&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;왜 다른 라이브러리를 빈으로 등록하면(apache, okhttp 등) 잘 동작하는걸까?&lt;/strong&gt; &lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;문제-원인-찾기&quot;&gt;&lt;a href=&quot;#%EB%AC%B8%EC%A0%9C-%EC%9B%90%EC%9D%B8-%EC%B0%BE%EA%B8%B0&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;문제 원인 찾기&lt;/h3&gt;
+&lt;p&gt;아래 탐구 과정이 너무 길어서 결론을 3줄 요약 해보았습니다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Feign의 기본 HTTP 클라이언트는 HttpURLConnection 클래스를 사용한다.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;HttpURLConnection은 자바의 기본 라이브러리로, PATCH 메서드를 지원하지 않는다.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;따라서 다른 라이브러리를 이용하여, Client 빈 설정을 해주면 원하는 Client로 동작한다.&lt;/strong&gt;
+(빈 설정만 해주면 feign이 알아서 끌고감)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;먼저 문제가 일어난 부분인 &lt;code class=&quot;language-text&quot;&gt;HttpURLConnection&lt;/code&gt;의 소스를 확인했다. &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/f7a5b4686a0895d68a3aa7c7d1a29ba7/e92cd/Untitled.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 96.62162162162163%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAABYlAAAWJQFJUiTwAAACzUlEQVR42n1U2XLbMBDz51jifUiybOuy3UymSf//c1AsGR9pp33AUFytwF0sqN16veF2u+G0XrDweSNO84zlspT49XLBtKzYfrxxfy37eZ1wvW3MueDt8xfePz7w/vMT29uG3Xk6w8cOxjj43iEePNqmhVICVdC2z+fXfVv2+gHZ707nE1zMMNbBZYMwOH5QP/oX7qSt+vsdCaXCDEtCGyuh0i20US/QX1D/PUTVCp+ELhmkMaEfB4Q+sP3Aqi1sMOzClgMLsX0eIOurDLt5meFCKoTaKdiUEE4bwvmGcDwiHh3SmeSjh+uo8yBa24qOh3jDjl4I13WBzwOs8/AkTMmhOwwYxgOGISNEEsTIle9ZkWOe86GsSms0zXddd9u2InYHJnlYajeytbmPOB0SDn1C13UIrNoHOsBrknvuY4H19qHrQ0NpOaSeFTo0DHgSRyZ6VhGobUqZZKzKWR5Knb19wIiWWj0sJu74RiiBlDt0/VCIUpaWY4llIjIWYyqr2Kxh/h3ybZ3yNBVCz9Oj3WPkVA8Uv+dEu6AZa5Bci+x5mIDP0TUIZo/AdwLJ0V+e3I3nGTH3GEmSSHDMGueho4YD5tMRy7RgorVkQJ4teqsKgtMFEuuDQiaUNtgtbNmzQqnKiKcYDCFg3a44zyuCtE1YWssYU1oVSF69bvWQ5Oo13M2zENImbFXrtiSIr8bxiIly9F0uA5Jp564v+soq5Krks2IjEjTUsq1DEUKpsBKakmRoBxmADEcqjtRYpi5D8py4dbw9gZPmGqhrJVQvhNk9KhS/RTGwmJ1kzzvbfK3POy3GdqYO5xvhcCc09KEIL9dJic/MHz8C2qRp6g1R1TLOtH8ScijU0NmWVrHF2NJazvRcEDPrAs97a61IEUtcq6Z4726dSjhXwkSizu8xCEKLgT4c+Pfpo+IhDdEWZN8wVq2S3J5oyndybaX63xiOU4z3BWWGAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/f7a5b4686a0895d68a3aa7c7d1a29ba7/fcda8/Untitled.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/f7a5b4686a0895d68a3aa7c7d1a29ba7/12f09/Untitled.png 148w,https://blog.bbubbu.me/static/f7a5b4686a0895d68a3aa7c7d1a29ba7/e4a3f/Untitled.png 295w,https://blog.bbubbu.me/static/f7a5b4686a0895d68a3aa7c7d1a29ba7/fcda8/Untitled.png 590w,https://blog.bbubbu.me/static/f7a5b4686a0895d68a3aa7c7d1a29ba7/efc66/Untitled.png 885w,https://blog.bbubbu.me/static/f7a5b4686a0895d68a3aa7c7d1a29ba7/c83ae/Untitled.png 1180w,https://blog.bbubbu.me/static/f7a5b4686a0895d68a3aa7c7d1a29ba7/e92cd/Untitled.png 1778w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;489번째 라인에서 에러가 처리된 것을 확인할 수 있었다. &lt;/p&gt;
+&lt;p&gt;소스를 간단히 살펴보면 methods 라는 리스트와 요청한 메서드 타입이 동일한지 확인하는 코드로 이루어져 있다.&lt;/p&gt;
+&lt;p&gt;methods에 어떤 값이 들어있길래 PATCH 메서드를 받지 못하는걸까?&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/4bd9895071460ba0d5cecd2416706397/6c68b/Untitled_1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 46.621621621621614%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABaUlEQVR42m2SWXLCMBBEfZxgLaPVSwAbgw0k979PpyXIWvl4NSohPU+PaNbtiv00Y17OuJ4XLPMR6+WA23bDdb1xf8W2nnFeFkzThON8wDxPmC8btrd3bPc3LOuF5yacTic0IXWw4mGMggsG4vQTC/EC6wx/1zBPdKmuYNAqhbZVtaq6btG4mHk51AN+cJBEUTRfWK8Ja7Ck7NkqLgJFQZGon0Jfhb5+tQj9GBHGwHWE7z0FrkqqOJgH/oE2+n+hZYfaKkgQCi9kg9/fa5U48qKF1qbWVulHRP0t+SWMeUDwDp3bYR9avJKB8XrO74FFZvdDcJUkLbx5qZd/8iVM3YgxC469xdgFvHaeBAxjhwNjd5QK5yucmyMiBn1gGmv4kN9Ya2ttIoVDEiSn6gVfKA/EbnL27F6qxLFTqS9ueXZX/xWK8TU701pXSpeNTz0yB5/DDjkprtWztojygsB40f4mcV/9ifsZ+QPItRsWMVoZTgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/4bd9895071460ba0d5cecd2416706397/fcda8/Untitled_1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/4bd9895071460ba0d5cecd2416706397/12f09/Untitled_1.png 148w,https://blog.bbubbu.me/static/4bd9895071460ba0d5cecd2416706397/e4a3f/Untitled_1.png 295w,https://blog.bbubbu.me/static/4bd9895071460ba0d5cecd2416706397/fcda8/Untitled_1.png 590w,https://blog.bbubbu.me/static/4bd9895071460ba0d5cecd2416706397/efc66/Untitled_1.png 885w,https://blog.bbubbu.me/static/4bd9895071460ba0d5cecd2416706397/c83ae/Untitled_1.png 1180w,https://blog.bbubbu.me/static/4bd9895071460ba0d5cecd2416706397/6c68b/Untitled_1.png 1888w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;확인해보니 문자열 배열로 선언이 되어있는 상태였다.&lt;/p&gt;
+&lt;p&gt;뚜둥 … PATCH가 존재하지 않는다! &lt;/p&gt;
+&lt;p&gt;왜인지 궁금해서  ChatGPT를 돌려봤다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/69b09a6a8e0a24263c60425fb732a8cf/5fada/Untitled_2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 67.56756756756756%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAABdElEQVR42q2U2ZKCQAxF+f9PZFMQFdlEcQERMnUylR4sHmYepqtiOt3p5OYm6M3zLL8J6/V6Sdd1Krfbze3NnqZJ/Tz54xrHUU6nk+R57nRRFCpN0/wEfD6fmqFtW832eDzU5vx+vzs0aGzu+75396bf7/d3wGEYJAxD8X1fttutRFGk+81mI0mSSJZlqoMg0Dt8sQ+HgwpoL5eLo0ZLBnZZlnI+n9Vht9tpSZwthTt8QQUiBCosGNrjEA7+Y2lANvBDaYaAkvb7/Yp89sjxeNS7uq7XTeEHouGPQBYAXVWVowMxzgjInQVEVgF5QBDQQgNzBz84Gk/sEZtPzvG1Mxfwer1qB0GZpql2Mo5jRUyDECjARvDBtqoQQLmAZDL4ILWSjDOEB/gZcrQhtko0IFBxBgWZaY41hARouCMh80YDOMcmKTbj9sEhw80gWwlWIg9sPkFJQoJTgTUKH5KC8qNkHpGNT5A92mbL9LIpy9lb/ol8AVKtMSbwk+fYAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/69b09a6a8e0a24263c60425fb732a8cf/fcda8/Untitled_2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/69b09a6a8e0a24263c60425fb732a8cf/12f09/Untitled_2.png 148w,https://blog.bbubbu.me/static/69b09a6a8e0a24263c60425fb732a8cf/e4a3f/Untitled_2.png 295w,https://blog.bbubbu.me/static/69b09a6a8e0a24263c60425fb732a8cf/fcda8/Untitled_2.png 590w,https://blog.bbubbu.me/static/69b09a6a8e0a24263c60425fb732a8cf/efc66/Untitled_2.png 885w,https://blog.bbubbu.me/static/69b09a6a8e0a24263c60425fb732a8cf/c83ae/Untitled_2.png 1180w,https://blog.bbubbu.me/static/69b09a6a8e0a24263c60425fb732a8cf/5fada/Untitled_2.png 1706w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;그렇다. Feign에서 사용하는 HttpURLConnection이 너무 초기에 만들어져서 PATCH를 지원하지 않았던 것이었다!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;그럼 우리의 첫 번째 의문이 풀렸다. &lt;/p&gt;
+&lt;p&gt;두 번째 궁금증을 해결할 차례이다. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;왜 다른 라이브러리를 빈으로 등록하면(apache, okhttp 등) 잘 동작하는걸까?&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;분석을 위해 에러코드 중 두 번째 원인 지점으로 가보았다. &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/21fd17d20a9a439fffd8aadd936cbd6d/a9577/Untitled_3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 77.70270270270271%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAACcklEQVR42nVTWZKjMBTLbTqAd2N2AwnZZqrm/sfRyCbdk3T1fKiMF571JPlwu91wuWyIMeJ0u+P3rwfuae264f7njvvjgeVywfl8yliXGfG8YdvOiPOIdZuxcT3OEct2wcHYGkIpHIsSxlh0XQPFuTEOZSXxUVQouHc8Hp8oUKTx44PrRUZa37+POPjQQVsHKSpIKXMxIQSqqoKWO5QouS+4r6DSnGeU1hA8n8694uDbHsp6eFViqBXGuGQM44g41Ihjy7FB27WwzsLJAtZouDpAaoOiLFESVUIq6Gq2aAzb1plhZkloJTIbSTZSWULvzIXMEFViXZKtzsxTsVQ4F0w3BW8xjx26ccbQBqyxxbaOmOKEEBy896hDk+HrGs5IeCIxtc7nS14KWlhZYu4bTOuGaegRu5ptR4zLmfMO0zSxWIs6FbM6G5Xa/TSm/N5yuqHvB8bnxAIzEdFTtzZjQtN0ZOJg7I7vZry1rFmwpD7GWtQ+kEXLttge20xRUkLR7V2rsiye+FfkzeWvgpXIOnXtSAxoE5oAR32sdhniqdP/ir0VFFLtTian1Z7H7HDOns5uqudciPRz+WPbuyk8nMI9TAvafszjMNFtGtENY9a2G6a854PneZFN+WT5iqfLmro5rOtKUyYsy5K/Exa+3XMMGBju0NSUweeIGSN/ZuiZI2MNLpPGfW1wmz3HkPE47eN9I24B18XhMltcxxJtvUukSUanp/jEF8O00QYy6LqMpusZ6IYGpdj07CBwHHYw+HU2i0/WMJd8GG85TC/FaYHoBXpqld5yXE7UbEBjJdvtqWdk0Pe9kfo2vEhJ8eL07v5flq78cpUQcuEAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/21fd17d20a9a439fffd8aadd936cbd6d/fcda8/Untitled_3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/21fd17d20a9a439fffd8aadd936cbd6d/12f09/Untitled_3.png 148w,https://blog.bbubbu.me/static/21fd17d20a9a439fffd8aadd936cbd6d/e4a3f/Untitled_3.png 295w,https://blog.bbubbu.me/static/21fd17d20a9a439fffd8aadd936cbd6d/fcda8/Untitled_3.png 590w,https://blog.bbubbu.me/static/21fd17d20a9a439fffd8aadd936cbd6d/efc66/Untitled_3.png 885w,https://blog.bbubbu.me/static/21fd17d20a9a439fffd8aadd936cbd6d/c83ae/Untitled_3.png 1180w,https://blog.bbubbu.me/static/21fd17d20a9a439fffd8aadd936cbd6d/a9577/Untitled_3.png 1784w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Client라는 클래스에서 &lt;code class=&quot;language-text&quot;&gt;HttpURLConnection&lt;/code&gt;을 이용하고 있는 것을 확인할 수 있었다. &lt;/p&gt;
+&lt;p&gt; Feign 클래스를 확인해보니 기본적으로 Client클래스를 이용하고 있었다. &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/39ee57be6d7e0bd02f4767895105b3eb/6e52c/Untitled_4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 72.2972972972973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAACHklEQVR42m1TWbLiMAzkNpB4l52EEAiQBWqW+1+np+0wM/UefHTJBqWlVsu76fkDP3//wm19YlpWrOuKZVkwzguWx6Pc79OE4b7iPD0wXGdc5yvWx5Z3nWbMjycevE/zjN0wXiHNCbH1SJ2BDQHGN4TwnAgLrRWUytAl5vtX6BcUdufLBSEm9KnG2Gkcj0f0xDi06PseXT9AUoR3DqquUNf1G7ZiqpwLoQsR2mgYY3j2hNui36L17Nx75rBbqzeY/yRfCC/jyGRhlxaxc5DWUqZBEAMvtkh2hMkdGsfIwiygGZX+QHi93+BTg8CKra+RbAUhQZ8cOhJGEcQY+RvJXjNTVVXkKxJUb5JpSmoa3DqFXjSGZHBqI47JY2gMhr7FcIxEKvGYLBIVNEGzoELy2QxTxpWNKTMUdjD1NebBbB83DueWxF3c7tyAU2NxSppgTic4dx5nFkxBfSPkDJ1QsqvRMjnQiFw9ioenEc5ZBK6ScGbBVMxjDo0q8Pbl9DdTPAlTqNG3OdkhUkZkzIQiJGMRb2p4S6OCEKH899Hl4TJScsIlHXBpKZUzW84BYx8pWSjXcU6UxQ+yKVnaX3wk7IZMKGUWiZ2ID9y/wJWwdNAUEk+pVa0+LvWHDmkKV6OLinM6QMweTh/g9Z44cI32CFylQ/Ui5MpUVfWP6P2lvEzpYk25dC16nrkWjMLB57twkcsM8yzz/PLr4cv61OEfFQC4e8hyKZ8AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/39ee57be6d7e0bd02f4767895105b3eb/fcda8/Untitled_4.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/39ee57be6d7e0bd02f4767895105b3eb/12f09/Untitled_4.png 148w,https://blog.bbubbu.me/static/39ee57be6d7e0bd02f4767895105b3eb/e4a3f/Untitled_4.png 295w,https://blog.bbubbu.me/static/39ee57be6d7e0bd02f4767895105b3eb/fcda8/Untitled_4.png 590w,https://blog.bbubbu.me/static/39ee57be6d7e0bd02f4767895105b3eb/efc66/Untitled_4.png 885w,https://blog.bbubbu.me/static/39ee57be6d7e0bd02f4767895105b3eb/c83ae/Untitled_4.png 1180w,https://blog.bbubbu.me/static/39ee57be6d7e0bd02f4767895105b3eb/6e52c/Untitled_4.png 1948w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;아래 사각형을 보면 client를 커스텀하게 변경 가능한 것 처럼 보인다.&lt;/p&gt;
+&lt;p&gt;아마 이것을 이용해서 다른 라이브러리의 클라이언트로 변경이 가능한가보다. &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/801f18f8dc1346a1f265e64c6ce61df8/1a867/Untitled_5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAACT0lEQVR42nVTWXbbQAzzbZrMaPZVtpt4T92Xvt7/NCg4krN89ANPnA0iAXLz637H8XLE9XrF4XLF25+/+P3+jjtxur3hwv3r7YbL5YLD6YQzY7l7ZHy43MaZrE/nE17PB2xK7XDewVqL6D28j3CMZW2MWTENTNP0sZZ4YmztAiNrO2GTSSgHSml465BTRi4Feloeab0+Fmj9LdZ8I+da4hWbVNog1JNhhhY+BJTWEXNFiGkglQofI4LjnVT4w4YYpRJW5AIzdkvmrGoQGqbsrWZ2kZcjLwek4Elgx14pJA6GcNxz4zxEB+cUsWSrlBrYJJacvEbPBi+7hn1P+Nkjdi1iy3jbEuYaB3Z5QvZq3C9hIgxasqhB4ZlkS8kkzDw0EzNkaX3eYsfHlTr2eYfaZtQ+jzIdTVPU7CtE6+SeR3ZaM8NYFsJFcDpNU0S/UhvJGr8ViXsDss+fiqZqLVPeLYR6IUzlM0PvqV0uKN4M7eRh/gCN4JmYNBm7aiZJCKFaCfVKSF0m9QRLp4qU2grm3rHf7zDPHZ1xY7Y5S6Z0nT/z7N3RKnyX7A+o56eB0YdSlkl7hH5C2p4RBfMRvr4OhH5AaAf4xjW/sR8HXHmBy3vIcOiw5Xq/tE2KHiWx/3Ic35oZJ48cP5GCHX36gKwFme2T+VWT56SEJUNNHSJ7rLfK0iodZqt0Ot5pTMkDQhqMotbfYQ11pBlaLRgZamoXqEmvyxQMY6hlEWMYi7uV01NzGq3zmCCBdIWY6Tk11jwmhYFYLnh0/P/wdW6/YT37B56G2r2DfcU/AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/801f18f8dc1346a1f265e64c6ce61df8/fcda8/Untitled_5.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/801f18f8dc1346a1f265e64c6ce61df8/12f09/Untitled_5.png 148w,https://blog.bbubbu.me/static/801f18f8dc1346a1f265e64c6ce61df8/e4a3f/Untitled_5.png 295w,https://blog.bbubbu.me/static/801f18f8dc1346a1f265e64c6ce61df8/fcda8/Untitled_5.png 590w,https://blog.bbubbu.me/static/801f18f8dc1346a1f265e64c6ce61df8/efc66/Untitled_5.png 885w,https://blog.bbubbu.me/static/801f18f8dc1346a1f265e64c6ce61df8/c83ae/Untitled_5.png 1180w,https://blog.bbubbu.me/static/801f18f8dc1346a1f265e64c6ce61df8/1a867/Untitled_5.png 1998w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;그렇다.
+&lt;code class=&quot;language-text&quot;&gt;FeignClientFactoryBean&lt;/code&gt; 에서 등록된 Client Bean이 있는지 확인하고, 있으면 등록된 client로 변경해주고 있었다.&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;따라서 &lt;code class=&quot;language-text&quot;&gt;Client&lt;/code&gt;를 Bean으로 등록해두면 Feign이 알아서 찾은 뒤, 사용할 수 있게 개발되어있었다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;왜 &lt;code class=&quot;language-text&quot;&gt;HttpURLConnection&lt;/code&gt;을 기본으로 쓰나 궁금해서 또 ChatGPT와 담소를 나눠봤다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/d4b564290988985a1579ba6640dc5b73/e405b/Untitled_6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 64.86486486486486%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAABY0lEQVR42pWS646CQAyF5/3f0AgIEZGroIAiKN183ZSM/tolaTqnU9rT03Hruspf7fF4yDiOcr/f1X/b6/USJ//4qqqS4/EoWZbJ6XRSn6apxsDTNIl7Pp9aGU8ADwMMRhbH5nmWZVk2b2f+x2PudrtJXdfarW1bARdFIXmeKyNi3OOxruu2+OVykaZpNEbO9Xr9HRkWwzDI+/3eOnL29QOb8fnYz3WWnCSJHA4HCYJAdrudGhjb7/ca9+/CMJQoij7uYKwF+RiVsdkWH3GYohMT0NSwTWFmd3w6MgDNyrKU8/msGnJGm77vVRuwr5udIQLmjGzO2BBEWArCFOF5ChQH05B7264xNd3B2zsEUCCOY9WSHynGG6MY7Lg3b1sGY+QT45k52w7jkQRD6Ft326qv6/eG/U1vDOnEi8fDFGYUNuY0Ymxi5CARMWOINB8aIi4jWiIJJPq6UhADWwM8k9nmfwC+J+UGE7n4owAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/d4b564290988985a1579ba6640dc5b73/fcda8/Untitled_6.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/d4b564290988985a1579ba6640dc5b73/12f09/Untitled_6.png 148w,https://blog.bbubbu.me/static/d4b564290988985a1579ba6640dc5b73/e4a3f/Untitled_6.png 295w,https://blog.bbubbu.me/static/d4b564290988985a1579ba6640dc5b73/fcda8/Untitled_6.png 590w,https://blog.bbubbu.me/static/d4b564290988985a1579ba6640dc5b73/efc66/Untitled_6.png 885w,https://blog.bbubbu.me/static/d4b564290988985a1579ba6640dc5b73/c83ae/Untitled_6.png 1180w,https://blog.bbubbu.me/static/d4b564290988985a1579ba6640dc5b73/e405b/Untitled_6.png 1566w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;여러 이점으로 인해 기본 라이브러리인 &lt;code class=&quot;language-text&quot;&gt;HttpURLConnection&lt;/code&gt; 기본으로 채택 했다는 것을 알 수 있다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;추가-tmi&quot;&gt;&lt;a href=&quot;#%EC%B6%94%EA%B0%80-tmi&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;추가 TMI&lt;/h3&gt;
+&lt;p&gt;feign은 다양한 라이브러리를 유연하게 변경할 수 있도록 설계되었다. &lt;/p&gt;
+&lt;p&gt;위에서 제시한 해결방법은 원하는 클라이언트를 빈으로 등록하여 설정되게 하는 방법이었다. &lt;/p&gt;
+&lt;p&gt;하지만 직접 빈을 등록하지 않아도되는 방법이 있다. &lt;/p&gt;
+&lt;p&gt;open-feign에  &lt;code class=&quot;language-text&quot;&gt;FeignAutoConfiguration&lt;/code&gt;  라는 설정파일이 존재한다. &lt;/p&gt;
+&lt;p&gt;해당 파일을 살펴보면 아래와 같이 빨간 줄이 가득한데&lt;/p&gt;
+&lt;p&gt;코드를 살펴보면 빨간 줄이 그어진 파일이 있는 경우 그리고 설정이 true인 경우 동작하게 되어있다. &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/2f0d1897a65c81c2a68a558890ea0bdc/7d62e/Untitled_7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 65.54054054054055%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB8klEQVR42nWT6XKjMBCE/TiLTgRCEoePGCebsuPd93+a3h6I11Ql+dElQOije2bYvV1vuH584Pf7O273O/78veN6u+LlcsH8qdN5xvz6tlwfZz57fcWFepnPfO+87J+5f55n7LpU4H0N5xxCTAhtt6gOAYGq65ryy741BtbaRc7Jajay8Fx3kUDrPJomIKcOkdDYJTQCJMz5FSYyBCqlvlVFOWoBejqYRoXDweIwRYxdRGnouCaIXxWQMRpa/yylNIwmsF0iE1gIHBT2fYUhBfSloEwDHXsmWIHiZD2sNiA6JEgTWFlxmNfI3moEHnLawYcW3jGu9UuUqlJfID8Cu9LD8GAXNcaiUaJFztIIqaFH8Cw2HT5ifY26AWr1bIrUKTqNxLp1sUPbZSTWMkWBmufhjbZuZXVk7FK/OmzpsIuK0X+hqSlTIeiK9+JALx98jIy1HCF2fQuU0kjJ/tewdmxIaTHxA/ux4LQfqBHHw4hxf0Q/jGxQ/JzLdT61NhuH+jk2Aqz4IHct+pxR2ohhmNBPJ/TjYYElzqj3Dqqq2KTqm+hSU7VGFmAIhsXnJl82fMEyrmVsw3stcyhR5W+RlftSr8e9gMRQMBuHjrVKjef8DSh0N/QZ05DRp4zMSWjYKPkVPSE1gTWBEl1mWC9O18H+B1x0l7jopmRMAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/2f0d1897a65c81c2a68a558890ea0bdc/fcda8/Untitled_7.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/2f0d1897a65c81c2a68a558890ea0bdc/12f09/Untitled_7.png 148w,https://blog.bbubbu.me/static/2f0d1897a65c81c2a68a558890ea0bdc/e4a3f/Untitled_7.png 295w,https://blog.bbubbu.me/static/2f0d1897a65c81c2a68a558890ea0bdc/fcda8/Untitled_7.png 590w,https://blog.bbubbu.me/static/2f0d1897a65c81c2a68a558890ea0bdc/efc66/Untitled_7.png 885w,https://blog.bbubbu.me/static/2f0d1897a65c81c2a68a558890ea0bdc/c83ae/Untitled_7.png 1180w,https://blog.bbubbu.me/static/2f0d1897a65c81c2a68a558890ea0bdc/7d62e/Untitled_7.png 2368w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;자동 빈 주입을 받아보자. 아래 링크에서 원하는 open-feign용 지원 라이브러리를 가져온다. &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://mvnrepository.com/artifact/io.github.openfeign&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://mvnrepository.com/artifact/io.github.openfeign&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;난 &lt;code class=&quot;language-text&quot;&gt;apache httpclient5&lt;/code&gt;를 갖고왔다.&lt;/p&gt;
+&lt;p&gt;okhttp&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;implementation &lt;span class=&quot;token string&quot;&gt;&apos;io.github.openfeign:feign-okhttp&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;apache httpclient5&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;implementation &lt;span class=&quot;token string&quot;&gt;&apos;io.github.openfeign:feign-hc5&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;뭐 알아서 편한걸루 쓰면 된다. &lt;/p&gt;
+&lt;p&gt;의존성만 넣어주면? &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/ee61a70aaea9ec49b06aaf14d51a12cd/6871f/Untitled_8.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 40.54054054054054%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABU0lEQVR42m2RZ5LDIAyFfZqsjRuY5kJMYqeXySb3v8tbGXsy23588x4CCQmi4+WG0/WKw/mM4XzCcDhh3B/hj2eMC84PcJuZfjti2O0wjCP8sLCd4kPw0Wbco2la1NbC2BbaNlC2DmrqeS21AZc6MPm2rdHUBtpoGEOqFaRSwUdN1yHLC1RVSQFFm5QkJSpeosgzZFmGnGCMIY4/iJhIgiZJEvyks48Rtc6j5ByuY/B9Dr+xaDsHowQ4FZ32JrgQEKICL/NwSZqm/0IF1yHB6AxdZ4k6tC4JRc8gzTTmjDYWSgqaiDqm5N/MBXuPvChgxApaJFCcURKHqqgjXtC4DBlLkKXJrCwOpMnHH1i8QtQ5B248uL+hGa9whzu64xN294LaPlBtPgNy+4QaXuSfdPaB3N3fFOtZ0/YyfUqPUiiwUiMtJNJSLchv+hP2Ri3Mfjr/BUGqAlpi457bAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/ee61a70aaea9ec49b06aaf14d51a12cd/fcda8/Untitled_8.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/ee61a70aaea9ec49b06aaf14d51a12cd/12f09/Untitled_8.png 148w,https://blog.bbubbu.me/static/ee61a70aaea9ec49b06aaf14d51a12cd/e4a3f/Untitled_8.png 295w,https://blog.bbubbu.me/static/ee61a70aaea9ec49b06aaf14d51a12cd/fcda8/Untitled_8.png 590w,https://blog.bbubbu.me/static/ee61a70aaea9ec49b06aaf14d51a12cd/efc66/Untitled_8.png 885w,https://blog.bbubbu.me/static/ee61a70aaea9ec49b06aaf14d51a12cd/c83ae/Untitled_8.png 1180w,https://blog.bbubbu.me/static/ee61a70aaea9ec49b06aaf14d51a12cd/6871f/Untitled_8.png 2688w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;짜잔 빈 등록 시점에 자동으로 조건을 충족하여 해당 라이브러리로 빈이 등록된다.
+&lt;code class=&quot;language-text&quot;&gt;ConditionalOnProperty&lt;/code&gt; 조건도 따로 명시 안해주면 자동 true 라서 의존성만 주입하면 알아서 적용된다.&lt;/p&gt;
+&lt;p&gt;(스프링 3.x 버전 기준입니다. 버전마다 open-feign 코드가 다르니 각 버전별 파일 확인해서 적용하시면 됩니다.)&lt;/p&gt;
+&lt;p&gt;참 잘 만들었다 open-feign ! &lt;/p&gt;
+&lt;p&gt;끝 !&lt;/p&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/invalid-http-method-patch/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[도메인 주도 개발 시작하기 4장 - 리포지터리와 모델구현]]></title><link>https://blog.bbubbu.me/start-domain-driven-development-4/</link><guid isPermaLink="false">https://blog.bbubbu.me/start-domain-driven-development-4/</guid><pubDate>Wed, 14 Feb 2024 03:00:00 GMT</pubDate><content:encoded>&lt;h2 id=&quot;41-jpa를-이용한-리포지터리-구현&quot;&gt;&lt;a href=&quot;#41-jpa%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A6%AC%ED%8F%AC%EC%A7%80%ED%84%B0%EB%A6%AC-%EA%B5%AC%ED%98%84&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;4.1 JPA를 이용한 리포지터리 구현&lt;/h2&gt;
 &lt;p&gt;리포지터리 인터페이스는 애그리거트와 같이 도메인 영역에 속하고, 리포지터리를 구현한 클래스는 인프라스트럭처 영역에 속한다.&lt;/p&gt;
 &lt;p&gt;가능하면 리포지터리 구현 클래스를 인프라스트럭처 영역에 위치시켜서 인프라스프럭처에 대한 의존을 낮춰야 한다. &lt;/p&gt;
 &lt;h3 id=&quot;리포지터리가-제공하는-기본-가능&quot;&gt;&lt;a href=&quot;#%EB%A6%AC%ED%8F%AC%EC%A7%80%ED%84%B0%EB%A6%AC%EA%B0%80-%EC%A0%9C%EA%B3%B5%ED%95%98%EB%8A%94-%EA%B8%B0%EB%B3%B8-%EA%B0%80%EB%8A%A5&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;strong&gt;리포지터리가 제공하는 기본 가능&lt;/strong&gt;&lt;/h3&gt;
