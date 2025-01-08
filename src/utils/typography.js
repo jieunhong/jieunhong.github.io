@@ -5,6 +5,12 @@ import Typography from 'typography';
 import Wordpress2016 from 'typography-theme-wordpress-2016';
 
 Wordpress2016.overrideThemeStyles = () => ({
+  'html, body': {
+    fontFamily: 'AppleSDGothicNeo, Noto Sans KR, sans-serif',
+  },
+  '*': {
+    fontFamily: 'AppleSDGothicNeo, Noto Sans KR, sans-serif',
+  },
   a: {
     color: 'var(--textLink)',
   },
@@ -24,6 +30,10 @@ Wordpress2016.overrideThemeStyles = () => ({
   'p code': {
     fontSize: '1rem',
   },
+  'pre code': {
+    wordWrap: 'break-word',
+    fontSize: '1rem',
+  },
   // TODO: why tho
   'h1 code, h2 code, h3 code, h4 code, h5 code, h6 code': {
     fontSize: 'inherit',
@@ -40,6 +50,18 @@ Wordpress2016.overrideThemeStyles = () => ({
     fontSize: '1em',
   },
 });
+
+// WordPress 테마의 기본 폰트 설정을 수정
+Wordpress2016.headerFontFamily = [
+  'AppleSDGothicNeo',
+  'Noto Sans KR',
+  'sans-serif',
+];
+Wordpress2016.bodyFontFamily = [
+  'AppleSDGothicNeo',
+  'Noto Sans KR',
+  'sans-serif',
+];
 
 delete Wordpress2016.googleFonts;
 

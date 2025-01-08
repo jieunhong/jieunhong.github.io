@@ -3070,7 +3070,7 @@ body.is-preload #header:after {
   input,
   select,
   textarea {
-    font-size: 14pt;
+    font-size: 12pt;
   }
 
   /* Header */
