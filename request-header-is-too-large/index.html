@@ -69,7 +69,7 @@
 
                 setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
               })();
-            </script><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="color:var(--textNormal);background:var(--bg);transition:color 0.2s ease-out, background 0.2s ease-out;min-height:100vh"><div style="margin-left:auto;margin-right:auto;max-width:52.5rem;padding:2.625rem 1.3125rem"><header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2.625rem"><h3 style="font-family:Montserrat, sans-serif;margin-top:0;margin-bottom:0;height:42px;line-height:2.625rem"><a style="box-shadow:none;text-decoration:none;color:rgb(255, 167, 196)" href="/">지은이의 개발 Blog</a></h3><div style="height:24px"></div></header><main><article><header><h1 style="color:var(--textTitle)">Request header is too large (feat. @RequestParam, QueryString, CORS)</h1><p style="font-size:0.83255rem;line-height:1.75rem;display:block;margin-bottom:1.75rem;margin-top:-1.4rem">February 1, 2025<!-- --> • ☕️ 4 min read</p></header><div><p>다른 회사 분이 일을 하다가 이상한 이슈를 발견했다.</p>
+            </script><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div style="color:var(--textNormal);background:var(--bg);transition:color 0.2s ease-out, background 0.2s ease-out;min-height:100vh"><div style="margin-left:auto;margin-right:auto;max-width:52.5rem;padding:2.625rem 1.3125rem"><header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2.625rem"><h3 style="font-family:Montserrat, sans-serif;margin-top:0;margin-bottom:0;height:42px;line-height:2.625rem"><a style="box-shadow:none;text-decoration:none;color:rgb(255, 167, 196)" href="/">지은이의 개발 Blog</a></h3><div style="height:24px"></div></header><main><article><header><h1 style="color:var(--textTitle)">Request header is too large (feat. @RequestParam, QueryString, CORS)</h1><p style="font-size:0.83255rem;line-height:1.75rem;display:block;margin-bottom:1.75rem;margin-top:-1.4rem">February 1, 2025<!-- --> • ☕️ 4 min read</p></header><div><p>회사 동료 분이 일을 하다가 이상한 이슈를 발견했다.</p>
 <h2 id="header에-값을-길게-넣지도-않았는데-request-header-is-too-large-라는-에러가-뜬다는-것이었다"><a href="#header%EC%97%90-%EA%B0%92%EC%9D%84-%EA%B8%B8%EA%B2%8C-%EB%84%A3%EC%A7%80%EB%8F%84-%EC%95%8A%EC%95%98%EB%8A%94%EB%8D%B0-request-header-is-too-large-%EB%9D%BC%EB%8A%94-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%9C%AC%EB%8B%A4%EB%8A%94-%EA%B2%83%EC%9D%B4%EC%97%88%EB%8B%A4" aria-hidden class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>header에 값을 길게 넣지도 않았는데 Request header is too large 라는 에러가 뜬다는 것이었다.</h2>
 <p>심지어 Options 요청에서 에러가 나서 브라우저 콘솔에는 CORS 에러로 나타났다. </p>
 <div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
@@ -249,10 +249,12 @@ java.lang.IllegalArgumentException: Request header is too large</code></pre></di
 <aside>
 💡
 <blockquote>
-<p><strong>Request line ( or Start line) :</strong> http method와 요청 url, http 프로토콜 버전으로 이루어진다.
-<strong>Header :</strong> header 정보가 담겨있다.
-<strong>Blank line :</strong> 구분하기위한 구분자
-<strong>Body(선택값) :</strong> 데이터를 전송하기 위한 공간.</p>
+<p><strong>Request line ( or Start line) :</strong> http method와 요청 url, http 프로토콜 버전으로 이루어진다. </p>
+</blockquote>
+<p><strong>Header :</strong> header 정보가 담겨있다.</p>
+<p><strong>Blank line :</strong> 구분하기위한 구분자</p>
+<p><strong>Body(선택값) :</strong> 데이터를 전송하기 위한 공간.</p>
+<blockquote>
 </blockquote>
 </aside>
 <p>알 수 있듯이 queryString은 url에 포함되고, request line이다.</p>
