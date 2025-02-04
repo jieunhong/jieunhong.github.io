@@ -1,4 +1,289 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 08 Jan 2025 13:41:35 GMT</lastBuildDate><item><title><![CDATA[Presigned URL Upload 403 CORS 발생 Error (With. AWS S3, NCP Object storage)]]></title><description><![CDATA[Presigned URL 업로드 CORS 에러 : Preflight를 조심해]]></description><link>https://blog.bbubbu.me/aws-s3-presigned-url-cors-error/</link><guid isPermaLink="false">https://blog.bbubbu.me/aws-s3-presigned-url-cors-error/</guid><pubDate>Tue, 07 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Dan Abramov's Overreacted Blog RSS Feed]]></title><description><![CDATA[Personal blog by 홍지은. I explain with words and code.]]></description><link>https://blog.bbubbu.me</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 04 Feb 2025 02:02:20 GMT</lastBuildDate><item><title><![CDATA[Request header is too large (feat. @RequestParam, QueryString, CORS)]]></title><description><![CDATA[Header는 변한게 없는데 Too Large라뇨 의사양반..]]></description><link>https://blog.bbubbu.me/request-header-is-too-large/</link><guid isPermaLink="false">https://blog.bbubbu.me/request-header-is-too-large/</guid><pubDate>Sat, 01 Feb 2025 03:00:00 GMT</pubDate><content:encoded>&lt;p&gt;다른 회사 분이 일을 하다가 이상한 이슈를 발견했다.&lt;/p&gt;
+&lt;h2 id=&quot;header에-값을-길게-넣지도-않았는데-request-header-is-too-large-라는-에러가-뜬다는-것이었다&quot;&gt;&lt;a href=&quot;#header%EC%97%90-%EA%B0%92%EC%9D%84-%EA%B8%B8%EA%B2%8C-%EB%84%A3%EC%A7%80%EB%8F%84-%EC%95%8A%EC%95%98%EB%8A%94%EB%8D%B0-request-header-is-too-large-%EB%9D%BC%EB%8A%94-%EC%97%90%EB%9F%AC%EA%B0%80-%EB%9C%AC%EB%8B%A4%EB%8A%94-%EA%B2%83%EC%9D%B4%EC%97%88%EB%8B%A4&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;header에 값을 길게 넣지도 않았는데 Request header is too large 라는 에러가 뜬다는 것이었다.&lt;/h2&gt;
+&lt;p&gt;심지어 Options 요청에서 에러가 나서 브라우저 콘솔에는 CORS 에러로 나타났다. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@RestController&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@RequiredArgsConstructor&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Slf4j&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Tag&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;개발 편의용 API&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DevelopersController&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Operation&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;summary &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;테스트&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@GetMapping&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/api/v1/developers/test&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@RequestParam&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; test&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;test&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;예시로 사용할 Rest API를 살펴보자&lt;/p&gt;
+&lt;p&gt;GET 메서드에 &lt;code class=&quot;language-text&quot;&gt;@RequestParam&lt;/code&gt;으로 문자열을 받아서 log에 출력해주는 APi이다. &lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;@RequestParam&lt;/code&gt;은 Spring MVC에서 &lt;strong&gt;HTTP 요청의 Query String 또는 Form 데이터 값을 컨트롤러의 파라미터로 바인딩할 때 사용&lt;/strong&gt;하는 어노테이션이다. &lt;/p&gt;
+&lt;p&gt;GET 요청에서는 &lt;strong&gt;content-type이 없기 때문에&lt;/strong&gt; 데이터를 Query String으로 받아온다.&lt;/p&gt;
+&lt;p&gt;PUT, POST, PATCH 요청에서 form 데이터를 얻기 위해 Content-type을 아래와 같이 설정했다면, &lt;strong&gt;Request Body에 포함된 Form 데이터로 들어온다.&lt;/strong&gt; &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Content-Type: application/x-www-form-urlencoded&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;curl&lt;/span&gt; -X &lt;span class=&quot;token string&quot;&gt;&apos;GET&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;token string&quot;&gt;&apos;http://localhost:8080/api/v1/developers/test?test=testtesttesttesttesttesttesttesttesttest......(중략)........testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest&apos;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+  -H &lt;span class=&quot;token string&quot;&gt;&apos;accept: */*&apos;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;문제가 되는 API는 GET 메서드이기때문에 RequestParam이 QueryString을 받는 것으로 사용되고 있다.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;curl을 사용하여 terminal에서 요청을 보내보자 (QueryString의 값을 매우 길게 보내야함)&lt;/p&gt;
+&lt;p&gt;그럼 아래와 같은 에러가 발생한다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/aab16483844b30e9d229d5656cc4559c/8f5d7/4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 20.945945945945947%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAxElEQVR42l2NSXbCMBBEfRgWIMkDaSx1wJJsywhnERa5/10qbYXhvSz+66quHqr56478/YO03jEuK/x8hR8zYrrBTxlhznBhBm3EpVR7iZJdX/mmh3HBOSZUMQQEPxS8v8BaAp9Y9FCYYkBte+yEvfg9OzRNg/MnwzlbIPqA0QpaqNKU4JjlkC0QEU7Uy6ADS58dg0S3fQ99PEJ1HbQcbNv2QQdjDJRSUFqjWvJaGlrME1W+vX0teVPXMNvS4fC3/I/n7C+wDYH2X/uKRAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/aab16483844b30e9d229d5656cc4559c/fcda8/4.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/aab16483844b30e9d229d5656cc4559c/12f09/4.png 148w,https://blog.bbubbu.me/static/aab16483844b30e9d229d5656cc4559c/e4a3f/4.png 295w,https://blog.bbubbu.me/static/aab16483844b30e9d229d5656cc4559c/fcda8/4.png 590w,https://blog.bbubbu.me/static/aab16483844b30e9d229d5656cc4559c/efc66/4.png 885w,https://blog.bbubbu.me/static/aab16483844b30e9d229d5656cc4559c/c83ae/4.png 1180w,https://blog.bbubbu.me/static/aab16483844b30e9d229d5656cc4559c/8f5d7/4.png 1475w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;&lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token number&quot;&gt;2025&lt;/span&gt;-02-03T21:23:14.100+09:00  INFO &lt;span class=&quot;token number&quot;&gt;13089&lt;/span&gt; --- &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;intlcare-boot&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;nio-8080-exec-3&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; o.apache.coyote.http11.Http11Processor   &lt;span class=&quot;token builtin class-name&quot;&gt;:&lt;/span&gt; Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Request header is too large&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Request header is too large&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Request Header가 너무 길다는 에러가 발생하였다. &lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;이상하다 헤더는 -H &amp;#39;accept: */*&amp;#39; 한 줄만 사용했는데 왜 헤더가 너무 길다고 뜨는 것일까?&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/20883211ffc55ea07ea14d2736d385e1/f93b5/5.jpg&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 300px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 56.08108108108109%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAALABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEAv/EABUBAQEAAAAAAAAAAAAAAAAAAAEA/9oADAMBAAIQAxAAAAHbrFlGXif/xAAbEAACAgMBAAAAAAAAAAAAAAABAgMRAAQhM//aAAgBAQABBQIR9mUPmu0gR/WgQpof/8QAFREBAQAAAAAAAAAAAAAAAAAAABH/2gAIAQMBAT8Bqv/EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oACAECAQE/AYj/xAAdEAACAQQDAAAAAAAAAAAAAAABEQACECFBMTJx/9oACAEBAAY/Agxnl7gB1F2RlPhjIzb/xAAbEAADAAIDAAAAAAAAAAAAAAAAAREhMUFh0f/aAAgBAQABPyFNaPtEr4SjGuEE9zoXPz5EpRxsZBOH/9oADAMBAAIAAwAAABCPH//EABcRAAMBAAAAAAAAAAAAAAAAAAABEUH/2gAIAQMBAT8QhYQf/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQARQf/aAAgBAgEBPxAb21f/xAAcEAEBAAICAwAAAAAAAAAAAAABEQAhMUFRYcH/2gAIAQEAAT8QgYvQYLZfHWCgL+TBfuSMQ2IQdvVwiLg3A4A6MokLYZ//2Q==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/20883211ffc55ea07ea14d2736d385e1/f93b5/5.jpg&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/20883211ffc55ea07ea14d2736d385e1/a80bd/5.jpg 148w,https://blog.bbubbu.me/static/20883211ffc55ea07ea14d2736d385e1/1c91a/5.jpg 295w,https://blog.bbubbu.me/static/20883211ffc55ea07ea14d2736d385e1/f93b5/5.jpg 300w&quot;
+        sizes=&quot;(max-width: 300px) 100vw, 300px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;em&gt;Header는 변한게 없는데 Too Large라뇨 의사양반..&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;어이없어서 HTTP 통신을 다시 찾아봤다.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/4ea837f79575719582a7281265e29f93/73fd0/0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 47.2972972972973%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAIAAAC9o5sfAAAACXBIWXMAAAsTAAALEwEAmpwYAAABj0lEQVR42lVRy5aiMBTk/7/JxfSiabEFRZFXEETBhBveD0EbwlzGzXSdnHuySN2qSklVVQFAURRZluPM3+cfsizjnANPgWcMuBBi/g2pruvz+ayqqmM7B/1gGIZpmt/fG1XduoQA5zlneXKF2BfPZv5pGY1vt1scRX3fS23buq4rf37udrvVavXx8Uf++jqdTuHlgo/QTUlJSR3ObuLVzGPHIUkSwPF4PBbl6zVEpq7v9YO+3W41TWUJdF2HKdI0KzIo7w6wSPx089RjvCiK0jTFEFLTNCiirNeyLOu6vtlsFEXRNA0n6q8Vxffchrlwv4ihRtuQUEI8SukkxKKM9izLOhmGbdue5+33e4yN4fEj0zTPqVdQAgkT43MWr77v0HBVV8MwLOQwDAkhlm1Ztu04DgriDT8CV1CWlHCtmQOX49TG80Bt84AZcS/ukLCqOI58//ymIYe47tE4mpbpBwFWVeVArJ3vHufpMY9twmgQBOM4LVVhZkxf/Ua9oCrLEqvO8yK+0+fr9X/D787/ArEJ5cLeajMsAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/4ea837f79575719582a7281265e29f93/fcda8/0.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/4ea837f79575719582a7281265e29f93/12f09/0.png 148w,https://blog.bbubbu.me/static/4ea837f79575719582a7281265e29f93/e4a3f/0.png 295w,https://blog.bbubbu.me/static/4ea837f79575719582a7281265e29f93/fcda8/0.png 590w,https://blog.bbubbu.me/static/4ea837f79575719582a7281265e29f93/73fd0/0.png 793w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/b30230e4fa9827a61dcbecbd810af536/5b158/1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 314px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 60.13513513513513%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAIAAADtbgqsAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB1UlEQVR42n1Si46bMBDk/z+rao9LcgkH4ZoLISS8DAabh20w5tklOl17atXRYInVema1Y215YF6/OYpCPwh8/+a516ZtHrV5+Yp5/l3TxmnKimoYBtnJJ11/ORwOr4ZxMN8dVyr1ofsVtWiLmq+Xk5xGaQ7MitLxPH27+a7r1tF2rh6mVdcPjeya7kGpur5PaH2LcYQJE60WJBloJKSM8wLn2DCMzXZnWse8rCre9MOo+kH16wlC0zw5QfqoDyijmnMP3cvZ9UPwiZPEuVxjlIRh7KOENRJ0pxXjvB4j/GJSgNC8zHFKtPPVN/bbt5NzRzl0kxy/WiYtirppccEEr/XnzflyMl73p59Op1RGa4zTMAwjuIwwCe6eewtpxbgQNWO0LGHkkjForTmzbNu0j5erezTtlNA4owCcZrAmLcaE8zrNC9HKv/a6lIxHCdrudt+enh3XI1UVINzD2JArON8Rhqb3exJmJWTDpfwkayUuSss+/tA3L3vDtN4SQu4oK5lopAQ/DaZ9rJ724wSZ/0lAnEEEeRAGUYwIpRHOSy7AEyxlpzTYGwwMrcu/gEgFaaE4OF8cpVReMSHlMIxt162PZPkvOtXVXPC2BdZCMCEg6s8H/Qu2I6BU7lX9SQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/b30230e4fa9827a61dcbecbd810af536/5b158/1.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/b30230e4fa9827a61dcbecbd810af536/12f09/1.png 148w,https://blog.bbubbu.me/static/b30230e4fa9827a61dcbecbd810af536/e4a3f/1.png 295w,https://blog.bbubbu.me/static/b30230e4fa9827a61dcbecbd810af536/5b158/1.png 314w&quot;
+        sizes=&quot;(max-width: 314px) 100vw, 314px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;HTTP 통신 중 요청, 즉 &lt;code class=&quot;language-text&quot;&gt;Request는 크게 4가지의 구성요소&lt;/code&gt;로 이루어져 있다. &lt;/p&gt;
+&lt;aside&gt;
+💡
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Request line ( or Start line) :&lt;/strong&gt; http method와 요청 url, http 프로토콜 버전으로 이루어진다.
+&lt;strong&gt;Header :&lt;/strong&gt; header 정보가 담겨있다.
+&lt;strong&gt;Blank line :&lt;/strong&gt; 구분하기위한 구분자
+&lt;strong&gt;Body(선택값) :&lt;/strong&gt; 데이터를 전송하기 위한 공간.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/aside&gt;
+&lt;p&gt;알 수 있듯이 queryString은 url에 포함되고, request line이다.&lt;/p&gt;
+&lt;p&gt;근데 왜 header is too large 인가!! &lt;/p&gt;
+&lt;p&gt;chatGPT에게 질문했다. &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/88b2d69949fca6d3385d9539d3c4e4f5/10ab7/2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 76.35135135135135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB8ElEQVR42o1U2W7iQBD0/38aD5GIFwi+8H0b3+ZIpMpUo0HeDZH2ofCMp7tcXS5spHGKJErgODaOxyM8z4VtW3BdV9ZNU2NZFkzThHn+HdM0YhxHGH7r4817Q+RHcoMYhgF93wu4J9n/YYZR9zWiIkKRF6jrWtB1HS6XiyjTmOdZsL63But5bnRthziMcTqdBL7vI0kStG2L8/ksaJrmx3WNqqqQZZlMZHA8FmmCpjmjqiukaYY8L1EUpVLdoCxLaeZVP0j3cSqK4GRCeDgcsN1usdls8P5uqhcSIEsVQd0pkk55s2C328k5Ca/X61+43W643+8yukEzPc9DEASIokiQJoV4wsIHrqKOlrCJzTz/F+Lhon7CMJQROQKLv74+n2QkoAr6Q3X0inU8e0nYDjNcP4RjP3LoOI68GFvtCd1Ia+iRjhKbX0XH6PtWKQzU2CchIKFlWeIr9ySnKq1CR+gR9PkHjGloEPqOEPLfQUJ6xTXJuKbHOiJU+Js6UdgNIw4fFvb7/VMVXwyJtUISxnGsfE5fhn4dfuXhBMvx8KHITPOP+MiRTdOUKBF8UFEU4uM68Fxr5dzz3KDB/DBQIcPJN8mg6iKuSUbkeS6gUq2YCdGRY4/kUI9I33j4+NJ4zz3HJqictRybUeLoOtzahm+Bd2ZO7TN1pgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/88b2d69949fca6d3385d9539d3c4e4f5/fcda8/2.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/88b2d69949fca6d3385d9539d3c4e4f5/12f09/2.png 148w,https://blog.bbubbu.me/static/88b2d69949fca6d3385d9539d3c4e4f5/e4a3f/2.png 295w,https://blog.bbubbu.me/static/88b2d69949fca6d3385d9539d3c4e4f5/fcda8/2.png 590w,https://blog.bbubbu.me/static/88b2d69949fca6d3385d9539d3c4e4f5/efc66/2.png 885w,https://blog.bbubbu.me/static/88b2d69949fca6d3385d9539d3c4e4f5/c83ae/2.png 1180w,https://blog.bbubbu.me/static/88b2d69949fca6d3385d9539d3c4e4f5/10ab7/2.png 1552w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;그렇다!&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;header는 아니지만, 서버에서 url을 헤더 크기 계산에 포함하고, 덕분에 header는 작아도 url이 커서 해당 에러가 날 수 있다고 한다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;에러를 해결하는 방법은 크게 3가지이다.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;쿼리 스트링 크기 줄이기&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;간단하다. 그냥 쿼리 스트링에 들어갈 값을 적게 하면 된다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;GET 대신 POST 사용&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;java&quot;&gt;&lt;pre class=&quot;language-java&quot;&gt;&lt;code class=&quot;language-java&quot;&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@RestController&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@RequiredArgsConstructor&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Slf4j&lt;/span&gt;
+&lt;span class=&quot;token annotation punctuation&quot;&gt;@Tag&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;name &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;개발 편의용 API&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;DevelopersController&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@Operation&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;summary &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;테스트&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token annotation punctuation&quot;&gt;@PostMapping&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;value &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;/api/v1/developers/test&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token annotation punctuation&quot;&gt;@RequestBody&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;String&lt;/span&gt; test&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        log&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;test&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;POST로 변경한 뒤, 변수를 Body에서 받으면 변수의 값이 header의 크기에 영향을 주지 않기 때문에 문제가 발생하지 않는다. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;서버의 Header 크기 제한 조정&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;server.max&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;http&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;request&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;header&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;size=64KB  &lt;span class=&quot;token comment&quot;&gt;# 기본값은 8KB&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;tomcat(spring boot 내장 웹서버) 설정에서 header size max를 늘리는 방법도 존재한다. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;위 방법들을 적용하면 아래와 같이 정상적으로 동작하는 것을 볼 수 있다. &lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;https://blog.bbubbu.me/static/a5506c51ee46381a55678112d4a184d8/8aace/3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block;  max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 16.89189189189189%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAV0lEQVR42qXMMRKAIAxEUc4FJGEDIve/0IrOaKF0Fm9+ZouE1nf2Mdi2nQVOeL16sgKqlYfodPdt7qiNwURpZgRAd1/A98a6OQuDz88pZ6oI5QdVZYyJB6M2aHmghvi9AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;Untitled&quot;
+        title=&quot;&quot;
+        src=&quot;https://blog.bbubbu.me/static/a5506c51ee46381a55678112d4a184d8/fcda8/3.png&quot;
+        srcset=&quot;https://blog.bbubbu.me/static/a5506c51ee46381a55678112d4a184d8/12f09/3.png 148w,https://blog.bbubbu.me/static/a5506c51ee46381a55678112d4a184d8/e4a3f/3.png 295w,https://blog.bbubbu.me/static/a5506c51ee46381a55678112d4a184d8/fcda8/3.png 590w,https://blog.bbubbu.me/static/a5506c51ee46381a55678112d4a184d8/efc66/3.png 885w,https://blog.bbubbu.me/static/a5506c51ee46381a55678112d4a184d8/c83ae/3.png 1180w,https://blog.bbubbu.me/static/a5506c51ee46381a55678112d4a184d8/8aace/3.png 2732w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;개인적인 의견으로는 세 가지 방법 중에 2번 째 방법을 사용하는 것이 가장 좋은 선택이라고 생각한다. &lt;em&gt;(경우에 따라 정답이 아닐 수도 있음)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;1번의 경우, 임시방법으로 해결하는 것이라 변수의 값이 길어지면 언젠가 또 발생할 수 있기 때문에 해결법이 아니다.&lt;/p&gt;
+&lt;p&gt;3번의 경우, 모든 http api에 적용되는 설정으로 모든 api의 header 제한이 줄어듬으로써 서버의 자원을 낭비하고, 자원 공격 위험에 노출되어있다. &lt;/p&gt;
+&lt;p&gt;또한 queryString에 저렇게 많은 데이터를 보내야 하는 API 라면, GET 메서드가 적합한지 다시 한 번 생각해봐야 한다. 너무 큰 데이터를 url과 header에 노출시키는 것을 항상 조심하고 body에 담아, 데이터 손실이나 공격에 대한 위협에서 보호해야한다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;참고-사이트&quot;&gt;&lt;a href=&quot;#%EC%B0%B8%EA%B3%A0-%EC%82%AC%EC%9D%B4%ED%8A%B8&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;참고 사이트&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.ktword.co.kr/test/view/view.php?m_temp1=4884&amp;#x26;id=902&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;http://www.ktword.co.kr/test/view/view.php?m_temp1=4884&amp;#x26;id=902&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/HTTP/Messages&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://developer.mozilla.org/ko/docs/Web/HTTP/Messages&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.baeldung.com/spring-boot-max-http-header-size&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://www.baeldung.com/spring-boot-max-http-header-size&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.naver.com/pjt3591oo/223658791971?trackingCode=rss&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://blog.naver.com/pjt3591oo/223658791971?trackingCode=rss&lt;/a&gt;&lt;/p&gt;
+                &lt;div style=&quot;margin-top=55px; font-style: italic;&quot;&gt;(This is an article posted to my blog at overreacted.io. You can read it online by &lt;a href=&quot;https://blog.bbubbu.me/request-header-is-too-large/&quot;&gt;clicking here&lt;/a&gt;.)&lt;/div&gt;
+              </content:encoded></item><item><title><![CDATA[Presigned URL Upload 403 CORS 발생 Error (With. AWS S3, NCP Object storage)]]></title><description><![CDATA[Presigned URL 업로드 CORS 에러 : Preflight를 조심해]]></description><link>https://blog.bbubbu.me/aws-s3-presigned-url-cors-error/</link><guid isPermaLink="false">https://blog.bbubbu.me/aws-s3-presigned-url-cors-error/</guid><pubDate>Tue, 07 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;+++++++&lt;/p&gt;
 &lt;h3 id=&quot;회사에서-프로젝트를-진행하던-중-대용량-파일을-업로드-해야하는-일이-발생하였다&quot;&gt;&lt;a href=&quot;#%ED%9A%8C%EC%82%AC%EC%97%90%EC%84%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A5%BC-%EC%A7%84%ED%96%89%ED%95%98%EB%8D%98-%EC%A4%91-%EB%8C%80%EC%9A%A9%EB%9F%89-%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%97%85%EB%A1%9C%EB%93%9C-%ED%95%B4%EC%95%BC%ED%95%98%EB%8A%94-%EC%9D%BC%EC%9D%B4-%EB%B0%9C%EC%83%9D%ED%95%98%EC%98%80%EB%8B%A4&quot; aria-hidden class=&quot;anchor&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;회사에서 프로젝트를 진행하던 중, 대용량 파일을 업로드 해야하는 일이 발생하였다.&lt;/h3&gt;
 &lt;p&gt;우리는 NCP의 Object Storage를 쓰고있었고, Java + Spring Boot를 이용해 aws SDK를 사용하던 중이었다.&lt;br&gt;
 해당 부분을 담당하던 팀원은 Presigned Url을 생성하여 파일을 업로드 하는 기능을 채택하였고, 작업은 아래 우형 기술 블로그를 참조하여 개발되었다. &lt;/p&gt;
