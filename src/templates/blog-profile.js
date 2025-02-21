@@ -1,22 +1,68 @@
 import Bio from '../components/Bio';
 import Footer from '../components/Footer';
 import Layout from '../components/Layout';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../components/custom.css';
 import '../components/profile.css';
 import huray from '../assets/huray.png';
 import sociallive from '../assets/sociallive.webp';
 import sqisoft from '../assets/sqisoft.jpg';
+import platform_arch from '../assets/platform_arch.png';
+import { PROJECT_DATA } from '../data/projects';
+
+// ProjectModal 컴포넌트 추가
+const ProjectModal = ({ project, onClose }) => {
+  if (!project) return null;
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>
+          ×
+        </button>
+        <div className="modal-header">
+          <h3>{project.title}</h3>
+          <p className="modal-period">{project.period}</p>
+        </div>
+        <div className="modal-body">
+          {project.image && (
+            <div className="project-image">
+              <img src={project.image} alt={project.title} />
+            </div>
+          )}
+          <div className="project-details">
+            <ul>
+              {project.details.map((detail, index) => (
+                <li key={index}>{detail}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="tech-stack">
+            {project.techStack.map((tech, index) => (
+              <span key={index} className="tech-tag">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 class BlogProfileTemplate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       active: false,
+      selectedExperience: null,
+      selectedProject: null,
     };
   }
 
   render() {
+    const { selectedExperience, selectedProject } = this.state;
+
     return (
       <Layout location={this.props.location} title="Hello Jieun World.">
         <aside>
@@ -168,12 +214,12 @@ class BlogProfileTemplate extends React.Component {
                   <div className="timeline-item">
                     <div className="content">
                       <div className="company-header">
-                        <h3>Huraypositive</h3>
                         <img
                           src={huray}
                           alt="Huraypositive"
                           className="company-logo"
                         />
+                        <h3>Huraypositive</h3>
                       </div>
                       <div className="details">
                         <span className="position">플랫폼 개발팀 / 선임</span>
@@ -184,15 +230,16 @@ class BlogProfileTemplate extends React.Component {
                       </div>
                     </div>
                   </div>
+
                   <div className="timeline-item">
                     <div className="content">
                       <div className="company-header">
-                        <h3>SOCIALLIVE</h3>
                         <img
                           src={sociallive}
                           alt="SOCIALLIVE"
                           className="company-logo"
                         />
+                        <h3>SOCIALLIVE</h3>
                       </div>
                       <div className="details">
                         <span className="position">플랫폼 사업부 / 선임</span>
@@ -203,15 +250,16 @@ class BlogProfileTemplate extends React.Component {
                       </div>
                     </div>
                   </div>
+
                   <div className="timeline-item">
                     <div className="content">
                       <div className="company-header">
-                        <h3>SQISOFT</h3>
                         <img
                           src={sqisoft}
                           alt="SQISOFT"
                           className="company-logo"
                         />
+                        <h3>SQISOFT</h3>
                       </div>
                       <div className="details">
                         <span className="position">미디어 사업부 / 선임</span>
@@ -231,306 +279,70 @@ class BlogProfileTemplate extends React.Component {
               {/* 휴레이포지티브 */}
               <div className="experience-item">
                 <h3>휴레이포지티브 (2022.01 - 현재)</h3>
-
-                <div className="project-item">
-                  <h4>MSA Core Platform 개발 (2024.01 - 현재)</h4>
-                  <ul>
-                    <li>
-                      MSA 환경에서 여러 서비스에서 사용하는 플랫폼을 중점적으로
-                      개발
-                    </li>
-                    <li>1. 건강정보 콘텐츠 스케쥴링 및 배급 플랫폼</li>
-                    <li>2. 플랫폼 사용 서비스 관리 플랫폼</li>
-                    <li>3. 사용자 인증 및 토큰 발행 플랫폼</li>
-                    <li>4. 건강정보(PHR) 관리 플랫폼</li>
-                    <li>
-                      5. Push, SMS, Email과 같은 알림 관련 서드파티 연동 플랫폼
-                    </li>
-                    <li>
-                      플랫폼별 Client 개발 및 운영으로 서비스에서 사용하기 쉬운
-                      환경 제공
-                    </li>
-                    <li>
-                      RestAPI 및 Kafka와 RabbitMQ를 이용한 다양한 플랫폼 이용
-                      채널 제공
-                    </li>
-                    <li>
-                      Transaction Outbox Pattern 적용으로 Event Queue 환경에서의
-                      순서 보장
-                    </li>
-                    <li>성능 개선을 위한 JPA + Redis 적용</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">Spring Batch</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">Redis</span>
-                    <span className="tech-tag">RabbitMQ</span>
-                    <span className="tech-tag">Kafka</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">Kubernetes</span>
-                    <span className="tech-tag">AWS</span>
-                    <span className="tech-tag">NCP</span>
+                {PROJECT_DATA.huraypositive.map((project, index) => (
+                  <div
+                    key={project.id}
+                    className="project-item"
+                    onClick={() => this.setState({ selectedProject: project })}
+                  >
+                    <h5>{project.summary}</h5>
+                    <div className="tech-stack">
+                      {project.techStack.map((tech, techIndex) => (
+                        <span key={techIndex} className="tech-tag">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-
-                <div className="project-item">
-                  <h4>
-                    Cancer care 암환자 서비스 API 개발 (2024.07 - 2025.01)
-                  </h4>
-                  <ul>
-                    <li>
-                      기업 내 암환자 발생 시 최적의 치료와 재발방지를 위한
-                      컨설팅 서비스
-                    </li>
-                    <li>SK 하이닉스와 계약하여 서비스 운영 중</li>
-                    <li>TPM으로 서버 개발 및 리딩 진행</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">QueryDSL</span>
-                  </div>
-                </div>
-
-                <div className="project-item">
-                  <h4>
-                    삼성전자 One Health 서비스의 내부 PHR 플랫폼 개발 (2024.08 -
-                    2025.02)
-                  </h4>
-                  <ul>
-                    <li>DX 임직원 건진/식이정보 삼성헬스 통합 개발</li>
-                    <li>내부 PHR 처리용 플랫폼 개발</li>
-                    <li>JavaCC를 이용한 동적 Expression 컴파일러 관련 개발</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">Kafka</span>
-                    <span className="tech-tag">JavaCC</span>
-                  </div>
-                </div>
-                <div className="project-item">
-                  <h4>고대 국제진료 플랫폼 API 개발 (2024.10 - 2025.02)</h4>
-                  <ul>
-                    <li>국제진료센터 비대면 솔루션의 개발 및 구축</li>
-                    <li>국제 진료센터 비대면 진료 및 관리 페이지 API 개발</li>
-                    <li>TPM으로 서버 개발 및 리딩 진행</li>
-                    <li>Agora 화상대화 플랫폼 연동(RTC)</li>
-                    <li>
-                      Object storage의 Presigned URL을 활용한 대용량 파일
-                      Multipart Upload 개발
-                    </li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">SSE</span>
-                    <span className="tech-tag">NCP</span>
-                  </div>
-                </div>
-
-                <div className="project-item">
-                  <h4>EPRO API 개발 (2022.01 - 2022.05)</h4>
-                  <ul>
-                    <li>암환자 증상 자가보고 서비스</li>
-                    <li>설문 및 문진 API 개발</li>
-                    <li>ORM을 이용한 도메인 설계 및 개발</li>
-                    <li>환자용 API, 의료진용 API 개발</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">AWS</span>
-                    <span className="tech-tag">NCP</span>
-                  </div>
-                </div>
-
-                <div className="project-item">
-                  <h4>헬스투두 API 개발 (2022.06 - 2024.01)</h4>
-                  <ul>
-                    <li>
-                      직장인 심뇌혈관질환 예방 및 관리를 위한 개인 맞춤형 모바일
-                      건강관리 서비스
-                    </li>
-                    <li>
-                      프로젝트 초기부터 기획, 클라이언트, 프론트, 사업부와
-                      커뮤니케이션
-                    </li>
-                    <li>
-                      Domain, Plugin, Service 패키지로 나누어 모놀리식 아키텍처
-                      기반으로 프로젝트 설계 및 개발
-                    </li>
-                    <li>
-                      타 플랫폼(MSA 환경)의 변경사항에 의존적이지 않기 위한 모듈
-                      기반 프로젝트 설계
-                    </li>
-                    <li>Spring Batch를 이용한 대용량 처리 Job 개발</li>
-                    <li>약 2분이 넘게 걸리던 통계 API 10초로 성능 개선</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">Spring Batch</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">Redis</span>
-                    <span className="tech-tag">RabbitMQ</span>
-                    <span className="tech-tag">Kafka</span>
-                    <span className="tech-tag">Kubernetes</span>
-                  </div>
-                </div>
+                ))}
               </div>
 
-              {/* 소셜라이브 */}
-              <div className="experience-item">
-                <h3>소셜라이브 (2020.07 - 2021.12)</h3>
-
-                <div className="project-item">
-                  <h4>
-                    LiveRTC Cloud/Platform 솔루션 개발 (2020.07 - 2021.07)
-                  </h4>
-                  <ul>
-                    <li>바바라이브 사이트 개발 및 LiveRTC 고도화</li>
-                    <li>WebRTC기반 화상 대화 솔루션 플랫폼 개발</li>
-                    <li>AWS 클라우드 환경 구축 및 운영</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Java</span>
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">PostgreSQL</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">Node.js</span>
-                    <span className="tech-tag">WebRTC</span>
-                    <span className="tech-tag">AWS</span>
-                  </div>
+              <div className="section-container">
+                {/* 휴레이포지티브 */}
+                <div className="experience-item">
+                  <h3>소셜라이브 (2020.07 - 2021.12)</h3>
+                  {PROJECT_DATA.sociallive.map((project, index) => (
+                    <div
+                      key={project.id}
+                      className="project-item"
+                      onClick={() =>
+                        this.setState({ selectedProject: project })
+                      }
+                    >
+                      <h5>{project.summary}</h5>
+                      <div className="tech-stack">
+                        {project.techStack.map((tech, techIndex) => (
+                          <span key={techIndex} className="tech-tag">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-
-              {/* 에스큐아이소프트 */}
-              <div className="experience-item">
-                <h3>에스큐아이소프트 (2018.01 - 2020.07)</h3>
-
-                <div className="project-item">
-                  <h4>Eliga-Core (2020.02 - 2020.07)</h4>
-                  <ul>
-                    <li>
-                      무인주문 키오스크 통합 솔루션(Eliga Order Kiosk - EOK)
-                    </li>
-                    <li>스마트스페이스 구축 및 운영 솔루션</li>
-                    <li>Redis 도입</li>
-                    <li>HTML5 웹 기반의 통합운영 디지털 사이니지 솔루션</li>
-                    <li>fabric.js를 이용한 커스텀 레이아웃 구성 메뉴 개발</li>
-                    <li>SPA 개발</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Java</span>
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">Redis</span>
-                    <span className="tech-tag">AWS</span>
-                    <span className="tech-tag">Node.js</span>
-                    <span className="tech-tag">AWS</span>
-                    <span className="tech-tag">DynamoDB</span>
-                    <span className="tech-tag">NoSQL</span>
-                  </div>
-                </div>
-
-                <div className="project-item">
-                  <h4>SPC Happy Station 2.0 통합 플랫폼 (2019.05 - 2020.07)</h4>
-                  <ul>
-                    <li>SPC의 무인주문 키오스크 솔루션 통합 관리 시스템</li>
-                    <li>여러 브랜드를 한 솔루션으로 통합하여 관리</li>
-                    <li>클라우드 서비스 도입(AWS)</li>
-                    <li>자바 ORM 사용(JPA)</li>
-                    <li>통합 플랫폼 환경을 위한 관계형 DB 아키텍처 설계</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Java</span>
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">JPA</span>
-                    <span className="tech-tag">AWS</span>
-                  </div>
-                </div>
-
-                <div className="project-item">
-                  <h4>신세계 스마트 미러 (2019.06 - 2019.07)</h4>
-                  <ul>
-                    <li>
-                      사용자가 일정 거리 이상 다가오면, 거리를 측정하여 광고를
-                      재생하는 스마트 미러
-                    </li>
-                    <li>Arduino 개발</li>
-                    <li>Vue.js 도입 및 개발</li>
-                    <li>내부망 환경에서의 서버 세팅 및 관리</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Java</span>
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">Arduino</span>
-                    <span className="tech-tag">Vue.js</span>
-                  </div>
-                </div>
-
-                <div className="project-item">
-                  <h4>CAS Smart BTU (2019.06 - 2019.07)</h4>
-                  <ul>
-                    <li>
-                      사용자의 수하물 무게와 크기를 재고, 보유한 티켓을 읽어들여
-                      수하물 규정에 맞는지 자동으로 확인해주는 키오스크
-                    </li>
-                    <li>첫 프론트 프로젝트</li>
-                    <li>Node.js와 NoSQL 첫 개발</li>
-                    <li>광고로 인한 스케쥴링 체크로직 개발</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Node.js</span>
-                    <span className="tech-tag">AWS</span>
-                    <span className="tech-tag">NoSQL</span>
-                  </div>
-                </div>
-
-                <div className="project-item">
-                  <h4>KT 패밀리박스 및 KT KBOX(2018.02 - 2019.05)</h4>
-                  <ul>
-                    <li>KT 가입자들의 데이터와 멤버포인트 공유 어플리케이션</li>
-                    <li>
-                      Jira와 Confluence, Slack 등 협업툴을 이용한 이슈 관리
-                    </li>
-                    <li>SVN, Git을 이용한 소스 버전 관리</li>
-                    <li>
-                      다양한 개발 직군의 업무 경험 (Android, Server, Operation)
-                    </li>
-                    <li>서비스 아키텍처의 전체적인 흐름(Flow) 파악</li>
-                    <li>I/A 리뷰, 코드 리뷰 등을 통한 코드 정확도 재검토</li>
-                    <li>KT그룹 및 계열사의 사내 커뮤니티 사이트</li>
-                    <li>앱 로그인 연동 API 개발</li>
-                    <li>Spring MVC 패턴을 활용한 파일 설계</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Java</span>
-                    <span className="tech-tag">Spring Boot</span>
-                    <span className="tech-tag">PostgreSQL</span>
-                    <span className="tech-tag">MyBatis</span>
-                  </div>
-                </div>
-                <div className="project-item">
-                  <h4>iqsbz (2018.01 - 2018.02)</h4>
-                  <ul>
-                    <li>에스큐아이소프트 사내 사이트 개발</li>
-                  </ul>
-                  <div className="tech-stack">
-                    <span className="tech-tag">Java</span>
-                    <span className="tech-tag">Spring</span>
-                    <span className="tech-tag">MySQL</span>
-                    <span className="tech-tag">MyBatis</span>
-                    <span className="tech-tag">Trello</span>
-                  </div>
+              <div className="section-container">
+                {/* 휴레이포지티브 */}
+                <div className="experience-item">
+                  <h3>에스큐아이소프트 (2018.01 - 2020.07)</h3>
+                  {PROJECT_DATA.sqisoft.map((project, index) => (
+                    <div
+                      key={project.id}
+                      className="project-item"
+                      onClick={() =>
+                        this.setState({ selectedProject: project })
+                      }
+                    >
+                      <h5>{project.summary}</h5>
+                      <div className="tech-stack">
+                        {project.techStack.map((tech, techIndex) => (
+                          <span key={techIndex} className="tech-tag">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -661,6 +473,12 @@ class BlogProfileTemplate extends React.Component {
           </div>
         </main>
         <Footer />
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => this.setState({ selectedProject: null })}
+          />
+        )}
       </Layout>
     );
   }

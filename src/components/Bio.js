@@ -27,7 +27,7 @@ class Bio extends React.Component {
         <p style={{ maxWidth: 310 }}>
           Personal blog by Jieun Hong.
           {/* <a href="http://bbubbu.me">홍지은</a>.  */}
-          <br></br>&nbsp;Hello JIEUN World !
+          <br></br>Hello JIEUN World !
         </p>
       </div>
     );
